@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ResearchClaw Web Server",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "researchclaw", "serve", "--config", "AutoResearchClaw/config.arc.yaml"],
+      "port": 8080
+    },
+    {
+      "name": "ResearchClaw Dashboard",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "researchclaw", "dashboard", "--config", "AutoResearchClaw/config.arc.yaml"],
+      "port": 8080
+    },
+    {
+      "name": "Simulation Agent",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["pipeline/simulation_agent.py", "--workflow", "all"],
+      "port": null
+    }
+  ]
+}

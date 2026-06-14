@@ -1,0 +1,93 @@
+%% CLUSTER E — MLOps and Model Lifecycle with Drift Monitoring
+%% Thesis: AI Conversational Copilot for Complex Systems — Dynamic Model-Context Alignment
+%% Generated: 2026-04-13
+%%
+%% Gap evidence: MLOps platforms monitor drift but trigger retraining of the existing model.
+%% DMCA gap: no platform supports DT-driven re-selection from an open-source model catalog.
+%% Vendor lock-in: Azure ML / Vertex AI / SageMaker vs. DMCA vendor-neutral HuggingFace.
+%%
+%% Graph connections:
+%%   Kreuzberger 2023 → Community 8 (ADWIN/DDM) via INFERRED motivates
+%%   Gama 2014       → Community 8 (ADWIN, DDM) via EXTRACTED foundational_for
+%%   Lu 2020         → Community 8 hub node (already in graph) via EXTRACTED defines
+%%   Sculley 2015    → Community 1 (3-Component Drift Framework) via INFERRED motivates
+%%   Shankar 2022    → Community 8 (Lu et al.) via INFERRED motivates
+
+@article{Kreuzberger2023MLOps,
+  author    = {Kreuzberger, Dominik and K{\"u}hl, Niklas and Hirschl, Sebastian},
+  title     = {Machine Learning Operations ({MLOps}): Overview, Definition, and Architecture},
+  journal   = {IEEE Access},
+  year      = {2023},
+  volume    = {11},
+  pages     = {31866--31879},
+  doi       = {10.1109/ACCESS.2023.3262138},
+  eprint    = {2205.02302},
+  archivePrefix = {arXiv},
+  note      = {Foundational MLOps reference: systematic definition via multivocal literature review
+               of 79 sources. Identifies drift monitoring as under-specified in current platforms.
+               Gap: monitoring block present, automated re-selection block absent. DMCA adds
+               re-selection as first-class architectural component. Gap evidence: Cluster E.}
+}
+
+@article{Gama2014ConceptDriftSurvey,
+  author    = {Gama, Jo{\~a}o and {\v{Z}}liobait{\.{e}}, Indr{\.{e}} and Bifet, Albert
+               and Pechenizkiy, Mykola and Bouchachia, Abdelhamid},
+  title     = {A Survey on Concept Drift Adaptation},
+  journal   = {ACM Computing Surveys},
+  year      = {2014},
+  volume    = {46},
+  number    = {4},
+  pages     = {44:1--44:37},
+  doi       = {10.1145/2523813},
+  note      = {Canonical concept drift taxonomy: sudden/gradual/incremental/recurring types.
+               Detect-understand-adapt triad. All adaptation strategies assume fixed model class.
+               DMCA extends "adapt" to catalog re-selection under DT constraints — a fourth
+               response dimension not present in Gama's taxonomy. Cluster E + GAP 1.}
+}
+
+@article{Lu2020ConceptDriftReview,
+  author    = {Lu, Jie and Liu, Anjin and Dong, Fan and Gu, Feng
+               and Gama, Jo{\~a}o and Zhang, Guangquan},
+  title     = {Learning under Concept Drift: {A} Review},
+  journal   = {IEEE Transactions on Knowledge and Data Engineering},
+  year      = {2020},
+  volume    = {31},
+  number    = {12},
+  pages     = {2346--2363},
+  doi       = {10.1109/TKDE.2018.2876857},
+  eprint    = {2004.05785},
+  archivePrefix = {arXiv},
+  note      = {Community 8 hub node (thesis knowledge graph). Extends Gama 2014 to deep learning.
+               Section VII explicitly flags multi-model catalog drift response as open research
+               direction. DMCA is a direct instantiation of this flagged direction. Cluster E.}
+}
+
+@inproceedings{Sculley2015TechnicalDebt,
+  author    = {Sculley, D. and Holt, Gary and Golovin, Daniel and Davydov, Eugene
+               and Phillips, Todd and Ebner, Dietmar and Chaudhary, Vinay
+               and Young, Michael and Crespo, Jean-Fran{\c{c}}ois and Dennison, Dan},
+  title     = {Hidden Technical Debt in Machine Learning Systems},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2015},
+  volume    = {28},
+  url       = {https://proceedings.neurips.cc/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html},
+  note      = {Foundational MLOps paper. CACE principle ("changing anything changes everything")
+               explains why retraining propagates validation burden across all downstream components.
+               DMCA model-swap from HuggingFace catalog avoids CACE: feature pipeline stable,
+               only inference endpoint changes, bounded by DT constraint matrix. Cluster E.}
+}
+
+@article{Shankar2022OperationalizingML,
+  author    = {Shankar, Shreya and Garcia, Rolando and Hellerstein, Joseph M.
+               and Parameswaran, Aditya},
+  title     = {Operationalizing Machine Learning: An Interview Study},
+  journal   = {arXiv preprint arXiv:2209.09125},
+  year      = {2022},
+  eprint    = {2209.09125},
+  archivePrefix = {arXiv},
+  url       = {https://arxiv.org/abs/2209.09125},
+  note      = {CIDR 2023. Practitioner study (18 interviews). Finds drift-triggered model
+               re-selection has no tooling support across any MLOps platform. Strongest
+               empirical evidence that DMCA addresses a practitioner-validated operational gap.
+               Cluster E + GAP 1.}
+}

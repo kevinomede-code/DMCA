@@ -1,0 +1,157 @@
+% figures/adwin_explanation.tex
+% 3-panel TikZ figure: ADWIN mechanism
+% Requires: \usepackage{tikz}
+%           \usetikzlibrary{decorations.pathreplacing,arrows.meta}
+
+\begin{figure}[!t]
+\centering
+\resizebox{\textwidth}{!}{%
+\begin{tikzpicture}[font=\footnotesize, >=Stealth]
+
+% ── PANEL (a): Adaptive Window Behaviour ─────────────────────────────────────
+\begin{scope}
+
+  \draw[->,thick] (0,0) -- (5.3,0) node[right] {time $t$};
+  \draw[->,thick] (0,0) -- (0,2.85) node[above, align=center]
+    {MAE\\residual $e_t$};
+
+  % stationary data (low, slight noise)
+  \foreach \x/\y in {
+      0.30/0.52, 0.60/0.44, 0.90/0.57, 1.20/0.48,
+      1.50/0.55, 1.80/0.49, 2.10/0.53}{
+    \fill[blue!70!black] (\x,\y) circle (1.5pt);
+  }
+
+  % drift injection line
+  \draw[red!80!black, dashed, thick] (2.40,0) -- (2.40,2.70);
+  \node[red!80!black, font=\scriptsize, rotate=90, anchor=south]
+    at (2.52,0.35) {drift injected};
+
+  % post-drift data (higher level)
+  \foreach \x/\y in {
+      2.65/1.72, 2.95/1.86, 3.25/1.79,
+      3.55/1.91, 3.85/1.82, 4.15/1.88, 4.45/1.80}{
+    \fill[blue!70!black] (\x,\y) circle (1.5pt);
+  }
+
+  % brace: W grows (stationary)
+  \draw[decorate, decoration={brace, amplitude=5pt, raise=3pt}]
+    (2.20,2.62) -- (0.20,2.62);
+  \node[above=9pt, align=center, font=\scriptsize] at (1.20,2.62)
+    {$W$ grows\\[-1pt](stationary data)};
+
+  % brace: W shrinks (drift)
+  \draw[decorate, decoration={brace, amplitude=5pt, raise=3pt}]
+    (4.55,2.62) -- (2.55,2.62);
+  \node[above=9pt, align=center, font=\scriptsize] at (3.55,2.62)
+    {$W$ shrinks\\[-1pt](drift detected)};
+
+  \node[below, font=\small\bfseries] at (2.25,-0.50)
+    {(a) Adaptive window};
+\end{scope}
+
+% ── PANEL (b): ADWIN2 Bucket Structure ───────────────────────────────────────
+\begin{scope}[xshift=6.0cm]
+
+  \def\bh{0.70}
+  \def\yb{0.85}
+
+  % "new data" arrow
+  \draw[->,thick] (0.05,\yb+\bh/2) -- (0.58,\yb+\bh/2);
+  \node[above, font=\scriptsize] at (0.31,\yb+\bh/2+0.02) {new data $\to$};
+
+  % bucket 1  (count=1, narrow)
+  \draw[fill=blue!80, draw=black, thick]
+    (0.63,\yb) rectangle (1.00,\yb+\bh);
+  \node[above, font=\scriptsize] at (0.815,\yb+\bh) {1};
+
+  % bucket 2  (count=1)
+  \draw[fill=blue!63, draw=black, thick]
+    (1.00,\yb) rectangle (1.37,\yb+\bh);
+  \node[above, font=\scriptsize] at (1.185,\yb+\bh) {1};
+
+  % bucket 3  (count=2)
+  \draw[fill=blue!44, draw=black, thick]
+    (1.37,\yb) rectangle (1.97,\yb+\bh);
+  \node[above, font=\scriptsize] at (1.67,\yb+\bh) {2};
+
+  % bucket 4  (count=4)
+  \draw[fill=blue!28, draw=black, thick]
+    (1.97,\yb) rectangle (2.87,\yb+\bh);
+  \node[above, font=\scriptsize] at (2.42,\yb+\bh) {4};
+
+  % bucket 5  (count=8)
+  \draw[fill=gray!25, draw=black, thick]
+    (2.87,\yb) rectangle (4.07,\yb+\bh);
+  \node[above, font=\scriptsize] at (3.47,\yb+\bh) {8};
+
+  % stale arrow
+  \draw[->,thick] (4.12,\yb+\bh/2) -- (4.60,\yb+\bh/2);
+  \node[above, font=\scriptsize] at (4.36,\yb+\bh/2+0.02) {$\leftarrow$ stale};
+
+  % labels below buckets
+  \node[below, align=center, font=\scriptsize] at (2.60,\yb-0.06)
+    {$O(\log|W|)$ buckets\\[-1pt]each stores (sum,~count)};
+
+  \node[below, font=\small\bfseries] at (2.60,-0.50)
+    {(b) ADWIN2 bucket structure};
+\end{scope}
+
+% ── PANEL (c): Statistical Test ───────────────────────────────────────────────
+\begin{scope}[xshift=12.2cm]
+
+  % W0 rectangle (past, grey)
+  \draw[fill=gray!18, draw=black, thick]
+    (0.00,0.20) rectangle (2.15,1.90);
+  \node[font=\small] at (1.075,1.62) {$W_0$};
+  \node[gray!60!black, font=\scriptsize] at (1.075,1.38) {(past)};
+
+  % W0 mean dashed line
+  \draw[gray!70!black, dashed, thick] (0.08,0.78) -- (2.07,0.78);
+  \node[left, font=\scriptsize] at (-0.02,0.78) {$\bar{\mu}_{W_0}$};
+
+  % W1 rectangle (recent, blue)
+  \draw[fill=blue!12, draw=blue!60!black, thick]
+    (2.30,0.20) rectangle (4.45,1.90);
+  \node[blue!70!black, font=\small] at (3.375,1.62) {$W_1$};
+  \node[blue!60!black, font=\scriptsize] at (3.375,1.38) {(recent)};
+
+  % W1 mean dashed line
+  \draw[blue!70!black, dashed, thick] (2.38,1.42) -- (4.37,1.42);
+  \node[right, font=\scriptsize, blue!70!black] at (4.47,1.42)
+    {$\bar{\mu}_{W_1}$};
+
+  % double arrow between means
+  \draw[<->, thick] (2.22,0.78) -- (2.22,1.42);
+  \node[right, font=\scriptsize, align=left] at (2.27,1.10)
+    {$|\bar{\mu}_{W_1}$\\[-4pt]$-\bar{\mu}_{W_0}|$};
+
+  % epsilon_cut line (red horizontal)
+  \draw[red!80!black, thick] (0.00,2.10) -- (4.45,2.10);
+  \node[right, font=\scriptsize, red!80!black] at (4.50,2.10)
+    {$\varepsilon_{\text{cut}}$};
+
+  % drift condition annotation
+  \node[below, font=\scriptsize, red!70!black, align=center]
+    at (2.22,-0.05)
+    {DRIFT~if~$|\bar{\mu}_{W_1}-\bar{\mu}_{W_0}|\geq\varepsilon_{\text{cut}}$};
+
+  \node[below, font=\small\bfseries] at (2.22,-0.50)
+    {(c) Statistical test};
+\end{scope}
+
+\end{tikzpicture}%
+}
+\caption{ADWIN adaptive windowing mechanism.
+\textit{Left}: the window $W$ grows during
+stationary periods and shrinks upon drift
+detection. \textit{Centre}: ADWIN2 internal
+bucket structure---$O(\log|W|)$ buckets of
+geometrically increasing size store (sum,~count)
+statistics. \textit{Right}: the statistical
+test compares sub-window means $\bar{\mu}_{W_0}$
+and $\bar{\mu}_{W_1}$ against the Hoeffding-derived
+threshold $\varepsilon_{\text{cut}}$
+(Eq.~\ref{eq:adwin-threshold}).}
+\label{fig:adwin-mechanism}
+\end{figure}

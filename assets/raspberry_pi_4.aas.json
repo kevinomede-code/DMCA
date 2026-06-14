@@ -1,0 +1,42 @@
+{
+  "asset_id": "raspberry_pi_4",
+  "asset_type": "EdgeComputeDevice",
+  "description": "Raspberry Pi 4 — CPU-only ARM device, 2GB RAM, SIL-1",
+  "submodels": {
+    "TechnicalData": {
+      "hw_class": "raspberry_arm",
+      "ram_budget_mb": 2048,
+      "has_gpu": false,
+      "gpu_vram_mb": 0,
+      "cpu_cores": 4,
+      "cpu_arch": "ARM Cortex-A72",
+      "gpu_model": null
+    },
+    "OperationalData": {
+      "latency_sla_ms": 100,
+      "sensor_protocol": "OPC-UA",
+      "update_frequency_hz": 10
+    },
+    "Capabilities": {
+      "data_available": "zero_shot",
+      "task": "time_series_forecasting",
+      "license_requirement": "apache_2.0",
+      "onnx_preferred": true
+    },
+    "DeploymentState": {
+      "active_model": null,
+      "deployed_at": null,
+      "format_used": null,
+      "quality_gate_passed": false,
+      "baseline_mae": null,
+      "baseline_latency_p95_ms": null,
+      "baseline_memory_peak_mb": null,
+      "drift_history": []
+    },
+    "SafetyClassification": {
+      "SIL_level": 1,
+      "requires_human_approval": true,
+      "timeout_default_action": "reject"
+    }
+  }
+}

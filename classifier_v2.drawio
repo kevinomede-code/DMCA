@@ -1,0 +1,157 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="dmca-classifier-v311" name="DMCA Drift Classifier v3.1.1">
+    <mxGraphModel dx="1532" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="880" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ttl" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" value="&lt;b style=&#39;font-size:12px;&#39;&gt;DMCA-Drift Classifier v3.1.1&lt;/b&gt;&lt;span style=&#39;font-size:8px;color:#555;&#39;&gt;  ·  Decision Tree  ·  8 features  ·  7 drift types  ·  held-out accuracy 92%  ·  FAR 0.000&lt;/span&gt;" vertex="1">
+          <mxGeometry height="22" width="707" x="61" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="l1_bg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#3b82f6;fillOpacity=40;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="96" width="702" x="61" y="96" as="geometry" />
+        </mxCell>
+        <mxCell id="l1_lbl" parent="1" style="text;html=1;align=left;strokeColor=none;fillColor=none;" value="&lt;b style=&#39;font-size:8px;color:#1e3a8a;&#39;&gt;LAYER 1 — Statistical Detection (ADWIN)&lt;/b&gt;" vertex="1">
+          <mxGeometry height="14" width="360" x="71" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="in_stream" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#3b82f6;fontSize=9;verticalAlign=top;spacingTop=5;spacingLeft=5;align=left;" value="&lt;b style=&quot;font-size:9px;&quot;&gt;MAE Residual Stream&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;e_t = |y_true − ŷ_t|  ·  each inference cycle&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="49" width="164" x="71" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="adwin_box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#3b82f6;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=5;align=left;" value="&lt;b style=&quot;font-size:9px;&quot;&gt;ADWIN&lt;/b&gt;  &lt;span style=&quot;font-size: 8px; color: rgb(30, 58, 138);&quot;&gt;δ = 0.002&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;adaptive windowing · Bifet 2007&lt;br&gt;rolling mean + MAD variance trigger&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="48" width="180" x="255" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="d_adwin" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#78350f;fontSize=9;verticalAlign=middle;" value="&lt;b style=&#39;font-size:9px;&#39;&gt;Drift&lt;br/&gt;detected?&lt;/b&gt;" vertex="1">
+          <mxGeometry height="60" width="116" x="461" y="114.5" as="geometry" />
+        </mxCell>
+        <mxCell id="wait_box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;fontSize=8;verticalAlign=middle;" value="&lt;i style=&#39;font-size:8px;color:#6b7280;&#39;&gt;continue monitoring&lt;/i&gt;" vertex="1">
+          <mxGeometry height="26" width="114" x="624" y="131" as="geometry" />
+        </mxCell>
+        <mxCell id="a_si_adw" edge="1" parent="1" source="in_stream" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#3b82f6;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;html=1;" target="adwin_box" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a_adw_d" edge="1" parent="1" source="adwin_box" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#3b82f6;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;html=1;" target="d_adwin" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a_adw_no" edge="1" parent="1" source="d_adwin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#6b7280;fontColor=#6b7280;fontStyle=1;fontSize=8;entryX=0;entryY=0.5;entryDx=0;entryDy=0;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" value="NO">
+          <mxGeometry relative="1" x="-0.2244" y="2" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points" />
+            <mxPoint x="578.09" y="144.38" as="sourcePoint" />
+            <mxPoint x="623.4100000000001" y="144.54000000000002" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a_adw_yes" edge="1" parent="1" source="d_adwin" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#dc2626;fontColor=#dc2626;fontStyle=1;fontSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.85;entryY=0;entryDx=0;entryDy=0;html=1;" target="feat" value="YES">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="feat" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef9c3;strokeColor=#d97706;strokeWidth=1.5;fontSize=8;verticalAlign=middle;spacingLeft=6;align=left;" value="&lt;b style=&#39;font-size:8px;&#39;&gt;8 Features — detection window:&lt;/b&gt;  &lt;span style=&#39;font-size:7px;color:#374151;&#39;&gt;F1 slope·w  ·  F2 IQR ratio (cap=10)  ·  F3 monotonicity  ·  F4 KS-stat  ·  F5 outlier density  ·  F6 plateau ratio  ·  F7 base elevation  ·  &lt;b style=&#39;color:#1d4ed8;&#39;&gt;F8 max Δσ [v3.1]&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="32" width="540" x="77" y="208" as="geometry" />
+        </mxCell>
+        <mxCell id="a_feat_r0" edge="1" parent="1" source="feat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#555;exitX=0.12;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;html=1;" target="r0" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#c2410c;strokeWidth=2;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;font style=&quot;font-size: 9px;&quot;&gt;&lt;b style=&quot;color: rgb(124, 45, 18);&quot;&gt;R0 · Abrupt pre-check&lt;/b&gt; &lt;span style=&quot;color: rgb(154, 52, 18); background: rgb(254, 215, 170); padding: 1px 3px; border-radius: 3px;&quot;&gt;v3.1&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;F8 max Δσ &amp;gt; 8.0  ·  F4 KS &amp;gt; 0.25  ·  F1 slope &amp;gt; 0.3&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(146, 64, 14);&quot;&gt;bypasses R1 when mono &amp;lt; 0.50 (straddling)&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="56" width="310" x="77" y="256" as="geometry" />
+        </mxCell>
+        <mxCell id="t_abrupt_pre" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;strokeWidth=2;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;b style=&quot;color: rgb(20, 83, 45);&quot;&gt;ABRUPT&lt;/b&gt;  &lt;span style=&quot;color: rgb(22, 101, 52);&quot;&gt;(pre-check path)&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;sudden step &amp;gt;8σ · physical fault or abrupt step change&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;color: rgb(21, 128, 61);&quot;&gt;✓ swap → Stage 5&lt;/b&gt;  &lt;span style=&quot;color: rgb(136, 136, 136);&quot;&gt;· det. ~15 t&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="58" width="334.5" x="434.5" y="256" as="geometry" />
+        </mxCell>
+        <mxCell id="ar0_yes" edge="1" parent="1" source="r0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#16a34a;fontColor=#15803d;fontStyle=1;fontSize=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;html=1;" target="t_abrupt_pre" value="YES">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar0_no" edge="1" parent="1" source="r0" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#6b7280;fontColor=#6b7280;fontStyle=1;fontSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;html=1;" target="r1" value="NO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6b7280;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;font style=&quot;font-size: 9px;&quot;&gt;&lt;b style=&quot;&quot;&gt;R1 · Outlier-Driven&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;F5 od &lt;b&gt;≥&lt;/b&gt; 0.10  ·  F4 KS &amp;lt; 0.25&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(180, 83, 9);&quot;&gt;≥ not &amp;gt; (semantic fix DD-10, v3.1.1)&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="310" x="77" y="328" as="geometry" />
+        </mxCell>
+        <mxCell id="t_outlier" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff1f2;strokeColor=#dc2626;strokeWidth=1.5;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;b style=&quot;color: rgb(153, 27, 27);&quot;&gt;OUTLIER_DRIVEN&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;isolated anomalies · distribution stable · no real trend&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;color: rgb(220, 38, 38);&quot;&gt;✗ no swap · monitor only&lt;/b&gt;  &lt;span style=&quot;color: rgb(136, 136, 136);&quot;&gt;· det. ~57 t&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="55" width="336.5" x="433.5" y="325.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ar1_yes" edge="1" parent="1" source="r1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#dc2626;fontColor=#dc2626;fontStyle=1;fontSize=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;html=1;" target="t_outlier" value="YES">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar1_no" edge="1" parent="1" source="r1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#6b7280;fontColor=#6b7280;fontStyle=1;fontSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;html=1;" target="r2" value="NO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6b7280;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;font style=&quot;font-size: 9px;&quot;&gt;&lt;b style=&quot;&quot;&gt;R2 · Abrupt&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;F1 slope &amp;gt; 0.5  ·  F3 mono &amp;gt; 0.50  ·  F4 KS &amp;gt; 0.25&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="44" width="310" x="77" y="394" as="geometry" />
+        </mxCell>
+        <mxCell id="t_abrupt" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#16a34a;strokeWidth=1.5;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;b style=&quot;color: rgb(20, 83, 45);&quot;&gt;ABRUPT&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;sudden shift · machine fault or operational mode change&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;color: rgb(21, 128, 61);&quot;&gt;✓ swap → Stage 5&lt;/b&gt;  &lt;span style=&quot;color: rgb(136, 136, 136);&quot;&gt;· det. ~15 t&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="51" width="333" x="435" y="390.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ar2_yes" edge="1" parent="1" source="r2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#16a34a;fontColor=#15803d;fontStyle=1;fontSize=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;html=1;" target="t_abrupt" value="YES">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar2_no" edge="1" parent="1" source="r2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#6b7280;fontColor=#6b7280;fontStyle=1;fontSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;html=1;" target="r3" value="NO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6b7280;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;font style=&quot;font-size: 9px;&quot;&gt;&lt;b style=&quot;&quot;&gt;R3 · Variance Shift&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;F2 IQR ratio &amp;gt; 1.5  ·  F1 slope &amp;lt; 0.2&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="44" width="310" x="77" y="454" as="geometry" />
+        </mxCell>
+        <mxCell id="t_variance" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff1f2;strokeColor=#dc2626;strokeWidth=1.5;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;b style=&quot;color: rgb(153, 27, 27);&quot;&gt;VARIANCE_SHIFT&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;spread increases · mean stable · process noisier but not degraded&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;color: rgb(220, 38, 38);&quot;&gt;✗ no swap · notify operator&lt;/b&gt;  &lt;span style=&quot;color: rgb(136, 136, 136);&quot;&gt;· det. ~38 t&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="50" width="336.5" x="433.5" y="451" as="geometry" />
+        </mxCell>
+        <mxCell id="ar3_yes" edge="1" parent="1" source="r3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#dc2626;fontColor=#dc2626;fontStyle=1;fontSize=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;html=1;" target="t_variance" value="YES">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar3_no" edge="1" parent="1" source="r3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#6b7280;fontColor=#6b7280;fontStyle=1;fontSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;html=1;" target="r4" value="NO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6b7280;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;b style=&quot;font-size:9px;&quot;&gt;R4 · Gradual&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;&lt;font style=&quot;font-size: 8px;&quot;&gt;F1 slope &amp;lt; 0.15  ·  F5 outlier density &amp;gt; 0.50&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="44" width="310" x="77" y="514" as="geometry" />
+        </mxCell>
+        <mxCell id="t_gradual" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#16a34a;strokeWidth=1.5;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;b style=&quot;color: rgb(20, 83, 45);&quot;&gt;GRADUAL&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;slow progressive degradation · sensor ageing or env. change&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;color: rgb(21, 128, 61);&quot;&gt;✓ swap → Stage 5&lt;/b&gt;  &lt;span style=&quot;color: rgb(136, 136, 136);&quot;&gt;· det. ~155 t&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="49" width="340.5" x="430.5" y="511.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ar4_yes" edge="1" parent="1" source="r4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#16a34a;fontColor=#15803d;fontStyle=1;fontSize=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;html=1;" target="t_gradual" value="YES">
+          <mxGeometry relative="1" x="-0.0038" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ar4_no" edge="1" parent="1" source="r4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#6b7280;fontColor=#6b7280;fontStyle=1;fontSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;html=1;" target="r5" value="NO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#3b82f6;strokeWidth=1.5;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;font style=&quot;font-size: 9px;&quot;&gt;&lt;b style=&quot;&quot;&gt;R5 · Incremental&lt;/b&gt;  &lt;span style=&quot;color: rgb(30, 64, 175); background: rgb(219, 234, 254); padding: 1px 3px; border-radius: 3px;&quot;&gt;v3.1&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;0.1 ≤ F1 slope ≤ 0.5  ·  F3 mono &amp;gt; &lt;b style=&quot;color: rgb(29, 78, 216);&quot;&gt;0.45&lt;/b&gt;&lt;/span&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(30, 64, 175);&quot;&gt;↓ from 0.50 · seed=1 mono=0.489 (DD-09)&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="54" width="310" x="77" y="574" as="geometry" />
+        </mxCell>
+        <mxCell id="t_incremental" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#16a34a;strokeWidth=1.5;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;b style=&quot;color: rgb(20, 83, 45);&quot;&gt;INCREMENTAL&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;steady monotonic increase · process wear or input data shift&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;color: rgb(21, 128, 61);&quot;&gt;✓ swap → Stage 5&lt;/b&gt;  &lt;span style=&quot;color: rgb(136, 136, 136);&quot;&gt;· det. ~132 t · 60% held-out (Limitation §7)&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="54" width="340" x="432" y="574" as="geometry" />
+        </mxCell>
+        <mxCell id="ar5_yes" edge="1" parent="1" source="r5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#16a34a;fontColor=#15803d;fontStyle=1;fontSize=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;html=1;" target="t_incremental" value="YES">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar5_no" edge="1" parent="1" source="r5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#6b7280;fontColor=#6b7280;fontStyle=1;fontSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;html=1;" target="r6" value="NO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="r6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6b7280;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;b style=&quot;font-size:9px;&quot;&gt;R6 · Distribution Shift&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;F4 KS-stat &amp;gt; 0.40&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="42" width="310" x="77" y="644" as="geometry" />
+        </mxCell>
+        <mxCell id="t_distshift" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#16a34a;strokeWidth=1.5;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;b style=&quot;color: rgb(20, 83, 45);&quot;&gt;DISTRIBUTION_SHIFT&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;input distribution changed significantly · not captured by other rules&lt;/span&gt;&lt;br&gt;&lt;b style=&quot;color: rgb(21, 128, 61);&quot;&gt;✓ swap → Stage 5&lt;/b&gt;  &lt;span style=&quot;color: rgb(136, 136, 136);&quot;&gt;· det. varies&lt;/span&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="52" width="342" x="431" y="639" as="geometry" />
+        </mxCell>
+        <mxCell id="ar6_yes" edge="1" parent="1" source="r6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#16a34a;fontColor=#15803d;fontStyle=1;fontSize=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;html=1;" target="t_distshift" value="YES">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ar6_no" edge="1" parent="1" source="r6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#6b7280;fontColor=#6b7280;fontStyle=1;fontSize=8;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;html=1;" target="rfb" value="NO">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rfb" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#9ca3af;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;b style=&quot;font-size:9px;&quot;&gt;Fallback&lt;/b&gt;&lt;br&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;no previous rule matched — default branch&lt;/font&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="40" width="310" x="77" y="707" as="geometry" />
+        </mxCell>
+        <mxCell id="t_unc" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f9fafb;strokeColor=#6b7280;fontSize=9;verticalAlign=top;spacingTop=4;spacingLeft=6;align=left;" value="&lt;b style=&quot;font-size: 9px; color: rgb(55, 65, 81);&quot;&gt;UNCLASSIFIED&lt;/b&gt;&lt;br&gt;&lt;font style=&quot;font-size: 9px;&quot;&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;edge case or mixed signal · no rule matched&amp;nbsp;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;b style=&quot;background-color: transparent; color: rgb(75, 85, 99);&quot;&gt;👤 human decision via Copilot L3&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="50" width="342" x="431" y="702" as="geometry" />
+        </mxCell>
+        <mxCell id="arfb" edge="1" parent="1" source="rfb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;strokeWidth=1.5;strokeColor=#6b7280;fontColor=#6b7280;fontStyle=3;fontSize=8;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;html=1;" target="t_unc" value="always">
+          <mxGeometry relative="1" x="-0.2273" y="7" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l3_bg" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fdf4ff;strokeColor=#9333ea;fillOpacity=40;strokeWidth=1.5;" value="" vertex="1">
+          <mxGeometry height="76" width="640" x="95" y="758" as="geometry" />
+        </mxCell>
+        <mxCell id="l3_content" parent="1" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;" value="&lt;div style=&quot;text-align: center;&quot;&gt;&lt;b style=&quot;font-size: 10px; background-color: transparent; color: rgb(74, 18, 114);&quot;&gt;LAYER 3 · AAS Context Enrichment&lt;/b&gt;&lt;span style=&quot;font-size: 10px; background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;text-align: center;&quot;&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;&lt;span style=&quot;color: rgb(85, 85, 85);&quot;&gt;appended to every drift event:  asset_id  ·  SIL_level  ·  severity  ·  recommended_action  ·  stage_5_strategy  ·  timestamp UTC&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="75" width="438" x="150" y="758" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

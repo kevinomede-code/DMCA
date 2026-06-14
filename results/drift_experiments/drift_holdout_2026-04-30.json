@@ -1,0 +1,282 @@
+{
+  "version": "v3.1-holdout-corrected",
+  "date": "2026-04-30",
+  "seeds": [
+    42,
+    99,
+    123,
+    7,
+    88
+  ],
+  "confusion_matrix": {
+    "abrupt": {
+      "abrupt": 5,
+      "gradual": 0,
+      "incremental": 0,
+      "variance_shift": 0,
+      "distribution_shift": 0,
+      "outlier_driven": 0,
+      "unclassified": 0,
+      "no_detect": 0
+    },
+    "gradual": {
+      "abrupt": 0,
+      "gradual": 5,
+      "incremental": 0,
+      "variance_shift": 0,
+      "distribution_shift": 0,
+      "outlier_driven": 0,
+      "unclassified": 0,
+      "no_detect": 0
+    },
+    "incremental": {
+      "abrupt": 0,
+      "gradual": 1,
+      "incremental": 3,
+      "variance_shift": 0,
+      "distribution_shift": 1,
+      "outlier_driven": 0,
+      "unclassified": 0,
+      "no_detect": 0
+    },
+    "variance_shift": {
+      "abrupt": 0,
+      "gradual": 0,
+      "incremental": 0,
+      "variance_shift": 5,
+      "distribution_shift": 0,
+      "outlier_driven": 0,
+      "unclassified": 0,
+      "no_detect": 0
+    },
+    "outlier_driven": {
+      "abrupt": 0,
+      "gradual": 0,
+      "incremental": 0,
+      "variance_shift": 0,
+      "distribution_shift": 0,
+      "outlier_driven": 4,
+      "unclassified": 1,
+      "no_detect": 0
+    }
+  },
+  "per_type_accuracy": {
+    "abrupt": 1.0,
+    "gradual": 1.0,
+    "incremental": 0.6,
+    "variance_shift": 1.0,
+    "outlier_driven": 0.8
+  },
+  "overall_accuracy": 0.88,
+  "detection_latency": {
+    "abrupt": 15.0,
+    "gradual": 155.0,
+    "incremental": 133.2,
+    "variance_shift": 38.0,
+    "outlier_driven": 57.4
+  },
+  "false_alarm_rate": 0.0,
+  "results_by_scenario": [
+    {
+      "scenario": "S1_ABRUPT",
+      "ground_truth": "abrupt",
+      "predicted": "abrupt",
+      "correct": true,
+      "detection_latency": 15,
+      "seed": 42
+    },
+    {
+      "scenario": "S1_ABRUPT",
+      "ground_truth": "abrupt",
+      "predicted": "abrupt",
+      "correct": true,
+      "detection_latency": 15,
+      "seed": 99
+    },
+    {
+      "scenario": "S1_ABRUPT",
+      "ground_truth": "abrupt",
+      "predicted": "abrupt",
+      "correct": true,
+      "detection_latency": 15,
+      "seed": 123
+    },
+    {
+      "scenario": "S1_ABRUPT",
+      "ground_truth": "abrupt",
+      "predicted": "abrupt",
+      "correct": true,
+      "detection_latency": 15,
+      "seed": 7
+    },
+    {
+      "scenario": "S1_ABRUPT",
+      "ground_truth": "abrupt",
+      "predicted": "abrupt",
+      "correct": true,
+      "detection_latency": 15,
+      "seed": 88
+    },
+    {
+      "scenario": "S2_GRADUAL",
+      "ground_truth": "gradual",
+      "predicted": "gradual",
+      "correct": true,
+      "detection_latency": 155,
+      "seed": 42
+    },
+    {
+      "scenario": "S2_GRADUAL",
+      "ground_truth": "gradual",
+      "predicted": "gradual",
+      "correct": true,
+      "detection_latency": 155,
+      "seed": 99
+    },
+    {
+      "scenario": "S2_GRADUAL",
+      "ground_truth": "gradual",
+      "predicted": "gradual",
+      "correct": true,
+      "detection_latency": 155,
+      "seed": 123
+    },
+    {
+      "scenario": "S2_GRADUAL",
+      "ground_truth": "gradual",
+      "predicted": "gradual",
+      "correct": true,
+      "detection_latency": 155,
+      "seed": 7
+    },
+    {
+      "scenario": "S2_GRADUAL",
+      "ground_truth": "gradual",
+      "predicted": "gradual",
+      "correct": true,
+      "detection_latency": 155,
+      "seed": 88
+    },
+    {
+      "scenario": "S3_INCREMENTAL",
+      "ground_truth": "incremental",
+      "predicted": "incremental",
+      "correct": true,
+      "detection_latency": 124,
+      "seed": 42
+    },
+    {
+      "scenario": "S3_INCREMENTAL",
+      "ground_truth": "incremental",
+      "predicted": "incremental",
+      "correct": true,
+      "detection_latency": 117,
+      "seed": 99
+    },
+    {
+      "scenario": "S3_INCREMENTAL",
+      "ground_truth": "incremental",
+      "predicted": "distribution_shift",
+      "correct": false,
+      "detection_latency": 120,
+      "seed": 123
+    },
+    {
+      "scenario": "S3_INCREMENTAL",
+      "ground_truth": "incremental",
+      "predicted": "incremental",
+      "correct": true,
+      "detection_latency": 122,
+      "seed": 7
+    },
+    {
+      "scenario": "S3_INCREMENTAL",
+      "ground_truth": "incremental",
+      "predicted": "gradual",
+      "correct": false,
+      "detection_latency": 183,
+      "seed": 88
+    },
+    {
+      "scenario": "S4_VARIANCE",
+      "ground_truth": "variance_shift",
+      "predicted": "variance_shift",
+      "correct": true,
+      "detection_latency": 37,
+      "seed": 42
+    },
+    {
+      "scenario": "S4_VARIANCE",
+      "ground_truth": "variance_shift",
+      "predicted": "variance_shift",
+      "correct": true,
+      "detection_latency": 30,
+      "seed": 99
+    },
+    {
+      "scenario": "S4_VARIANCE",
+      "ground_truth": "variance_shift",
+      "predicted": "variance_shift",
+      "correct": true,
+      "detection_latency": 44,
+      "seed": 123
+    },
+    {
+      "scenario": "S4_VARIANCE",
+      "ground_truth": "variance_shift",
+      "predicted": "variance_shift",
+      "correct": true,
+      "detection_latency": 39,
+      "seed": 7
+    },
+    {
+      "scenario": "S4_VARIANCE",
+      "ground_truth": "variance_shift",
+      "predicted": "variance_shift",
+      "correct": true,
+      "detection_latency": 40,
+      "seed": 88
+    },
+    {
+      "scenario": "S5_OUTLIER",
+      "ground_truth": "outlier_driven",
+      "predicted": "unclassified",
+      "correct": false,
+      "detection_latency": 19,
+      "seed": 42
+    },
+    {
+      "scenario": "S5_OUTLIER",
+      "ground_truth": "outlier_driven",
+      "predicted": "outlier_driven",
+      "correct": true,
+      "detection_latency": 115,
+      "seed": 99
+    },
+    {
+      "scenario": "S5_OUTLIER",
+      "ground_truth": "outlier_driven",
+      "predicted": "outlier_driven",
+      "correct": true,
+      "detection_latency": 51,
+      "seed": 123
+    },
+    {
+      "scenario": "S5_OUTLIER",
+      "ground_truth": "outlier_driven",
+      "predicted": "outlier_driven",
+      "correct": true,
+      "detection_latency": 51,
+      "seed": 7
+    },
+    {
+      "scenario": "S5_OUTLIER",
+      "ground_truth": "outlier_driven",
+      "predicted": "outlier_driven",
+      "correct": true,
+      "detection_latency": 51,
+      "seed": 88
+    }
+  ],
+  "n_seeds": 5
+}

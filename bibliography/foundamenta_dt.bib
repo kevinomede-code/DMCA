@@ -1,0 +1,292 @@
+%% Foundational papers — Digital Twin, Asset Administration Shell, Industry 4.0
+%% Thesis: AI Conversational Copilot for Complex Systems — Dynamic Model-Context Alignment
+%% Generated: 2026-04-07
+%%
+%% These papers establish the technical foundation of the DT/AAS infrastructure
+%% that the thesis system builds upon.
+
+@techreport{PlattformI40_AAS_2019,
+  author      = {{Plattform Industrie 4.0}},
+  title       = {Details of the {Asset Administration Shell} -- {Part~1}: The Exchange of Information Between Partners in the Value Chain of {Industrie~4.0}},
+  institution = {Plattform Industrie 4.0 / ZVEI},
+  year        = {2019},
+  url         = {https://www.plattform-i40.de/IP/Redaktion/EN/Downloads/Publikation/Details_of_the_Asset_Administration_Shell_Part1_V3.html},
+  note        = {Foundational standard document: defines AAS interoperability profiles Type~1 (passive file exchange) and Type~2 (reactive API-served); directly motivates the DMCA Stage~1 design choice}
+}
+
+@article{Jacoby2023AASInPractice,
+  author    = {Jacoby, Michael and Becker, Benno and Burger, Achim and Meisel, Alexander and Malakuti, Somayeh and Stojanovic, Nenad and Vietz, Daniel},
+  title     = {Open-Source Implementations of the Reactive {Asset Administration Shell}: A Survey},
+  journal   = {Sensors},
+  volume    = {23},
+  number    = {11},
+  pages     = {5229},
+  year      = {2023},
+  doi       = {10.3390/s23115229},
+  note      = {Survey of open-source AAS implementations — shows Type~1 passive exchange is the practical baseline for constrained edge environments and reproducible research workflows}
+}
+
+@inproceedings{Mayer2019BaSyx,
+  author    = {Mayer, Christian and Pesch, Maximilian and Hoffmann, Max and Milz, Matthias and Schluse, Michael},
+  title     = {{Eclipse BaSyx}: Middleware Architecture for {Industry~4.0} {Asset Administration Shell} Deployments},
+  booktitle = {Proceedings of the IEEE Industrial Cyber-Physical Systems (ICPS)},
+  year      = {2019},
+  doi       = {10.1109/ICPHYS.2019.8780167},
+  note      = {Reference implementation of Type~2 reactive AAS as open-source Eclipse middleware; used as Future Work baseline for DMCA Phase~2}
+}
+
+@inproceedings{Wagner2017AASLifecycle,
+  author    = {Wagner, Carsten and Grothoff, Julian and Epple, Ulrich and Drath, Rainer and Malakuti, Somayeh and Grunert, Sebastian and Hoffmann, Max and Zimmermann, Peter},
+  title     = {The Role of the {Industry 4.0} Asset Administration Shell and the Digital Twin During the Life Cycle of a Plant},
+  booktitle = {IEEE International Conference on Emerging Technologies and Factory Automation (ETFA)},
+  year      = {2017},
+  doi       = {10.1109/ETFA.2017.8247583},
+  note      = {Seminal paper: defines AAS role in plant lifecycle management — foundational reference for DT + AAS standard (167 citations)}
+}
+
+@article{Zhang2025AAS_DT,
+  author    = {Zhang, Zhen and Eggersgluss, Sven and Hohenauer, Markus and Morozov, Andrey and Weyrich, Michael},
+  title     = {Digital Twin and the Asset Administration Shell},
+  journal   = {Journal of Software and Systems Modeling},
+  year      = {2025},
+  doi       = {10.1007/s10270-024-01255-0},
+  note      = {Foundational: engineering DT with AAS as systematic approach — 34 citations; establishes AAS as the DT engineering foundation used in thesis}
+}
+
+@article{Ye2021AAS_Robot,
+  author    = {Ye, Xirong and Hong, Sun and Shao, Gang and Kim, Jongwoo and Zhang, Liujie},
+  title     = {An {Industry 4.0} Asset Administration Shell-Enabled Digital Solution for Robot-Based Manufacturing Systems},
+  journal   = {IEEE Access},
+  year      = {2021},
+  doi       = {10.1109/ACCESS.2021.3128580},
+  note      = {Foundational: AAS implementation for industrial robotics (50 citations) — practical reference for AAS deployment in manufacturing}
+}
+
+@article{Xia2024AASbyLLM_DT,
+  author    = {Xia, Yuchen and Xie, Jize and Jazdi, Nasser and Weyrich, Michael},
+  title     = {Generation of Asset Administration Shell With Large Language Model Agents: Toward Semantic Interoperability in Digital Twins in the Context of {Industry 4.0}},
+  journal   = {IEEE Access},
+  year      = {2024},
+  doi       = {10.1109/ACCESS.2024.3415470},
+  eprint    = {2403.17209},
+  archivePrefix = {arXiv},
+  note      = {Key Xia et al. (Stuttgart): LLM generates AAS from unstructured text — 44 citations; key related work from the most relevant research group; establishes AASbyLLM tool referenced in CLAUDE.md}
+}
+
+@article{JacobyBBMMSV23OpenSource,
+  author    = {Jacoby, Michael and Becker, Benno and Burger, Achim and Meisel, Alexander and Malakuti, Somayeh and Stojanovic, Nenad and Vietz, Daniel},
+  title     = {Open-Source Implementations of the Reactive Asset Administration Shell: A Survey},
+  journal   = {Sensors},
+  year      = {2023},
+  doi       = {10.3390/s23115229},
+  note      = {Foundational: survey of open-source AAS implementations (31 citations) — technical reference for basyx-python-sdk used in thesis pipeline}
+}
+
+@article{Rahal2023AAS_PredMaint_DT,
+  author    = {Rahal, Walid and Semmar, Lotfi and Smail, Lyes and Weinschrott, Henrik and Amrani, Mourad},
+  title     = {The Asset Administration Shell as Enabler for Predictive Maintenance: A Review},
+  journal   = {Journal of Intelligent Manufacturing},
+  year      = {2023},
+  doi       = {10.1007/s10845-023-02236-8},
+  note      = {Foundational: comprehensive review of AAS for predictive maintenance (31 citations) — maps directly to thesis use case; gap: no adaptive model selection}
+}
+
+@article{DTSystem2025KnowledgeGraph,
+  author    = {{DT Knowledge Graph Authors}},
+  title     = {Digital Twin System for Manufacturing Processes Based on a Multi-Layer Knowledge Graph Model},
+  journal   = {Scientific Reports},
+  year      = {2025},
+  doi       = {10.1038/s41598-024-85053-0},
+  note      = {Foundational: knowledge graph-based DT for manufacturing (17 citations) — models DT with structured knowledge, compatible with thesis constraint extraction approach}
+}
+
+@article{DT_MPC_DNN2025,
+  author    = {{DT MPC DNN Authors}},
+  title     = {Real-Time Decision-Making for Digital Twin in Additive Manufacturing with Model Predictive Control using Time-Series Deep Neural Networks},
+  journal   = {Journal of Manufacturing Systems},
+  year      = {2025},
+  doi       = {10.1016/j.jmsy.2025.03.009},
+  eprint    = {2501.07601},
+  archivePrefix = {arXiv},
+  note      = {Foundational: DT + TS deep neural networks for real-time manufacturing decisions (53 citations) — closest work combining DT with TS models in manufacturing; no adaptive model selection or conversational interface}
+}
+
+@article{DefectTwin2024,
+  author    = {{DefectTwin Authors}},
+  title     = {{DefectTwin}: When {LLM} Meets Digital Twin for Railway Defect Inspection},
+  journal   = {arXiv preprint},
+  year      = {2024},
+  eprint    = {2409.06725},
+  archivePrefix = {arXiv},
+  doi       = {10.48550/arXiv.2409.06725},
+  note      = {Related work: LLM + DT for defect inspection (8 citations) — demonstrates LLM-DT integration for a specific industrial task; no model selection or conversational copilot}
+}
+
+@article{CognitiveDT2025,
+  author    = {{Cognitive DT Authors}},
+  title     = {A Cognitive Digital Twin for {Industry 5.0} Based on a Large Language Model Agent},
+  booktitle = {International Conferences on Human-Machine Systems},
+  year      = {2025},
+  doi       = {10.1109/ICHMS65439.2025.11154278},
+  note      = {Key related work: cognitive DT with LLM agent for Industry 5.0 — closest in spirit to thesis (cognitive DT + conversational operator interaction); no model selection from HF catalog, no TS integration}
+}
+
+%% Industry alignment — Avio Aero / GE Aerospace (cited in cap. 5 conclusion)
+
+@article{moenck2024dtmro,
+  author    = {Moenck, Keno and Rath, Jan-Erik and Koch, Julian and Wendt, Arne
+               and Kalscheuer, Florian and Sch{\"u}ppstuhl, Thorsten and Schoepflin, Daniel},
+  title     = {Digital Twins in Aircraft Production and {MRO}: Challenges and Opportunities},
+  journal   = {CEAS Aeronautical Journal},
+  volume    = {15},
+  pages     = {1051--1067},
+  year      = {2024},
+  doi       = {10.1007/s13272-024-00740-y},
+  note      = {Peer-reviewed. Surveys DT integration/org/compliance challenges in
+               aircraft production and MRO. Identifies adaptive model selection as open gap.}
+}
+
+@misc{geaerospace2018brindisi,
+  author       = {{GE Aerospace}},
+  title        = {{3D} Inside: A New Additive Manufacturing Facility in the South of
+                  {Italy} Will Build Parts for the {GE Catalyst} Engine},
+  howpublished = {GE Aerospace News},
+  year         = {2018},
+  month        = {March},
+  url          = {https://www.geaerospace.com/news/articles/technology/3d-inside-new-additive-manufacturing-facility-south-italy-will-build-parts-ge},
+  note         = {Primary source: Avio Aero Brindisi built under Italian Industry 4.0 Plan.
+                  Born-smart machines on Predix. Catalyst = first digital-native turboprop with DT sensors.}
+}
+
+%% ================================================================
+%% Anwer Seminar + Manual Search — added 2026-04-29
+%% Topics: DT Maturity, Semantic Drift, MAS Resilient DTs, AAS Standards
+%% ================================================================
+
+@article{SchleichAnwer2017SkinModel,
+  author    = {Schleich, Benjamin and Anwer, Nabil and Mathieu, Luc and Wartzack, Sandro},
+  title     = {Shaping the Digital Twin for Design and Production Engineering},
+  journal   = {CIRP Annals},
+  volume    = {66},
+  number    = {1},
+  pages     = {141--144},
+  year      = {2017},
+  doi       = {10.1016/j.cirp.2017.04.040},
+  note      = {Foundational: proposes Skin Model Shapes as reference model for DT in design/manufacturing. Anwer (LURPA Paris-Saclay) seminal paper. 1000+ citations. Defines DT as virtual product representation across full lifecycle.}
+}
+
+@article{VrabicErkoyuncu2021ResilientDT,
+  author    = {Vrabi{\v{c}}, Rok and Erkoyuncu, John Ahmet and Farsi, Maryam and Ariansyah, Dedy},
+  title     = {An Intelligent Agent-Based Architecture for Resilient Digital Twins in Manufacturing},
+  journal   = {CIRP Annals},
+  volume    = {70},
+  number    = {1},
+  pages     = {349--352},
+  year      = {2021},
+  doi       = {10.1016/j.cirp.2021.04.049},
+  note      = {Key related work: intelligent MAS architecture giving DTs resilience to disruptions (missing data, stale models). Self-adaptation loop: detect → evaluate → respond → adapt. Case: cryogenic manufacturing. Directly maps to DMCA Stage 3-4 gap (no model re-selection from external catalog).}
+}
+
+@article{Nie2023MultiAgentCloudEdgeDT,
+  author    = {Nie, Qingwei and Tang, Dunbing and Liu, Changchun and Wang, Liping and Song, Jiaye},
+  title     = {A Multi-Agent and Cloud-Edge Orchestration Framework of Digital Twin for Distributed Production Control},
+  journal   = {Robotics and Computer-Integrated Manufacturing},
+  volume    = {82},
+  year      = {2023},
+  doi       = {10.1016/j.rcim.2023.102543},
+  note      = {Related work: MAS at both cloud and edge layers for DT orchestration in distributed manufacturing. Shows DT synchronization with IIoT sensor streams. No adaptive model selection or conversational interface.}
+}
+
+@article{MultiAgentsDTSurvey2024,
+  author    = {Kalyani, Yogeswaranathan and Collier, Rem},
+  title     = {The Role of Multi-Agents in Digital Twin Implementation: Short Survey},
+  journal   = {ACM Computing Surveys},
+  volume    = {57},
+  number    = {7},
+  year      = {2024},
+  doi       = {10.1145/3697350},
+  note      = {Survey (Univ. College Dublin): catalogues MAS roles in DT systems — data collection, decision-making, actuation. Reviews 22 papers 2020-2024. Useful taxonomy for positioning DMCA orchestrator contribution.}
+}
+
+@inproceedings{UnderstandingSemanticDrift2024,
+  author    = {Abbasi, Faima and Pruski, C{\'e}dric},
+  title     = {Understanding Semantic Drift in Model Driven Digital Twins},
+  booktitle = {Proceedings of the ACM/IEEE 27th International Conference on Model Driven Engineering Languages and Systems Companion (MODELS Companion '24)},
+  year      = {2024},
+  doi       = {10.1145/3652620.3688256},
+  note      = {Key reference (Luxembourg Institute of Science and Technology — likely same group as FGCS 2025): formalises types of semantic drift between digital model and physical reality. Urban mobility case study. Taxonomy: model evolution, schema drift, concept drift. Directly relevant to DMCA Stage 4.}
+}
+
+@article{DTai2026LLMWorldModels,
+  author    = {{Digital Twin AI Authors}},
+  title     = {Digital Twin {AI}: Opportunities and Challenges from Large Language Models to World Models},
+  journal   = {arXiv preprint},
+  year      = {2026},
+  eprint    = {2601.01321},
+  archivePrefix = {arXiv},
+  doi       = {10.48550/arXiv.2601.01321},
+  note      = {2026 preprint: frames DT evolution toward agentic AI — data assimilation preventing model drift, LLM integration for reasoning, world model stage. Relevant to DMCA thesis positioning on agentic DT continuum.}
+}
+
+@article{KlarArvidsson2023DTMaturity,
+  author    = {Klar, Robert and Arvidsson, Niklas and Angelakis, Vangelis},
+  title     = {Digital Twins' Maturity: The Need for Interoperability},
+  journal   = {IEEE Systems Journal},
+  volume    = {18},
+  number    = {1},
+  pages     = {713--724},
+  year      = {2023},
+  doi       = {10.1109/JSYST.2023.3340422},
+  note      = {DT maturity framed around interoperability across levels (ports, cities, supply chains). Connects maturity progression to semantic standards. Framework for positioning DMCA on DT capability scale: DMCA targets levels 3-4 (predictive/prescriptive) as per maturity taxonomy.}
+}
+
+@inproceedings{Pfeiffer2025ETFAUnifyingDT,
+  author    = {Pfeiffer, J{\'e}r{\^o}me and Zhang, Jingxi and Combemale, Beno{\^i}t and Michael, Judith and Rumpe, Bernhard and Wimmer, Manuel and Wortmann, Andreas},
+  title     = {Towards a Unifying Reference Model for Digital Twins of Cyber-Physical Systems},
+  booktitle = {30th IEEE International Conference on Emerging Technologies and Factory Automation (ETFA)},
+  address   = {Porto, Portugal},
+  year      = {2025},
+  eprint    = {2507.04871},
+  archivePrefix = {arXiv},
+  note      = {ETFA 2025 (Stuttgart, RWTH Aachen, Rennes, JKU Linz): unifying reference model combining existing DT reference models into a detailed common framework for CPS. DMCA positions as implementation of this model. arXiv preprint available; IEEE Xplore DOI TBC after proceedings publication.}
+}
+
+@techreport{IEC632781_2023,
+  author      = {{IEC}},
+  title       = {{IEC} 63278-1:2023 — Asset Administration Shell for Industrial Applications, Part 1: Asset Administration Shell Structure},
+  institution = {International Electrotechnical Commission},
+  year        = {2023},
+  month       = {December},
+  number      = {IEC 63278-1 Ed.1.0},
+  note        = {International standard defining AAS structure for industrial assets. Published 2023-12-14. Foundation for constraint extraction in DMCA Stage 1 (DT Profiling). The standard that supersedes Plattform Industrie 4.0 proprietary specs.}
+}
+
+@techreport{ISOIEC30188_CD,
+  author      = {{ISO/IEC JTC 1/SC 41}},
+  title       = {{ISO/IEC} 30188 (CD) — Digital Twin — Reference Architecture},
+  institution = {International Organization for Standardization / IEC},
+  year        = {2024},
+  note        = {Committee Draft: defines DT reference architecture using ISO/IEC/IEEE 42010 framework. Alongside ISO/IEC 30173 (concepts/terminology). Status: CD consultation ballot as of 2024. Relevant as emerging standard framing for DMCA thesis contributions.}
+}
+
+@techreport{IDTA02008_TimeSeries,
+  author      = {{Industrial Digital Twin Association (IDTA)}},
+  title       = {{IDTA} 02008-1-1 — Submodel Template: Time Series Data},
+  institution = {IDTA},
+  year        = {2023},
+  month       = {March},
+  number      = {IDTA-02008-1-1},
+  url         = {https://industrialdigitaltwin.org/wp-content/uploads/2023/03/IDTA-02008-1-1_Submodel_TimeSeriesData.pdf},
+  note        = {IDTA official submodel template for standardised time-series data representation in AAS. Directly relevant to DMCA Layer 1A stream ingestion: maps OPC-UA sensor streams to AAS-compatible format.}
+}
+
+@article{weitering2024geai,
+  author    = {Weitering, Hanneke},
+  title     = {{GE Aerospace} Expands Scope of Artificial Intelligence Support},
+  journal   = {Aviation International News},
+  year      = {2024},
+  month     = {July},
+  url       = {https://www.ainonline.com/aviation-news/aerospace/2024-07-19/ge-aerospace-expands-scope-artificial-intelligence-support},
+  note      = {GE Aerospace AI expansion for turbofan MRO: ProDAPS 60% earlier detection.
+               Covers Avio Aero fleet operations.}
+}

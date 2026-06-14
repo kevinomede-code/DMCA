@@ -1,0 +1,6 @@
+model_id,dataset_name,split,params_M,load_time_s,latency_mean_ms,latency_p95_ms,latency_min_ms,ram_gpu_mb,mae,rmse,device,dtype,n_reps,timestamp,status
+Salesforce/moirai-1.1-R-small,LucasThil/nasa_turbofan_degradation_FD001,train,11.61,2.943,38.743,40.193,16.292,107,0.227965,0.272954,cuda,float32,20,2026-04-27T10:43:28.006519,ok
+Salesforce/moirai-1.1-R-large,LucasThil/nasa_turbofan_degradation_FD001,train,305.07,20.964,61.981,63.027,47.15,2360,0.369222,0.447749,cuda,float32,20,2026-04-27T10:43:34.153438,ok
+amazon/chronos-t5-tiny,LucasThil/nasa_turbofan_degradation_FD001,train,8.39,1.81,174.795,179.562,161.862,70,0.001784,0.002075,cuda,float32,20,2026-04-27T10:43:32.636576,ok
+amazon/chronos-t5-large,LucasThil/nasa_turbofan_degradation_FD001,train,708.96,34.116,940.483,1062.263,884.151,3302,0.001792,0.002067,cuda,float32,20,2026-04-27T10:43:36.493382,ok
+time-series-foundation-models/Lag-Llama,LucasThil/nasa_turbofan_degradation_FD001,train,2.45,7.252,21.242,22.189,6.072,20,0.013336,0.013722,cuda,float32,20,2026-04-27T10:43:36.021204,ok

@@ -1,0 +1,37 @@
+{
+  "asset_id": "jetson_nano",
+  "stages": {
+    "S1_aas": {
+      "hw_class": "jetson_nano",
+      "latency_sla_ms": 50.0,
+      "sil_level": 1
+    },
+    "S2_topsis": {
+      "n_admissible": 1,
+      "selected_id": "Salesforce/moirai-1.1-R-small",
+      "topsis_score": 1.0,
+      "admissible_ids": [
+        "Salesforce/moirai-1.1-R-small"
+      ]
+    },
+    "S3_gate": {
+      "passed": true,
+      "failed_checks": [],
+      "model_id": "Salesforce/moirai-1.1-R-small"
+    },
+    "S4_drift": {
+      "detected": true,
+      "drift_type": "abrupt",
+      "detected_at": 415,
+      "severity": "CRITICAL",
+      "no_swap": false
+    },
+    "S5_realign": {
+      "action": "swap",
+      "active_model": "Salesforce/moirai-1.1-R-small",
+      "new_model": "ibm/patchtst-base-etth1",
+      "approved": true,
+      "grace_period_t": 10
+    }
+  }
+}

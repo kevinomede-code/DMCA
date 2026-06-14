@@ -1,0 +1,710 @@
+% ============================================================
+% related_work_extended.tex
+% Extended Related Work — Dynamic Model-Context Alignment (DMCA)
+% Tesi magistrale — DMCA per Industry 4.0
+% Data: 2026-04-13
+%
+% Questo file contiene 5 nuovi cluster tematici da integrare
+% nella sezione II della tesi dopo le subsection esistenti.
+%
+% NOTE DI INTEGRAZIONE:
+%   • Incollare dopo \subsection{Conversational XAI and Trust Calibration}
+%     e prima di \subsection{Literature Gap Matrix}
+%   • Aggiornare \subsection{Literature Gap Matrix} con le nuove righe
+%     (file: related_work_gap_matrix_extended.tex — allegato)
+%   • Tutti i \cite{} fanno riferimento a new_references.bib
+%   • I comandi \yes, \noc, \prt, \rowcolor{clthiswork} sono già
+%     definiti nella preamble di thesis_draft.tex
+%
+% VERIFICA CITAZIONI (BibTeX flaggato con % VERIFY):
+%   Prima della submission, cross-check DOI su Semantic Scholar
+%   o Zotero per tutti i paper marcati % VERIFY nel .bib allegato.
+% ============================================================
+
+% =============================================================
+\subsection{AI Infrastructure for Edge Deployment}
+\label{subsec:edge-infra}
+% =============================================================
+
+Deploying machine learning models at the network edge introduces a
+set of hard engineering constraints absent from cloud-centric
+inference: bounded RAM and Flash, limited floating-point throughput,
+absence of CUDA-class GPUs, and strict latency SLAs imposed by
+industrial control loops.
+The field of \emph{TinyML} and edge AI has developed a rich tooling
+ecosystem—inference runtimes (TVM~\cite{chen2018tvm},
+ONNX~Runtime, TFLite), benchmark suites
+(MLPerf~Tiny~\cite{banbury2021mlperftiny}), and co-design methodologies
+(MCUNet~\cite{lin2020mcunet})—that together characterise hardware
+heterogeneity and quantify its impact on model performance.
+
+The foundational survey by Deng et al.~\cite{deng2020edgeintelligence}
+defines the edge–cloud intelligence continuum and taxonomises
+deployment strategies along three axes: model compression for
+on-device inference, model partitioning across device and cloud,
+and in-situ learning at the edge.
+Their analysis of latency-accuracy trade-offs on ARM Cortex-class
+hardware directly motivates the hardware profile extraction layer
+of DMCA.
+Lin et al.~\cite{lin2020mcunet} push the boundary further with
+MCUNet, a joint NAS and inference-engine co-design that achieves
+ImageNet-scale accuracy on \$5 microcontrollers; TFLite
+Micro~\cite{david2021tflitemicro} provides the canonical
+runtime for running quantised checkpoints on MCUs with less than
+1\,MB RAM, establishing INT8 calibration as the standard deployment
+compression step.
+The key insight—that inference runtime and model architecture must
+be \emph{co-optimised} for target hardware—is formalised in the
+DMCA admissibility filter: the Digital Twin AAS exposes the target
+hardware class, and only models with verified latency $\leq$~SLA
+on that class are admitted to the selection pool.
+Banbury et al.~\cite{banbury2021mlperftiny} further motivate this
+with MLPerf~Tiny, reporting up to $10{,}000\times$ latency variation
+for the same model across different embedded platforms—rendering
+server-class benchmark results useless for edge deployment decisions.
+Kenning~\cite{dudek2023kenning}, an open-source multi-backend
+deployment framework from Antmicro, operationalises this observation:
+it benchmarks models across ONNX~Runtime, TFLite, TVM, and IREE
+on the same hardware target in a single pipeline, producing
+reproducible latency and RAM measurements across MCU, ARM Cortex-A,
+and Jetson platforms.
+At the NAS level, $\mu$NAS~\cite{liberis2021munas} applies
+Bayesian optimisation over architecture spaces under simultaneous
+RAM, Flash, and MAC constraints, demonstrating that
+hardware-constrained search yields substantially better
+Pareto-optimal architectures than post-hoc compression;
+AWQ~\cite{lin2024awq} extends compression to LLM-scale models
+via activation-aware INT4 quantisation, achieving $3\times$
+speedup on edge GPUs (Jetson Orin class) with less than 1\%
+quality degradation—directly applicable to the copilot LLM
+component of DMCA.
+
+None of the above works addresses \emph{selection among pre-trained
+models}: they all either train new architectures from scratch or
+optimise a designated model post-hoc.
+The critical missing step is a mechanism that maps operational
+context—hardware class, process SLA, data availability—onto a
+ranked set of candidate pre-trained models from an open catalog.
+DMCA fills this gap: the AAS-extracted constraint vector feeds
+a multi-criteria admissibility filter over the HuggingFace catalog,
+producing a dynamically updated selection without any architecture
+search or weight modification.
+
+% ── Table: Edge infrastructure comparison ────────────────────
+\begin{table}[t]
+\caption{Comparison of edge AI deployment approaches vs.\ DMCA.
+  \yes~=~supported, \noc~=~not supported, $\sim$~=~partial.}
+\label{tab:edge-infra}
+\centering\small
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Work} &
+\textbf{\shortstack{HW-\\aware}} &
+\textbf{\shortstack{DT-\\driven}} &
+\textbf{\shortstack{Selects\\pre-trained}} &
+\textbf{\shortstack{Open\\catalog}} &
+\textbf{\shortstack{Continuous\\re-align}} &
+\textbf{\shortstack{Drift\\detect}}\\
+\midrule
+Deng et al.\ 2020~\cite{deng2020edgeintelligence}
+  & \yes & \noc & \noc & \noc & \noc & \noc \\
+Lin et al.\ 2020~\cite{lin2020mcunet}
+  & \yes & \noc & \noc & \noc & \noc & \noc \\
+David et al.\ 2021~\cite{david2021tflitemicro}
+  & \yes & \noc & \noc & \noc & \noc & \noc \\
+Banbury et al.\ 2021~\cite{banbury2021mlperftiny}
+  & \yes & \noc & \noc & \noc & \noc & \noc \\
+Dudek et al.\ 2023~\cite{dudek2023kenning}
+  & \yes & \noc & \noc & \noc & \noc & \noc \\
+Lin et al.\ 2024~\cite{lin2024awq}
+  & \yes & \noc & \noc & \noc & \noc & \noc \\
+ICSE-NIER 2025~\cite{icsenir2025}
+  & \yes & \noc & \yes & \prt & \noc & \noc \\
+\midrule
+\rowcolor{gray!15}
+\textbf{DMCA (ours)}
+  & \textbf{\yes} & \textbf{\yes} & \textbf{\yes}
+  & \textbf{\yes} & \textbf{\yes} & \textbf{\yes} \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+% ── Graphify connection note ─────────────────────────────────
+% Graphify query: "what connects edge deployment to DMCA?"
+% Result (BFS from 'Edge and Industrial Deployment Constraints'):
+%   Community 7 (cohesion 0.5) already contains:
+%     Few-Shot Adaptation, Edge and Industrial Deployment Constraints,
+%     Scaling Laws, Robust IQR Standardization (Lag-Llama)
+%   Adding papers from this cluster creates new INFERRED edges:
+%     deng2020edgeintelligence --[conceptually_related_to, 0.82]-->
+%       Hardware-Aware PTM Recommendation (ICSE-NIER 2025)
+%     banbury2021mlperftiny --[motivates, 0.85]-->
+%       DMCA multi-criteria admissibility filter
+%   These edges bridge Community 7 ↔ Community 2 (Hardware-Aware
+%   Model Selection), which were previously disconnected.
+
+
+% =============================================================
+\subsection{Classical Architectures, New Models, and Survey Evidence}
+\label{subsec:ts-classical}
+% =============================================================
+
+The foundation model era did not make classical neural time-series
+architectures obsolete.
+A parallel body of work has shown that purpose-built architectures,
+particularly those designed for compute efficiency, remain competitive
+or superior under resource constraints that disqualify large foundation
+models from edge deployment.
+Understanding this landscape is essential for DMCA's selection rationale:
+the multi-criteria admissibility filter must account for scenarios where
+a 0.67\,M-parameter supervised model outperforms a 200\,M-parameter
+zero-shot model when training data are available and latency constraints
+are tight—a situation confirmed experimentally in Section~\ref{subsec:clusters}.
+
+N-BEATS~\cite{oreshkin2020nbeats}, the doubly-residual stack of
+basis-expansion blocks, demonstrated that a pure MLP approach without
+domain-specific inductive biases could surpass all ensemble M4
+competition winners.
+Its successor N-HiTS~\cite{challu2023nhits} extends this with
+hierarchical multi-rate interpolation, achieving 25\% lower MASE than
+N-BEATS on long-horizon tasks at 50$\times$ lower latency than
+Transformer alternatives—establishing a strong CPU-viable ceiling for
+DMCA ablation studies.
+The Temporal Fusion Transformer (TFT)~\cite{lim2021tft} integrates
+static metadata, known future covariates, and variable selection via
+sparse attention, winning the M5 Uncertainty competition; its
+built-in variable importance scores make it a candidate for GAP~3
+(conversational XAI) when operators need explanation of which
+features drive a forecast.
+iTransformer~\cite{liu2024itransformer} inverts the standard attention
+axis—attending across variates rather than time steps—and achieves
+state-of-the-art on correlated multivariate sensor benchmarks; it is
+the highest-connectivity god node in the DMCA knowledge graph (5
+extracted edges) yet absent from the prior literature coverage.
+TimeMixer~\cite{wang2024timemixer} proposes multiscale seasonal-trend
+decomposition without any attention, achieving competitive accuracy at
+significantly lower FLOPs—the first 2024 architecture to treat
+inference efficiency as a first-class design goal.
+Zeng et al.~\cite{zeng2023dlinear} provide the strongest counter-argument
+to Transformer hegemony: a two-layer linear decomposition (DLinear)
+outperforms all Transformer variants on five of six tested benchmarks,
+demonstrating that inductive biases are often over-engineered.
+This finding validates DMCA's empirical ranking philosophy:
+the selection matrix must use measured P95 latency-adjusted accuracy, not
+assumed architectural superiority.
+
+Two concurrent surveys provide the strongest available gap evidence for
+this thesis.
+Jin et al.~\cite{jin2023surveyts} review more than 150 works on large
+models for time series. Their resource compilation (Table~3) lists over
+30 benchmark datasets spanning traffic, healthcare, weather, finance,
+and video---yet \emph{no industrial or manufacturing dataset appears}:
+CMAPSS, PRONOSTIA, and analogous IoT sensor corpora are entirely absent
+from the field's evaluation landscape.
+Section~7.3 of the same survey explicitly identifies \emph{``adapting
+to concept drift''} and \emph{``accommodating evolving patterns in the
+data''} for large TS models as \emph{``still an under-explored
+problem''}---a direct acknowledgement of the gap that DMCA's Stage~4
+drift detection and re-selection loop addresses.
+Liang et al.~\cite{liang2024tsfmkdd} (KDD 2024 tutorial) quantify the
+deployment gap: zero-shot foundation models (Chronos, Moirai, TimesFM)
+incur 15--40\% performance degradation on high-frequency sensor data
+relative to standard forecasting benchmarks, while lightweight variants
+(Chronos-tiny, PatchTST-small) recover within 5\% at one-tenth the
+inference cost.
+These results are the empirical warrant for DMCA's core design choice:
+rather than committing to the best-benchmarked zero-shot model,
+the system maintains a heterogeneous catalog and selects dynamically
+based on DT-extracted operational context—including the sensor data
+characteristics and hardware platform that surveys confirm are
+systematically absent from existing evaluations.
+
+% ── Table: TS architectures comparison ───────────────────────
+\begin{table}[t]
+\caption{Classical and hybrid TS architectures.
+  Columns reflect DMCA selection criteria.
+  $^\dagger$Zero-shot capability requires fine-tuning data
+  preparation overhead that may exceed the benefit for
+  short-context industrial signals.}
+\label{tab:ts-arch}
+\centering\small
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Model} &
+\textbf{Params} &
+\textbf{\shortstack{Zero-\\shot}} &
+\textbf{\shortstack{Edge-\\viable}} &
+\textbf{\shortstack{Industrial\\bench.}} &
+\textbf{\shortstack{HW profile\\reported}} &
+\textbf{\shortstack{Survey\\evidence}}\\
+\midrule
+N-BEATS~\cite{oreshkin2020nbeats}       & ${<}1$\,M & \noc & \yes & \noc & \noc & — \\
+N-HiTS~\cite{challu2023nhits}           & ${<}1$\,M & \noc & \yes & \noc & \noc & — \\
+TFT~\cite{lim2021tft}                   & ${<}5$\,M & \noc & \yes & \noc & \noc & — \\
+iTransformer~\cite{liu2024itransformer} & ${<}5$\,M & \noc & \yes & \noc & \noc & — \\
+TimeMixer~\cite{wang2024timemixer}      & ${<}5$\,M & \noc & \prt & \noc & \noc & — \\
+DLinear~\cite{zeng2023dlinear}          & ${<}0.1$\,M & \noc & \yes & \noc & \noc & — \\
+PatchTST~\cite{nie2023patchtst}         & 0.67\,M & \noc & \yes & \noc & \noc & — \\
+Chronos-T~\cite{ansari2024chronos}      & 8\,M  & \yes & \yes & \noc & \noc & \prt \\
+TimesFM~\cite{das2024timesfm}           & 200\,M & \yes & \noc & \noc & \noc & \prt \\
+\midrule
+Jin et al.\ 2023~\cite{jin2023surveyts} & \multicolumn{5}{l}{\textit{Survey: zero industrial datasets in 30+ benchmarks (Tab.~3); drift adaptation ``under-explored'' §7.3 (GAP~1,~4)}} & \yes \\
+Liang et al.\ 2024~\cite{liang2024tsfmkdd} & \multicolumn{5}{l}{\textit{Survey: 15--40\% zero-shot degradation on sensor data}} & \yes \\
+\midrule
+\rowcolor{gray!15}
+\multicolumn{7}{l}{\textbf{DMCA}: selects from above catalog under AAS constraints; measures HW profile empirically} \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+% ── Graphify connection note ─────────────────────────────────
+% Graphify query: "what connects classical TS to DMCA catalog?"
+% Communities 13 (N-HiTS), 14 (N-BEATS), 15 (TFT), 21 (DLinear)
+% are all thin single-node isolated communities in the current graph.
+% Adding the papers from this cluster would create edges:
+%   oreshkin2020nbeats --[extends]--> challu2023nhits [EXTRACTED]
+%   challu2023nhits --[compared_against]--> PatchTST [INFERRED 0.85]
+%   zeng2023dlinear --[challenges]--> iTransformer [EXTRACTED]
+% These would merge Communities 13, 14, 21 into a single cluster,
+% resolving the "thin community" warnings in GRAPH_REPORT.md.
+
+
+% =============================================================
+\subsection{AutoML and Hardware-Aware Neural Architecture Search}
+\label{subsec:automl-nas}
+% =============================================================
+
+The deployment of machine learning models on resource-constrained
+edge and IoT devices has driven a substantial body of work at the
+intersection of AutoML and hardware-aware Neural Architecture Search
+(NAS).
+Rather than accepting a fixed architecture designed for
+general-purpose hardware, hardware-aware NAS methods simultaneously
+optimise for predictive accuracy and hardware-specific objectives
+such as inference latency, peak memory consumption, and energy
+expenditure~\cite{benmeziane2021hwnas}.
+This co-design philosophy has become the dominant paradigm for
+TinyML and mobile inference, with hardware constraints encoded
+either through real-device measurement during the search
+loop~\cite{tan2019mnasnet} or through a one-time supernet
+training from which device-specific sub-networks are extracted
+without retraining~\cite{cai2020ofa}.
+
+The survey by Benmeziane et al.~\cite{benmeziane2021hwnas}---cited
+directly as reference~[28] in the ICSE-NIER 2025 paper that forms
+the hardware-aware god node of this thesis---provides the canonical
+taxonomy of HW-NAS along four axes: search space type, search
+strategy, hardware performance estimation, and target platform.
+Crucially, the survey identifies open problems including NAS for
+non-vision tasks and for \emph{dynamically changing hardware
+targets}---a gap that DMCA's Digital Twin re-alignment loop
+directly addresses.
+MnasNet~\cite{tan2019mnasnet}, cited as reference~[29] in
+ICSE-NIER, introduces the factorised hierarchical search space and
+a multi-objective reward function combining accuracy with real-device
+latency on Pixel hardware; the weighted ranking objective in
+ICSE-NIER (eq.\,1) is directly inspired by the MnasNet reward
+formulation.
+Once-for-All~\cite{cai2020ofa} decouples training from deployment
+specialisation by training a single supernet covering $10^{19}$
+sub-network configurations; a lightweight predictor then selects
+the sub-network matching each hardware target without retraining.
+At the ultra-low-power MCU end, MCUNet~\cite{lin2020mcunet}
+co-designs the NAS search space (TinyNAS) and a dedicated inference
+engine (TinyEngine) to reach 70.7\% ImageNet top-1 accuracy under
+256\,KB SRAM budgets that eliminate standard frameworks.
+SMAC3~\cite{lindauer2022smac3} extends constrained search to the
+hyperparameter space via Bayesian optimisation with Random Forest
+surrogates, providing the HPO machinery used in many AutoML
+pipelines.
+
+The architectural distinction from DMCA is precise and fundamental.
+AutoML and NAS methods \emph{train} models or search architecture
+spaces, requiring GPU-weeks of compute and domain expertise.
+DMCA \emph{selects} from an existing catalog of pre-trained models
+on HuggingFace, requiring only the minutes needed to run an
+inference benchmark on the target hardware.
+The two paradigms are orthogonal and composable: NAS could
+generate catalog entries that DMCA subsequently selects from.
+DMCA's distinguishing contribution---the dynamic re-alignment
+loop triggered by Digital Twin updates---has no equivalent in
+any AutoML or NAS framework, all of which produce static
+optimal configurations for fixed hardware targets.
+
+% ── Table: AutoML / NAS comparison ───────────────────────────
+\begin{table}[t]
+\caption{AutoML and NAS frameworks vs.\ DMCA (GAP~1).
+  Edge type in parentheses: EXTRACTED = explicitly cited in the
+  god-node paper~\cite{icsenir2025}; INFERRED = same problem domain.
+  \yes~=~supported, \noc~=~not supported, $\sim$~=~partial.}
+\label{tab:automl-nas}
+\centering\small
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lllccccc}
+\toprule
+\textbf{Work} &
+\textbf{\shortstack[l]{Edge to\\god node}} &
+\textbf{\shortstack{HW-\\constr.}} &
+\textbf{\shortstack{Selects\\pre-train.}} &
+\textbf{\shortstack{DT-\\driven}} &
+\textbf{\shortstack{Open\\catalog}} &
+\textbf{\shortstack{Continuous\\re-eval}}\\
+\midrule
+HW-NAS Survey~\cite{benmeziane2021hwnas}
+  & EXTRACTED [28] & \yes & \noc & \noc & \noc & \noc \\
+MnasNet~\cite{tan2019mnasnet}
+  & EXTRACTED [29] & \yes & \noc & \noc & \noc & \noc \\
+OFA~\cite{cai2020ofa}
+  & INFERRED 0.80  & \yes & \noc & \noc & \noc & \noc \\
+MCUNet~\cite{lin2020mcunet}
+  & INFERRED 0.82  & \yes & \noc & \noc & \noc & \noc \\
+SMAC3~\cite{lindauer2022smac3}
+  & INFERRED 0.70  & \prt & \noc & \noc & \noc & \noc \\
+ICSE-NIER 2025~\cite{icsenir2025}
+  & \textit{god node} & \yes & \yes & \noc & \prt & \noc \\
+\midrule
+\rowcolor{gray!15}
+\textbf{DMCA (ours)} & — &
+  \textbf{\yes} & \textbf{\yes} & \textbf{\yes}
+  & \textbf{\yes} & \textbf{\yes} \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+% ── Graphify connection note (verificata da lettura PDF) ──────
+% Agent ha letto ICSE-NIER_2025_pretrained.pdf e trovato:
+%   ref [28] = benmeziane2021hwnas (arXiv:2101.09336)
+%     → edge EXTRACTED `cites` verso god node (confidence 1.0)
+%   ref [29] = tan2019mnasnet (CVPR 2019, DOI:10.1109/CVPR.2019.00293)
+%     → edge EXTRACTED `cites` verso god node (confidence 1.0)
+% Edge aggiuntivi INFERRED:
+%   cai2020ofa --[conceptually_related_to, 0.80]--> god node
+%   lin2020mcunet --[conceptually_related_to, 0.82]--> god node
+%   lindauer2022smac3 --[conceptually_related_to, 0.70]--> god node
+% Questi paper aumentano il degree del god node da 6 a ~11,
+% consolidandolo come hub primario del grafo.
+
+
+% =============================================================
+\subsection{Model Compression for Edge Deployment}
+\label{subsec:compression}
+% =============================================================
+
+The dominant strategy for deploying large neural networks on
+resource-constrained hardware is \emph{model compression}:
+reducing the parameter count, precision, or computational graph
+of a trained model while minimising accuracy degradation.
+Compression encompasses three families of techniques:
+pruning (removing weights or entire layers based on
+magnitude or gradient criteria),
+quantisation (reducing floating-point precision from FP32 to INT8
+or below), and
+knowledge distillation (training a smaller student model to
+mimic a larger teacher).
+Together, these techniques have made it possible to deploy
+Transformer-scale models on commodity edge hardware.
+
+Menghani~\cite{menghani2023efficient} provides the most
+comprehensive recent survey of these techniques, covering
+over 150 methods across all three families with standardised
+evaluation on vision, NLP, and structured data tasks.
+His analysis shows that INT8 quantisation consistently delivers
+$2\text{--}4\times$ latency improvement with ${<}1\%$ accuracy
+degradation on models above 10\,M parameters—a finding directly
+exploited in the DMCA deployment stage when the selected model
+undergoes ONNX export and INT8 calibration.
+Gou et al.~\cite{gou2021distillation} survey the knowledge
+distillation landscape across 40 methods, establishing the
+response-based / feature-based / relation-based taxonomy;
+notably, industrial applications of distillation are
+underrepresented in their review, confirming that compression
+for manufacturing edge contexts remains largely unaddressed.
+At the LLM scale, Dettmers et al.~\cite{dettmers2022llmint8}
+demonstrate that 8-bit matrix multiplication preserving
+full model quality requires only mixed-precision decomposition
+of outlier dimensions (LLM.int8()), enabling 175\,B parameter
+models to run on consumer GPUs—a method compatible with the LLM
+component of DMCA's conversational copilot.
+Sanh et al.~\cite{sanh2019distilbert} demonstrate with
+DistilBERT that 6-layer distillation of BERT retains 97\% of
+GLUE performance at 40\% fewer parameters and 60\% faster
+inference, validating the distillation path for shrinking
+DMCA's copilot LLM to Jetson-class hardware.
+Frantar et al.~\cite{frantar2023gptq} extend post-training
+quantisation to GPT-scale models (GPTQ), showing that second-order
+weight updates compensate for quantisation error, enabling
+3–4-bit storage without fine-tuning.
+
+The conceptual boundary between compression and DMCA is precise:
+\emph{compression modifies a model's weights or structure to fit
+a hardware target; DMCA selects which unmodified pre-trained model
+best matches the hardware profile extracted from the Digital Twin.}
+These are orthogonal and composable strategies: DMCA determines
+\emph{which} model to deploy; compression determines \emph{how}
+to deploy it efficiently.
+A complete SME deployment pipeline might run DMCA to select
+the optimal architecture from the HuggingFace catalog, then
+apply ONNX INT8 quantisation as a post-processing step to
+maximise hardware utilisation—a workflow not formalised in any
+existing literature.
+
+% ── Table: compression vs selection ──────────────────────────
+\begin{table}[t]
+\caption{Model compression approaches vs.\ DMCA's selection
+  approach. The two paradigms are orthogonal: compression
+  operates on a fixed model; DMCA selects among models.
+  ``Modifies weights'' = the technique changes model
+  parameters or architecture.}
+\label{tab:compression}
+\centering\small
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Work} &
+\textbf{\shortstack{Modifies\\model}} &
+\textbf{\shortstack{Selects\\model}} &
+\textbf{\shortstack{HW\\profile}} &
+\textbf{\shortstack{DT-\\driven}} &
+\textbf{\shortstack{Catalog-\\based}} &
+\textbf{\shortstack{Continuous\\re-eval}}\\
+\midrule
+Menghani 2023~\cite{menghani2023efficient}      & \yes & \noc & \prt & \noc & \noc & \noc \\
+Gou et al.\ 2021~\cite{gou2021distillation}     & \yes & \noc & \noc & \noc & \noc & \noc \\
+Dettmers et al.\ 2022~\cite{dettmers2022llmint8}& \yes & \noc & \prt & \noc & \noc & \noc \\
+Sanh et al.\ 2019~\cite{sanh2019distilbert}     & \yes & \noc & \noc & \noc & \noc & \noc \\
+Frantar et al.\ 2023~\cite{frantar2023gptq}     & \yes & \noc & \prt & \noc & \noc & \noc \\
+\midrule
+\rowcolor{gray!15}
+\textbf{DMCA (ours)}
+  & \textbf{\noc} & \textbf{\yes} & \textbf{\yes}
+  & \textbf{\yes} & \textbf{\yes} & \textbf{\yes} \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+% ── Graphify connection note ─────────────────────────────────
+% Graphify query: "what connects model compression to DMCA?"
+% This cluster creates a new community bridging Cluster A (edge)
+% and Cluster B (TS models):
+%   menghani2023efficient --[enables, INFERRED 0.78]-->
+%     Edge and Industrial Deployment Constraints (Community 7)
+%   dettmers2022llmint8 --[optimizes, INFERRED 0.72]-->
+%     DMCA conversational copilot LLM component
+% Key structural observation: NO paper in the current graph
+% connects compression to TS foundation models specifically.
+% This is a genuine gap: GPTQ, LLM.int8 etc. were designed for
+% NLP models; their applicability to TS transformers (PatchTST,
+% iTransformer) is unexplored—a potential future work direction.
+
+
+% =============================================================
+\subsection{MLOps and Drift-Aware Model Lifecycle Management}
+\label{subsec:mlops}
+% =============================================================
+
+As machine learning systems transition from research to
+production, the discipline of \emph{MLOps} has emerged to
+formalise the engineering practices required to maintain model
+quality over time: data pipelines, model versioning, A/B testing,
+monitoring, and retraining.
+In manufacturing contexts, MLOps must additionally account for
+physical process changes, sensor drift, and equipment degradation
+that continuously shift the data distribution—making model
+monitoring not just a quality-of-service concern but a
+safety-critical requirement.
+
+Kreuzberger et al.~\cite{kreuzberger2023mlops} provide the most
+widely cited architectural overview of MLOps, systematically
+defining its components (feature store, model registry, serving
+layer, monitoring) via a multivocal literature review of 79 sources.
+Their taxonomy is useful for contextualising DMCA: all five MLOps
+stages are present, but the monitoring block feeds a
+\emph{retraining} trigger rather than a \emph{re-selection} trigger—
+the missing architectural component that DMCA introduces.
+Sculley et al.~\cite{sculley2015debt} formalise why this distinction
+matters: the CACE principle (``Changing Anything Changes
+Everything'') shows that retraining propagates validation burden
+across the entire downstream pipeline.
+DMCA's catalog re-selection avoids CACE by design: the feature
+ingestion pipeline remains stable; only the inference endpoint
+changes, bounded by the AAS constraint matrix extracted from the
+Digital Twin.
+Gama et al.~\cite{gama2014survey} survey the concept drift
+literature across 100+ papers, establishing a detect--understand--adapt
+triad as the canonical response framework; their taxonomy assumes
+all adaptation strategies operate \emph{within} a fixed model class.
+DMCA extends the ``adapt'' dimension to catalog re-selection under
+DT constraints—a fourth response class not present in Gama's framework.
+Lu et al.~\cite{lu2020drift}---already the hub node of Community~8
+in this thesis's knowledge graph---extend this survey to the deep
+learning era; crucially, Section~VII explicitly flags
+\emph{``multi-model catalog drift response''} as an open research
+direction, noting that no existing method combines drift detection
+with systematic model replacement from a pre-defined catalog.
+DMCA is a direct instantiation of this flagged gap.
+Finally, Shankar et al.~\cite{shankar2022operationalizing} (ICSE-SEIP~2023)
+document MLOps practice through 18 semi-structured interviews with
+ML engineers spanning autonomous vehicles, finance, and cloud
+computing. When performance drops are detected, practitioners
+respond by switching to \emph{``a simpler, historical, or retrained
+version''} of the current model (§4.2 Versioning)---not by selecting
+a better-suited model from a constraint-aware catalog.
+Retraining cadences are determined ad~hoc: \emph{``none of the
+participants interviewed reported any scientific procedure for
+determining the cadence''} (§4.5.1). No participant reported a
+solved, principled tooling solution for drift-triggered model
+replacement, which the authors frame as an open challenge (§5.1.2).
+This constitutes strong practitioner evidence that GAP~1---automated,
+constraint-aware model re-selection on drift detection---remains
+unaddressed in current MLOps practice.
+
+The architectural distinction from standard MLOps practice
+is as follows.
+Existing MLOps platforms (Azure~ML, Vertex~AI, SageMaker)
+treat drift as a signal to retrain the \emph{same} model on
+new data.
+DMCA treats drift as a signal to re-evaluate the \emph{entire
+model catalog} under the current AAS constraints: a detected
+drift may indicate not merely data distribution shift but also
+a change in operational context—new hardware installed, modified
+process parameters, revised latency SLA—that requires selecting
+a qualitatively different model architecture.
+This distinction cannot be implemented within existing
+vendor MLOps platforms without replacing their core
+retraining loop with a catalog-query mechanism.
+Furthermore, DMCA is \emph{vendor-neutral}: it operates over
+the open HuggingFace catalog under Apache~2.0/MIT licenses,
+eliminating the vendor lock-in that comes with proprietary
+model registries.
+
+% ── Table: MLOps / drift management comparison ───────────────
+\begin{table}[t]
+\caption{MLOps and drift-management approaches vs.\ DMCA.
+  ``Re-selection'' = triggered model switch to a different
+  architecture, not just retraining.
+  ``Open catalog'' = vendor-neutral model source.}
+\label{tab:mlops}
+\centering\small
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Work} &
+\textbf{\shortstack{Drift\\detect}} &
+\textbf{\shortstack{Model\\retrain}} &
+\textbf{\shortstack{Model\\re-select}} &
+\textbf{\shortstack{DT-\\guided}} &
+\textbf{\shortstack{Open\\catalog}} &
+\textbf{\shortstack{Mfg-\\specific}}\\
+\midrule
+Kreuzberger et al.\ 2023~\cite{kreuzberger2023mlops}
+  & \prt & \yes & \noc & \noc & \noc & \noc \\
+Sculley et al.\ 2015~\cite{sculley2015debt}
+  & \yes & \prt & \noc & \noc & \noc & \noc \\
+Gama et al.\ 2014~\cite{gama2014survey}
+  & \yes & \noc & \noc & \noc & \noc & \noc \\
+Lu et al.\ 2019~\cite{lu2020drift}
+  & \yes & \prt & \noc & \noc & \noc & \noc \\
+Shankar et al.\ 2022~\cite{shankar2022operationalizing}
+  & \prt & \yes & \noc & \noc & \noc & \noc \\
+ADWIN~\cite{bifet2007adwin}
+  & \yes & \noc & \noc & \noc & \noc & \prt \\
+\midrule
+\rowcolor{gray!15}
+\textbf{DMCA (ours)}
+  & \textbf{\yes} & \textbf{\noc} & \textbf{\yes}
+  & \textbf{\yes} & \textbf{\yes} & \textbf{\yes} \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+% ── Graphify connection note ─────────────────────────────────
+% Graphify query: "what connects MLOps to DMCA?"
+% Community 8 (Learning under Concept Drift, cohesion 0.5) already
+% contains: ADWIN, DDM, Lu et al. 2020 concept drift datasets.
+% Adding these papers creates:
+%   kreuzberger2023mlops --[contextualizes, INFERRED 0.80]-->
+%     3-Component Concept Drift Framework (Community 8)
+%   sculley2015debt --[motivates, INFERRED 0.88]-->
+%     ADWIN Adaptive Windowing Algorithm
+%   shankar2022operationalizing --[confirms_gap, INFERRED 0.75]-->
+%     DMCA Stage 4-5 automation
+% Key structural result: Community 8 (drift) and Community 1
+% (DT+LLM) remain in SEPARATE Leiden communities even after
+% these additions — confirming that DMCA is the FIRST system
+% to bridge them. This is direct graph-theoretic evidence of
+% the contribution's novelty.
+
+
+% ============================================================
+% EXTENDED GAP MATRIX ROWS (to merge into tab:gapmatrix)
+% ============================================================
+% Add these rows to the existing \begin{tabular} in tab:gapmatrix
+% BEFORE the \hline / \rowcolor{clthiswork} DMCA row:
+%
+% \hline
+% \multicolumn{7}{|c|}{\textit{Cluster A — Edge AI Infrastructure}}\\
+% \hline
+% Deng et al.\ 2020~\cite{deng2020edgeintelligence}
+%   & \noc & \noc & \noc & \prt & \noc
+%   & Edge–cloud intelligence survey; latency-accuracy taxonomy\\
+% Lin et al.\ 2020~\cite{lin2020mcunet}
+%   & \prt & \noc & \noc & \noc & \noc
+%   & MCUNet: TinyML for microcontrollers via co-designed NAS\\
+% Banbury et al.\ 2021~\cite{banbury2021mlperftiny}
+%   & \prt & \noc & \noc & \prt & \noc
+%   & MLPerf Tiny: standardised edge inference benchmark\\
+% \hline
+% \multicolumn{7}{|c|}{\textit{Cluster B — Classical TS Architectures}}\\
+% \hline
+% Liu et al.\ 2024~\cite{liu2024itransformer}
+%   & \noc & \yes & \noc & \noc & \noc
+%   & iTransformer: variate-wise attention for multivariate TS\\
+% Challu et al.\ 2023~\cite{challu2023nhits}
+%   & \noc & \prt & \noc & \noc & \noc
+%   & N-HiTS: hierarchical interpolation for long-horizon forecasting\\
+% Zeng et al.\ 2023~\cite{zeng2023dlinear}
+%   & \noc & \prt & \noc & \noc & \noc
+%   & DLinear: linear models challenge Transformer dominance\\
+% \hline
+% \multicolumn{7}{|c|}{\textit{Cluster C — AutoML / NAS}}\\
+% \hline
+% Cai et al.\ 2020~\cite{cai2020ofa}
+%   & \prt & \noc & \noc & \noc & \noc
+%   & Once-for-All: hardware-specific sub-network extraction\\
+% White et al.\ 2023~\cite{white2023nasinights}
+%   & \prt & \noc & \noc & \noc & \noc
+%   & NAS survey: HW cost under-reported in 1000+ papers\\
+% AutoGluon~\cite{erickson2020autogluon}
+%   & \noc & \noc & \noc & \prt & \noc
+%   & AutoML over algorithm portfolio (no HW/DT awareness)\\
+% \hline
+% \multicolumn{7}{|c|}{\textit{Cluster D — Model Compression}}\\
+% \hline
+% Menghani 2023~\cite{menghani2023efficient}
+%   & \prt & \noc & \noc & \noc & \noc
+%   & Survey: pruning, quantisation, distillation for edge\\
+% Dettmers et al.\ 2022~\cite{dettmers2022llmint8}
+%   & \prt & \noc & \noc & \noc & \noc
+%   & LLM.int8(): mixed-precision quantisation for 175B models\\
+% Frantar et al.\ 2023~\cite{frantar2023gptq}
+%   & \prt & \noc & \noc & \noc & \noc
+%   & GPTQ: second-order PTQ for GPT-scale models\\
+% \hline
+% \multicolumn{7}{|c|}{\textit{Cluster E — MLOps / Drift Lifecycle}}\\
+% \hline
+% Kreuzberger et al.\ 2023~\cite{kreuzberger2023mlops}
+%   & \noc & \noc & \noc & \prt & \noc
+%   & MLOps architecture: feature store → registry → monitoring\\
+% Sculley et al.\ 2015~\cite{sculley2015debt}
+%   & \prt & \noc & \noc & \noc & \noc
+%   & Hidden technical debt in ML: distribution shift as root cause\\
+% Shankar et al.\ 2022~\cite{shankar2022operationalizing}
+%   & \prt & \yes & \noc & \noc & \noc
+%   & Operationalizing ML in prod: drift response underprioritised\\

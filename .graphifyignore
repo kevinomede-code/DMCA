@@ -1,0 +1,29 @@
+# graphifyignore - scansione mirata tesi
+# Esclude tutto tranne: root tex/md/json, pipeline/, results/, AutoResearchClaw/artifacts/
+
+# Archivio — non fa parte della consegna
+_archive/
+
+# Cartelle grandi da escludere
+.venv/
+.claude/
+AutoResearchClaw/.venv/
+AutoResearchClaw/.git/
+AutoResearchClaw/.claude/
+AutoResearchClaw/.researchclaw_cache/
+AutoResearchClaw/docs/
+AutoResearchClaw/frontend/
+AutoResearchClaw/image/
+AutoResearchClaw/kb/
+AutoResearchClaw/researchclaw/
+AutoResearchClaw/scripts/
+AutoResearchClaw/tests/
+AutoResearchClaw/website/
+bibliography/
+data/
+TESI_LATEX/
+graphify-out/
+pipeline/__pycache__/
+results/logs/
+results/figures/
+results/drift_experiments/figures/

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DMCA — Dynamic Model-Context Alignment · Console</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* ============================================================
+   DMCA console — light glassmorphism, progressive disclosure
+   At-rest: calm overview · Depth: glass side-drawers per stage
+   Calibrated glass: ~68% opaque surfaces, dark text (projector)
+   ============================================================ */
+:root{
+  --ink:#1c2530; --ink2:#39434f; --muted:#5d6775; --faint:#8b95a3;
+  --line:rgba(120,135,155,0.22); --line2:rgba(120,135,155,0.14);
+  --accent:#2f6fb0; --accent2:#3f86cf; --accent-soft:rgba(47,111,176,0.12);
+  --ok:#6b7480; --ok-soft:rgba(107,116,128,0.12);
+  --warn:#bd8410; --warn-soft:rgba(189,132,16,0.14);
+  --alarm:#c0392b; --alarm-soft:rgba(192,57,43,0.13);
+  --glass:rgba(255,255,255,0.68);
+  --glass-strong:rgba(255,255,255,0.82);
+  --glass-brd:rgba(255,255,255,0.75);
+  --shadow:0 8px 30px rgba(30,45,70,0.10);
+  --mono:'Consolas','SFMono-Regular','Courier New',monospace;
+  --sans:'Segoe UI',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:var(--sans);color:var(--ink);font-size:15px;height:100vh;overflow:hidden;
+  display:flex;flex-direction:column;user-select:none;
+  background:
+    radial-gradient(1200px 500px at 80% -10%, rgba(63,134,207,0.10), transparent 60%),
+    radial-gradient(900px 500px at 0% 110%, rgba(120,140,170,0.10), transparent 55%),
+    linear-gradient(160deg,#eaeff5 0%,#f4f7fa 45%,#e7edf3 100%);
+  background-attachment:fixed;
+}
+.mono{font-family:var(--mono);}
+.glass{
+  background:var(--glass);backdrop-filter:blur(14px) saturate(1.15);-webkit-backdrop-filter:blur(14px) saturate(1.15);
+  border:1px solid var(--glass-brd);box-shadow:var(--shadow);border-radius:16px;
+}
+
+/* ── HEADER ── */
+.hdr{display:flex;align-items:center;gap:14px;margin:12px 14px 0;padding:0 16px;height:56px;flex-shrink:0;}
+.logo{font-weight:800;font-size:18px;color:var(--accent);letter-spacing:.5px;display:flex;flex-direction:column;line-height:1.1;}
+.logo small{font-weight:600;font-size:10px;color:var(--muted);letter-spacing:.3px;}
+.hdiv{width:1px;height:28px;background:var(--line);}
+.htag{font-size:12px;color:var(--muted);}
+.htag b{color:var(--ink);font-weight:600;}
+.pill{display:flex;align-items:center;gap:7px;border-radius:9px;padding:5px 12px;font-size:12px;font-weight:700;
+  background:var(--glass-strong);border:1px solid var(--line);letter-spacing:.3px;}
+.pill .dot{width:8px;height:8px;border-radius:50%;}
+.pill.ok{color:var(--ink2);} .pill.ok .dot{background:var(--ok);}
+.pill.alarm{color:var(--alarm);background:var(--alarm-soft);border-color:var(--alarm);display:none;}
+.pill.alarm .dot{background:var(--alarm);}
+.pill.alarm.on{display:flex;animation:flash 1s steps(2,start) infinite;}
+@keyframes flash{0%{opacity:1}50%{opacity:.5}}
+.model-badge{margin-left:2px;cursor:pointer;transition:transform .15s;}
+.model-badge:hover{transform:translateY(-1px);}
+.model-badge .k{font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.6px;}
+.model-badge .v{font-family:var(--mono);font-weight:700;color:var(--accent);font-size:14px;}
+.clk{margin-left:auto;font-family:var(--mono);font-size:16px;font-weight:600;color:var(--ink2);}
+
+/* ── APP BODY ── */
+.app{flex:1;display:flex;flex-direction:column;gap:12px;padding:12px 14px;min-height:0;}
+.top{flex:1;display:grid;grid-template-columns:minmax(320px,0.9fr) 1.4fr;gap:12px;min-height:0;}
+.card{display:flex;flex-direction:column;overflow:hidden;}
+.card-hd{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--line2);flex-shrink:0;}
+.card-hd .t{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
+.card-hd .v{font-family:var(--mono);font-weight:700;font-size:18px;color:var(--ink);}
+.card-bd{flex:1;min-height:0;position:relative;padding:12px 14px;}
+
+/* process schematic */
+#schem{width:100%;height:100%;}
+.sensors{position:absolute;left:14px;right:14px;bottom:12px;display:flex;flex-direction:column;gap:6px;}
+.srow{display:flex;align-items:center;gap:9px;}
+.sid{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--muted);width:22px;}
+.sbg{flex:1;height:12px;background:rgba(120,135,155,0.13);border-radius:6px;overflow:hidden;}
+.sfill{height:100%;border-radius:6px;background:var(--ok);transition:width .3s,background .3s;}
+.sst{font-size:10px;font-weight:700;width:48px;text-align:center;border-radius:5px;padding:2px 0;
+  border:1px solid var(--line);color:var(--muted);background:var(--glass-strong);}
+
+/* chart */
+.chart-wrap{position:absolute;inset:12px 14px 12px 14px;}
+
+/* ── STAGE SPINE ── */
+.spine{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;flex-shrink:0;}
+.tile{position:relative;cursor:pointer;padding:13px 14px;display:flex;flex-direction:column;gap:3px;
+  transition:transform .15s,box-shadow .2s;overflow:hidden;}
+.tile:hover{transform:translateY(-2px);box-shadow:0 12px 34px rgba(30,45,70,0.14);}
+.tile .num{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--faint);}
+.tile .nm{font-size:14px;font-weight:700;color:var(--ink2);}
+.tile .tg{font-size:11px;color:var(--muted);}
+.tile::after{content:'';position:absolute;left:0;top:0;width:3px;height:100%;background:transparent;transition:background .3s;}
+.tile.done::after{background:var(--ok);}
+.tile.active::after{background:var(--accent);}
+.tile.active{box-shadow:0 0 0 1.5px var(--accent) inset, var(--shadow);}
+.tile.active .nm{color:var(--accent);}
+.tile.alert::after{background:var(--alarm);}
+.tile.alert{animation:tilePulse 1.3s ease-in-out infinite;}
+@keyframes tilePulse{0%,100%{box-shadow:var(--shadow)}50%{box-shadow:0 0 0 2px var(--alarm) inset,var(--shadow)}}
+.tile .chev{position:absolute;right:12px;bottom:11px;font-size:12px;color:var(--faint);}
+.badge-dot{position:absolute;right:12px;top:12px;width:9px;height:9px;border-radius:50%;background:var(--alarm);display:none;}
+.tile.alert .badge-dot{display:block;}
+
+/* ── DOCK ── */
+.dock{display:flex;align-items:center;gap:12px;margin:0 14px 12px;padding:0 16px;height:56px;flex-shrink:0;flex-wrap:wrap;}
+.btn{background:var(--glass-strong);border:1px solid var(--line);color:var(--ink2);border-radius:9px;
+  padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.btn:hover{background:#fff;transform:translateY(-1px);}
+.btn-pri{background:var(--accent);border-color:var(--accent);color:#fff;}
+.btn-pri:hover{background:#27598f;}
+.clbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;}
+.sel{background:var(--glass-strong);border:1px solid var(--line);color:var(--ink);border-radius:9px;
+  padding:8px 11px;font-size:13px;font-family:inherit;cursor:pointer;}
+input[type=range]{width:96px;accent-color:var(--accent);}
+.telem{margin-left:auto;display:flex;gap:8px;}
+.tp{background:var(--glass-strong);border:1px solid var(--line);border-radius:9px;padding:6px 12px;
+  font-size:12px;font-family:var(--mono);color:var(--ink2);}
+.tp b{color:var(--accent);}
+
+/* ── DRAWER ── */
+.scrim{position:fixed;inset:0;background:rgba(40,55,75,0.28);backdrop-filter:blur(3px);
+  opacity:0;pointer-events:none;transition:opacity .25s;z-index:40;}
+.scrim.open{opacity:1;pointer-events:auto;}
+.drawer{position:fixed;top:0;right:0;height:100vh;width:460px;max-width:92vw;z-index:50;
+  background:var(--glass-strong);backdrop-filter:blur(22px) saturate(1.2);-webkit-backdrop-filter:blur(22px) saturate(1.2);
+  border-left:1px solid var(--glass-brd);box-shadow:-12px 0 40px rgba(30,45,70,0.18);
+  transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;}
+.drawer.open{transform:translateX(0);}
+.dw-hd{display:flex;align-items:center;gap:12px;padding:18px 20px 14px;border-bottom:1px solid var(--line2);flex-shrink:0;}
+.dw-no{font-family:var(--mono);font-size:13px;font-weight:700;color:#fff;background:var(--accent);
+  width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;}
+.dw-ti{font-size:16px;font-weight:700;color:var(--ink);}
+.dw-su{font-size:11px;color:var(--muted);margin-top:1px;}
+.dw-x{margin-left:auto;cursor:pointer;font-size:22px;color:var(--faint);line-height:1;padding:2px 6px;border-radius:8px;}
+.dw-x:hover{background:var(--accent-soft);color:var(--ink);}
+.dw-bd{flex:1;overflow-y:auto;padding:18px 20px;}
+.dw-bd::-webkit-scrollbar{width:7px;} .dw-bd::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px;}
+.sec-l{font-size:11px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--muted);margin:4px 0 9px;}
+.sec-l:not(:first-child){margin-top:20px;}
+
+/* drawer content bits */
+.kv{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line2);font-size:13px;}
+.kv .k{color:var(--muted);} .kv .v{font-family:var(--mono);font-weight:600;color:var(--ink);}
+.kv:last-child{border-bottom:none;}
+
+.tbl{width:100%;border-collapse:collapse;font-size:12px;}
+.tbl th{text-align:left;padding:6px 7px;color:var(--muted);font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.4px;border-bottom:1px solid var(--line);}
+.tbl td{padding:6px 7px;border-bottom:1px solid var(--line2);font-family:var(--mono);}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr.sel td{background:var(--accent-soft);}
+.tbl tr.ex td{color:var(--faint);}
+.mname{font-family:var(--sans);font-weight:600;color:var(--ink);}
+.tag{display:inline-block;border-radius:6px;padding:1px 7px;font-size:10px;font-weight:700;font-family:var(--sans);border:1px solid;}
+.tag-sel{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);}
+.tag-ok{background:var(--ok-soft);border-color:var(--line);color:var(--ink2);}
+.tag-warn{background:var(--warn-soft);border-color:var(--warn);color:var(--warn);}
+.tag-ex{background:rgba(120,135,155,0.08);border-color:var(--line2);color:var(--faint);}
+.tag-na{background:rgba(120,135,155,0.10);border-color:var(--line2);color:var(--muted);}
+
+.gate{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:11px;margin-bottom:9px;
+  border:1px solid var(--line);background:var(--glass);}
+.gate.pass{border-color:rgba(107,116,128,0.4);}
+.gate.fail{border-color:var(--alarm);background:var(--alarm-soft);}
+.gate .ico{font-family:var(--mono);font-weight:800;font-size:15px;width:20px;text-align:center;}
+.gate.pass .ico{color:var(--ok);} .gate.fail .ico{color:var(--alarm);}
+.gate .nm{font-size:13px;font-weight:600;color:var(--ink);}
+.gate .dt{font-size:11px;color:var(--muted);margin-top:1px;}
+
+.gauge{height:16px;background:rgba(120,135,155,0.14);border-radius:8px;overflow:hidden;position:relative;margin:8px 0;}
+.gauge-fill{height:100%;border-radius:8px;background:var(--ok);transition:width .35s,background .35s;}
+.gauge-mk{position:absolute;top:-3px;height:calc(100% + 6px);width:3px;background:var(--alarm);left:100%;}
+
+.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.feat{background:var(--glass);border:1px solid var(--line2);border-radius:10px;padding:8px 10px;}
+.feat .fk{font-size:10px;color:var(--muted);font-weight:600;}
+.feat .fv{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--ink);margin-top:1px;}
+.rule{font-family:var(--mono);font-size:11px;padding:5px 9px;border-radius:8px;border:1px solid var(--line2);
+  background:var(--glass);color:var(--faint);margin-bottom:4px;}
+.rule.match{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:700;}
+
+.cf{margin:9px 0;}
+.cf .cfh{display:flex;justify-content:space-between;font-size:12px;font-weight:700;margin-bottom:4px;}
+.cf .cfh small{font-weight:400;color:var(--muted);}
+.cf-track{height:22px;background:rgba(120,135,155,0.13);border-radius:7px;overflow:hidden;}
+.cf-fill{height:100%;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;
+  font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;transition:width 1s ease;border-radius:7px 0 0 7px;}
+
+.note{font-size:12px;color:var(--muted);line-height:1.55;}
+.decision{border-radius:12px;padding:13px 15px;border:1px solid;margin:6px 0 4px;}
+.decision.warn{background:var(--warn-soft);border-color:var(--warn);}
+.decision.ok{background:var(--ok-soft);border-color:var(--line);}
+.decision .dt{font-size:12px;font-weight:700;letter-spacing:.3px;margin-bottom:5px;}
+.decision.warn .dt{color:var(--warn);}
+.dw-btns{display:flex;gap:9px;margin-top:11px;}
+.dw-btn{border:1px solid;border-radius:9px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;
+  font-family:inherit;background:var(--glass-strong);}
+.dw-approve{border-color:var(--accent);color:var(--accent);}
+.dw-keep{border-color:var(--muted);color:var(--muted);}
+
+.kpi-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;}
+.kpi{background:var(--glass);border:1px solid var(--line2);border-radius:11px;padding:11px 12px;}
+.kpi .k{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);}
+.kpi .v{font-family:var(--mono);font-size:19px;font-weight:700;color:var(--ink);margin-top:3px;}
+.kpi .s{font-size:10px;color:var(--muted);margin-top:2px;}
+
+.log{display:flex;flex-direction:column;gap:5px;}
+.ev{background:var(--glass);border:1px solid var(--line2);border-left:3px solid var(--ok);border-radius:8px;padding:6px 10px;font-size:12px;}
+.ev .ts{font-family:var(--mono);font-size:10px;color:var(--faint);}
+.ev .ms{color:var(--ink2);margin-top:1px;line-height:1.4;}
+
+.deeplink{font-size:11px;color:var(--accent);cursor:pointer;font-weight:600;}
+.deeplink:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr glass">
+  <div class="logo">DMCA<small>Model-Context Alignment</small></div>
+  <div class="hdiv"></div>
+  <div class="htag">PLANT <b>LINE A1 · CMAPSS FD001</b></div>
+  <div class="hdiv"></div>
+  <div class="htag">EDGE <b id="hdrDev">Jetson Nano</b> · SLA <b id="hdrSla">50 ms</b></div>
+  <div class="hdiv"></div>
+  <div class="pill ok" id="statusOk"><span class="dot"></span>OPERATIONAL</div>
+  <div class="pill alarm" id="alarmBadge"><span class="dot"></span><span id="alarmTxt">DRIFT ALARM</span></div>
+  <div class="hdiv"></div>
+  <div class="pill ok model-badge" onclick="openDrawer(2)" title="Open TOPSIS selection">
+    <span><span class="k">ACTIVE MODEL</span><br><span class="v" id="hdrModel">MOMENT-Large</span></span>
+  </div>
+  <div class="clk mono" id="clk">00:00:00</div>
+</header>
+
+<!-- APP -->
+<div class="app">
+  <div class="top">
+    <!-- PROCESS -->
+    <div class="card glass">
+      <div class="card-hd"><span class="t">Process Overview</span><span class="v mono" id="stepLbl">T 1220</span></div>
+      <div class="card-bd">
+        <svg id="schem" viewBox="0 0 360 150" xmlns="http://www.w3.org/2000/svg"></svg>
+        <div class="sensors" id="sensors"></div>
+      </div>
+    </div>
+    <!-- CHART -->
+    <div class="card glass">
+      <div class="card-hd">
+        <span class="t">MAE Trend · Sensor S2 <span class="deeplink" onclick="openDrawer(4)">(drift detail ›)</span></span>
+        <span class="v mono" id="maeNow">0.993</span>
+      </div>
+      <div class="card-bd"><div class="chart-wrap"><canvas id="maeChart"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- STAGE SPINE -->
+  <div class="spine">
+    <div class="tile glass" id="t1" onclick="openDrawer(1)">
+      <span class="num">STAGE 1</span><span class="nm">DT Profile</span><span class="tg">AAS constraints</span>
+      <span class="chev">›</span><span class="badge-dot"></span>
+    </div>
+    <div class="tile glass" id="t2" onclick="openDrawer(2)">
+      <span class="num">STAGE 2</span><span class="nm">Model Selection</span><span class="tg">TOPSIS</span>
+      <span class="chev">›</span><span class="badge-dot"></span>
+    </div>
+    <div class="tile glass" id="t3" onclick="openDrawer(3)">
+      <span class="num">STAGE 3</span><span class="nm">Edge Deploy</span><span class="tg">Quality gate</span>
+      <span class="chev">›</span><span class="badge-dot"></span>
+    </div>
+    <div class="tile glass" id="t4" onclick="openDrawer(4)">
+      <span class="num">STAGE 4</span><span class="nm">Drift Detection</span><span class="tg">ADWIN · XAI</span>
+      <span class="chev">›</span><span class="badge-dot"></span>
+    </div>
+    <div class="tile glass" id="t5" onclick="openDrawer(5)">
+      <span class="num">STAGE 5</span><span class="nm">Re-alignment</span><span class="tg">Counterfactual · HITL</span>
+      <span class="chev">›</span><span class="badge-dot"></span>
+    </div>
+  </div>
+</div>
+
+<!-- DOCK -->
+<div class="dock glass">
+  <button class="btn btn-pri" id="playBtn" onclick="togglePlay()">▶ Play</button>
+  <button class="btn" onclick="stepOnce()">Step ›</button>
+  <button class="btn" onclick="resetSim()">↺ Reset</button>
+  <div class="hdiv"></div>
+  <span class="clbl">Scenario</span>
+  <select class="sel" id="scenarioSel" onchange="applyScenario(this.value)">
+    <option value="nano_gradual">Nano · GRADUAL (canonical, no-swap)</option>
+    <option value="rpi_gradual">RPi 4 · GRADUAL (SLA-coherent swap)</option>
+    <option value="nano_abrupt">Nano · ABRUPT</option>
+    <option value="nano_variance">Nano · VARIANCE_SHIFT (no-swap)</option>
+    <option value="nano_outlier">Nano · OUTLIER_DRIVEN (no-swap)</option>
+  </select>
+  <div class="hdiv"></div>
+  <span class="clbl">Device</span>
+  <select class="sel" id="devSel" onchange="setDevice(this.value)">
+    <option value="jetson_nano">Jetson Nano · 50 ms</option>
+    <option value="rpi4">Raspberry Pi 4 · 200 ms</option>
+    <option value="jetson_orin">Jetson Orin NX · 20 ms</option>
+  </select>
+  <div class="hdiv"></div>
+  <span class="clbl">Speed</span>
+  <input type="range" id="spd" min="1" max="8" value="3" oninput="document.getElementById('spdV').textContent=this.value+'×'">
+  <span class="clbl mono" id="spdV">3×</span>
+  <div class="telem">
+    <div class="tp">T <b id="ftT">1220</b></div>
+    <div class="tp">Swaps <b id="ftSwap">0</b></div>
+  </div>
+</div>
+
+<!-- DRAWER -->
+<div class="scrim" id="scrim" onclick="closeDrawer()"></div>
+<aside class="drawer" id="drawer">
+  <div class="dw-hd">
+    <div class="dw-no" id="dwNo">1</div>
+    <div><div class="dw-ti" id="dwTi">Stage</div><div class="dw-su" id="dwSu"></div></div>
+    <div class="dw-x" onclick="closeDrawer()">×</div>
+  </div>
+  <div class="dw-bd" id="dwBd"></div>
+</aside>
+
+<script>
+// ============================================================
+// CANONICAL DATA — drift_cycle_results.json + benchmark_results_modal.csv
+// ============================================================
+const THRESHOLD=1.991843, DETECT_T=1380;
+const CANON_TRACE=[
+  [1220,0.9928],[1230,0.3630],[1240,0.2577],[1250,0.5984],[1260,0.1109],
+  [1270,0.1568],[1280,0.7740],[1290,1.6671],[1300,0.7882],[1310,1.4325],
+  [1320,0.4221],[1330,1.3645],[1340,1.0589],[1350,0.4428],[1360,0.9596],
+  [1370,0.2659],[1380,3.1217],[1390,1.3233],[1400,1.1067],[1410,0.1742]
+];
+const MODELS=[
+  {id:'PatchTST',     lat:5.861,   mae:1.303,    measured:true,  collapse:true,  params:0.67,  ram:14,   lic:'MIT',       licS:0.9},
+  {id:'Lag-Llama',    lat:7.768,   mae:null,     measured:false,                 params:2.45,  ram:20,   lic:'Apache-2.0',licS:1.0, prob:true},
+  {id:'MOMENT-Large', lat:29.664,  mae:0.114,    measured:true,                  params:341.25,ram:1408, lic:'MIT',       licS:0.9},
+  {id:'Moirai-Small', lat:53.727,  mae:null,     measured:false,                 params:11.61, ram:106,  lic:'Apache-2.0',licS:1.0, prob:true},
+  {id:'Moirai-Large', lat:72.591,  mae:null,     measured:false,                 params:305.07,ram:2360, lic:'Apache-2.0',licS:1.0, prob:true},
+  {id:'Chronos-Tiny', lat:166.824, mae:null,     measured:false,                 params:8.39,  ram:45,   lic:'Apache-2.0',licS:1.0, prob:true},
+  {id:'Chronos-Large',lat:829.961, mae:null,     measured:false,                 params:708.96,ram:2771, lic:'Apache-2.0',licS:1.0, prob:true},
+  {id:'TimesFM',      lat:2039.103,mae:0.006353, measured:true,                  params:200.0, ram:8,    lic:'Apache-2.0',licS:1.0},
+];
+const DEVICES={
+  jetson_nano:{name:'Jetson Nano', short:'Nano', sla:50,  ram:3800,  ramL:'4 GB',  cpu:'ARM Cortex-A57',   proto:'OPC-UA'},
+  rpi4:       {name:'Raspberry Pi 4',short:'RPi 4',sla:200,ram:8000,  ramL:'8 GB',  cpu:'ARM Cortex-A72',   proto:'MQTT'},
+  jetson_orin:{name:'Jetson Orin NX',short:'Orin',sla:20,  ram:16000, ramL:'16 GB', cpu:'ARM Cortex-A78AE', proto:'OPC-UA'},
+};
+const RULES=['0 ABRUPT pre-check: max_δσ>8 ∧ ks>.25 ∧ slope>.3','1 OUTLIER: out_dens≥.10 ∧ ks<.25',
+  '2 ABRUPT: slope>.5 ∧ mono>.5 ∧ ks>.25','3 VARIANCE: iqr>1.5 ∧ slope<.2','4 GRADUAL: slope<.15 ∧ out_dens>.50',
+  '5 INCREMENTAL: .1≤slope≤.5 ∧ mono>.45','6 DISTRIBUTION: ks>.40','7 UNCLASSIFIED'];
+const DRIFT={
+  gradual:{lbl:'GRADUAL',ruleIdx:4,swap:true,desc:'slope<0.15, slow accumulation',
+    f:{slope:0.12,iqr_ratio:1.31,ks_stat:0.38,outlier_density:0.61,monotonicity:0.49,max_delta_sigma:5.1}},
+  abrupt:{lbl:'ABRUPT',ruleIdx:0,swap:true,desc:'max_delta_sigma>8σ, step jump',
+    f:{slope:0.62,iqr_ratio:1.10,ks_stat:0.41,outlier_density:0.18,monotonicity:0.58,max_delta_sigma:9.4}},
+  variance:{lbl:'VARIANCE_SHIFT',ruleIdx:3,swap:false,desc:'iqr_ratio>1.5 — recalibration only',
+    f:{slope:0.08,iqr_ratio:2.10,ks_stat:0.22,outlier_density:0.14,monotonicity:0.47,max_delta_sigma:4.8}},
+  outlier:{lbl:'OUTLIER_DRIVEN',ruleIdx:1,swap:false,desc:'outlier_density≥0.10 — no swap',
+    f:{slope:0.18,iqr_ratio:1.20,ks_stat:0.19,outlier_density:0.34,monotonicity:0.44,max_delta_sigma:6.2}},
+};
+const SCENARIOS={
+  nano_gradual:{dev:'jetson_nano',drift:'gradual',trace:'canonical'},
+  rpi_gradual:{dev:'rpi4',drift:'gradual',trace:'canonical'},
+  nano_abrupt:{dev:'jetson_nano',drift:'abrupt',trace:'abrupt'},
+  nano_variance:{dev:'jetson_nano',drift:'variance',trace:'variance'},
+  nano_outlier:{dev:'jetson_nano',drift:'outlier',trace:'outlier'},
+};
+
+// ============================================================
+// STATE
+// ============================================================
+let device='jetson_nano', driftType='gradual', traceMode='canonical';
+let frames=[], simF=0, playing=false, lastT=0;
+let driftDet=false, driftAt=-1, swaps=0, evCnt=0, curModel='MOMENT-Large';
+let decision='none';            // none|pending|swap|noswap|escalate|hold
+let curStage=0, openStage=0;
+const events=[];
+
+// ============================================================
+// TOPSIS — only measured-MAE admissible models are scored (honest)
+// ============================================================
+function topsisRank(sla){
+  const within=MODELS.filter(m=>m.lat<=sla);
+  const scorable=within.filter(m=>m.measured&&!m.collapse);
+  let scored=[];
+  if(scorable.length){
+    const arr=k=>scorable.map(m=>m[k]);
+    const rng=a=>{const mn=Math.min(...a),mx=Math.max(...a);return[mn,mx===mn?mn+1e-9:mx];};
+    const[a0,a1]=rng(arr('mae')),[l0,l1]=rng(arr('lat')),[p0,p1]=rng(arr('params')),[c0,c1]=rng(arr('licS'));
+    scored=scorable.map(m=>{
+      const nM=(m.mae-a0)/(a1-a0),nL=(m.lat-l0)/(l1-l0),nP=(m.params-p0)/(p1-p0),nC=(m.licS-c0)/(c1-c0);
+      const wM=.5*nM,wL=.3*nL,wP=.1*nP,wC=.1*nC;
+      const dP=Math.hypot(wM,wL,wP,.1-wC), dMi=Math.hypot(.5-wM,.3-wL,.1-wP,wC);
+      return {...m,score:dMi/(dP+dMi)};
+    }).sort((a,b)=>b.score-a.score);
+  }
+  return {within,scored};
+}
+function primaryModel(){const {scored}=topsisRank(DEVICES[device].sla);return scored.length?scored[0].id:null;}
+
+// ============================================================
+// SVG schematic (light)
+// ============================================================
+const NS='http://www.w3.org/2000/svg', schem=document.getElementById('schem');
+const SXS=[58,118,180,242,302]; let sdots=[], strs=[], prods=[];
+(function buildSchem(){
+  const bg=el('rect',{width:360,height:150,fill:'rgba(255,255,255,0)'}); schem.appendChild(bg);
+  // belt
+  schem.appendChild(el('rect',{x:18,y:62,width:324,height:26,rx:4,fill:'rgba(120,135,155,0.16)',stroke:'rgba(120,135,155,0.3)','stroke-width':1}));
+  const sg=el('g',{}); schem.appendChild(sg);
+  for(let i=0;i<13;i++){const r=el('rect',{y:66,width:5,height:18,rx:1,fill:'rgba(120,135,155,0.28)'});sg.appendChild(r);strs.push({el:r,off:i/13});}
+  const pg=el('g',{}); schem.appendChild(pg);
+  for(let i=0;i<4;i++){const r=el('rect',{y:67,width:15,height:16,rx:2,fill:'rgba(90,105,128,0.5)'});pg.appendChild(r);prods.push({el:r,off:i/4});}
+  schem.appendChild(el('circle',{cx:18,cy:75,r:7,fill:'rgba(120,135,155,0.35)'}));
+  schem.appendChild(el('circle',{cx:342,cy:75,r:7,fill:'rgba(120,135,155,0.35)'}));
+  SXS.forEach((x,i)=>{
+    schem.appendChild(el('rect',{x:x-15,y:48,width:30,height:5,rx:2,fill:'rgba(120,135,155,0.4)'}));
+    schem.appendChild(el('line',{x1:x-12,y1:53,x2:x-12,y2:62,stroke:'rgba(120,135,155,0.4)','stroke-width':2.5,'stroke-linecap':'round'}));
+    schem.appendChild(el('line',{x1:x+12,y1:53,x2:x+12,y2:62,stroke:'rgba(120,135,155,0.4)','stroke-width':2.5,'stroke-linecap':'round'}));
+    const d=el('circle',{cx:x,cy:43,r:5,fill:'#6b7480',stroke:'rgba(255,255,255,0.8)','stroke-width':1.2}); schem.appendChild(d); sdots.push(d);
+    schem.appendChild(el('text',{x:x,y:104,'text-anchor':'middle',fill:'#5d6775','font-size':9,'font-family':'monospace'},'S'+(i+1)));
+  });
+  schem.appendChild(el('text',{x:180,y:128,'text-anchor':'middle',fill:'#8b95a3','font-size':8,'font-family':'monospace'},'CONVEYOR A1 · 5 SENSOR STATIONS · S2 MONITORED'));
+})();
+function el(t,a,txt){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;return e;}
+
+// sensor strip
+const sensorsEl=document.getElementById('sensors'); const srows=[];
+for(let i=0;i<5;i++){
+  const d=document.createElement('div');d.className='srow';
+  d.innerHTML=`<span class="sid">S${i+1}</span><div class="sbg"><div class="sfill" id="sf${i}" style="width:20%"></div></div><span class="sst" id="ss${i}">OK</span>`;
+  sensorsEl.appendChild(d);
+  srows.push({f:document.getElementById('sf'+i),s:document.getElementById('ss'+i)});
+}
+function stCol(s){return {OK:'var(--ok)',WARN:'var(--warn)',ALARM:'var(--alarm)'}[s];}
+function setSensor(i,v,st){
+  const c=stCol(st);
+  srows[i].f.style.width=Math.min(100,v/THRESHOLD*100)+'%'; srows[i].f.style.background=c;
+  srows[i].s.textContent=st; srows[i].s.style.color=c; srows[i].s.style.borderColor=st==='OK'?'var(--line)':c;
+  srows[i].s.style.background=st==='OK'?'var(--glass-strong)':({WARN:'var(--warn-soft)',ALARM:'var(--alarm-soft)'}[st]);
+  sdots[i].setAttribute('fill',c);
+}
+
+// ============================================================
+// CHART
+// ============================================================
+const cdata={l:[],m:[],t:[]};
+const chart=new Chart(document.getElementById('maeChart').getContext('2d'),{
+  type:'line',
+  data:{labels:cdata.l,datasets:[
+    {label:'MAE S2',data:cdata.m,borderColor:'#2f6fb0',backgroundColor:'rgba(47,111,176,0.10)',tension:.3,fill:true,pointRadius:0,borderWidth:2.5},
+    {label:'ADWIN threshold',data:cdata.t,borderColor:'#c0392b',borderDash:[6,4],tension:0,fill:false,pointRadius:0,borderWidth:1.5},
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,animation:{duration:0},
+    plugins:{legend:{display:true,labels:{color:'#5d6775',font:{size:12},boxWidth:18,usePointStyle:true}}},
+    scales:{x:{ticks:{color:'#8b95a3',font:{size:11},maxTicksLimit:7},grid:{color:'rgba(120,135,155,0.15)'}},
+            y:{ticks:{color:'#8b95a3',font:{size:11}},grid:{color:'rgba(120,135,155,0.15)'},min:0,max:5,
+               title:{display:true,text:'MAE',color:'#5d6775',font:{size:11}}}}}
+});
+
+// ============================================================
+// FRAMES
+// ============================================================
+function buildFrames(){
+  if(traceMode==='canonical') return CANON_TRACE.map(d=>[...d]);
+  const base=CANON_TRACE.slice(0,10).map(d=>[...d]); let t=base[base.length-1][0]; const ex=[];
+  const seq={
+    abrupt:i=> i<2?0.7+i*0.2:(i<4?4.4:4.0+0.18*Math.sin(i)),
+    variance:i=> 0.5+(i%2?1.8:-1.4)*(0.6+0.25*Math.sin(i*1.3)),
+    outlier:i=> (i%3===0)?3.6+0.4*((i*7)%3)/3:0.30+0.12*((i*5)%4)/4,
+  }[traceMode]||(i=>0.5+i*0.25);
+  for(let i=0;i<12;i++){t+=10;ex.push([t,Math.max(0.05,seq(i))]);}
+  const rec=[]; for(let i=0;i<6;i++){t+=10;rec.push([t,Math.max(0.14,0.75-i*0.11)]);}
+  return [...base,...ex,...rec];
+}
+
+// ============================================================
+// STAGE SPINE
+// ============================================================
+function setStages(active){
+  curStage=active;
+  for(let i=1;i<=5;i++){
+    const e=document.getElementById('t'+i);
+    e.classList.remove('done','active');
+    if(i<active) e.classList.add('done'); else if(i===active) e.classList.add('active');
+  }
+}
+function alertTile(n,on){document.getElementById('t'+n).classList.toggle('alert',on);}
+
+// ============================================================
+// AUDIT
+// ============================================================
+function addEv(type,msg,state){
+  const d=new Date();
+  const ts=`${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;
+  events.unshift({ts,type,msg,state:state||null});
+  if(events.length>50) events.pop();
+  evCnt++;
+  if(openStage===5) renderDrawer(5);
+}
+
+// ============================================================
+// MODEL
+// ============================================================
+function updateModel(name){
+  curModel=name;
+  document.getElementById('hdrModel').textContent=name||'none (SLA-clean)';
+}
+
+// ============================================================
+// DRAWER
+// ============================================================
+const DW={
+  1:{ti:'Digital Twin Profile',su:'AAS constraints feed the selection matrix'},
+  2:{ti:'Model Selection · TOPSIS',su:'Multi-criteria ranking, SLA-coherent'},
+  3:{ti:'Edge Deployment · Quality Gate',su:'4-check validation before deploy'},
+  4:{ti:'Drift Detection · ADWIN + XAI',su:'Decision tree v3.1.1 · 8-feature vector'},
+  5:{ti:'Re-alignment · Counterfactual & HITL',su:'TimesFM paradox · operator confirmation'},
+};
+function openDrawer(n){
+  openStage=n;
+  document.getElementById('dwNo').textContent=n;
+  document.getElementById('dwTi').textContent=DW[n].ti;
+  document.getElementById('dwSu').textContent=DW[n].su;
+  renderDrawer(n);
+  document.getElementById('scrim').classList.add('open');
+  document.getElementById('drawer').classList.add('open');
+  if(n===4||n===5) alertTile(n,false);
+}
+function closeDrawer(){
+  openStage=0;
+  document.getElementById('scrim').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+}
+function renderDrawer(n){
+  const bd=document.getElementById('dwBd');
+  if(n===1) bd.innerHTML=viewAAS();
+  else if(n===2) bd.innerHTML=viewTopsis();
+  else if(n===3) bd.innerHTML=viewGate();
+  else if(n===4) bd.innerHTML=viewXAI();
+  else if(n===5) bd.innerHTML=viewRealign();
+}
+
+// ── views ──
+function viewAAS(){
+  const d=DEVICES[device];
+  return `<div class="sec-l">Asset Administration Shell</div>
+    <div class="kv"><span class="k">Edge device</span><span class="v">${d.name}</span></div>
+    <div class="kv"><span class="k">Latency SLA</span><span class="v">${d.sla} ms</span></div>
+    <div class="kv"><span class="k">CPU</span><span class="v">${d.cpu}</span></div>
+    <div class="kv"><span class="k">RAM available</span><span class="v">${d.ramL} (${d.ram} MB)</span></div>
+    <div class="kv"><span class="k">Protocol</span><span class="v">${d.proto}</span></div>
+    <div class="kv"><span class="k">Sensors</span><span class="v">S1–S5 · S2 monitored</span></div>
+    <div class="sec-l">Extracted constraints → Stage 2</div>
+    <div class="note">latency_max = <b class="mono">${d.sla} ms</b> · memory_max = <b class="mono">${d.ram} MB</b>.
+    These bounds define the <b>admissible model set</b> evaluated by TOPSIS.
+    <span class="deeplink" onclick="openDrawer(2)">Open selection ›</span></div>`;
+}
+function viewTopsis(){
+  const sla=DEVICES[device].sla; const {scored}=topsisRank(sla);
+  const winner=scored.length?scored[0].id:null;
+  const rows=MODELS.map(m=>{
+    const over=m.lat>sla, sc=scored.find(s=>s.id===m.id);
+    let tag,rank='—',score='—';
+    if(over) tag=`<span class="tag tag-ex">SLA &gt;${sla}ms</span>`;
+    else if(m.collapse) tag='<span class="tag tag-warn">collapse MAE=RMSE</span>';
+    else if(m.prob) tag='<span class="tag tag-na">probabilistic · MAE n/a</span>';
+    else if(sc){score=sc.score.toFixed(3);rank=scored.indexOf(sc)+1;
+      tag=sc.id===winner?'<span class="tag tag-sel">SELECTED</span>':'<span class="tag tag-ok">admissible</span>';}
+    const cls=(sc&&sc.id===winner)?'sel':((over||m.collapse)?'ex':'');
+    return `<tr class="${cls}"><td>${rank}</td><td class="mname">${m.id}</td>
+      <td>${m.lat<1000?m.lat.toFixed(1):Math.round(m.lat)}ms</td>
+      <td>${m.measured?m.mae:'<span style="color:var(--faint)">n/a</span>'}</td><td>${score}</td><td>${tag}</td></tr>`;
+  }).join('');
+  return `<div class="sec-l">Criteria weights · ${DEVICES[device].short} (SLA ${sla} ms)</div>
+    <div class="note" style="margin-bottom:10px">MAE 0.50 · latency 0.30 · params 0.10 · license 0.10 · min-max normalised.
+    Only models with a <b>measured</b> point-MAE are scored; probabilistic models are flagged, over-SLA excluded.</div>
+    <table class="tbl"><thead><tr><th>#</th><th>Model</th><th>Lat</th><th>MAE</th><th>TOPSIS</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table>
+    ${winner?`<div class="note" style="margin-top:12px"><b>${winner}</b> selected — only SLA-admissible model with a clean measured MAE.</div>`
+            :`<div class="decision warn" style="margin-top:12px"><div class="dt">NO ADMISSIBLE MODEL</div><div class="note">No model with a measured MAE fits the ${sla} ms SLA on ${DEVICES[device].name}.</div></div>`}`;
+}
+function viewGate(){
+  const m=MODELS.find(x=>x.id===curModel), d=DEVICES[device];
+  if(!m) return '<div class="note">No model deployed — see Stage 2.</div>';
+  const checks=[
+    {nm:'Latency',dt:`${m.lat.toFixed(1)} ms vs ${d.sla} ms SLA`,pass:m.lat<=d.sla},
+    {nm:'Output shape',dt:'matches expected [B, H, 1]',pass:true},
+    {nm:'Validity (no zero-shot collapse)',dt:m.collapse?'MAE == RMSE detected':'MAE ≠ RMSE',pass:!m.collapse},
+    {nm:'Memory',dt:`${m.ram} MB vs ${d.ram} MB available`,pass:m.ram<=d.ram},
+  ];
+  const all=checks.every(c=>c.pass);
+  return `<div class="sec-l">Validating ${m.id} on ${d.name}</div>
+    ${checks.map(c=>`<div class="gate ${c.pass?'pass':'fail'}"><span class="ico">${c.pass?'✓':'✕'}</span>
+      <div><div class="nm">${c.nm}</div><div class="dt">${c.dt}</div></div></div>`).join('')}
+    <div class="decision ${all?'ok':'warn'}" style="margin-top:6px"><div class="dt">${all?'GATE PASSED':'GATE FAILED'}</div>
+    <div class="note">${all?`${m.id} cleared for deployment. DeploymentState written to AAS.`:'Model rejected — selection falls back to next admissible candidate.'}</div></div>`;
+}
+function viewXAI(){
+  if(!driftDet) return `<div class="sec-l">ADWIN monitor</div>
+    <div class="note">No drift detected yet. ADWIN (δ=0.002, Bifet 2007) is monitoring sensor S2.
+    The detector fires when the windowed MAE crosses the threshold <b class="mono">${THRESHOLD.toFixed(3)}</b>.</div>`;
+  const d=DRIFT[driftType], f=d.f;
+  const feats=Object.entries(f).map(([k,v])=>`<div class="feat"><div class="fk">${k}</div><div class="fv">${v}</div></div>`).join('');
+  const rules=RULES.map((r,i)=>`<div class="rule ${i===d.ruleIdx?'match':''}">${r}</div>`).join('');
+  return `<div class="sec-l">ADWIN trigger</div>
+    <div class="kv"><span class="k">Detection point</span><span class="v">T = ${driftAt}</span></div>
+    <div class="kv"><span class="k">Threshold</span><span class="v">${THRESHOLD.toFixed(3)}</span></div>
+    <div class="kv"><span class="k">Classified as</span><span class="v" style="color:var(--alarm)">${d.lbl}</span></div>
+    <div class="sec-l">8-feature vector</div><div class="feat-grid">${feats}</div>
+    <div class="sec-l">Decision tree v3.1.1 — first match wins</div>${rules}
+    <div class="note" style="margin-top:10px">Held-out accuracy 92% (5 types × 5 seeds); FAR 0.000.
+    <span class="deeplink" onclick="openDrawer(5)">Re-alignment ›</span></div>`;
+}
+function viewRealign(){
+  const sla=DEVICES[device].sla, served=Math.max(1,Math.round(sla/2039.103*1000)/10);
+  const cf=`<div class="sec-l">Counterfactual — DMCA vs task-only selector</div>
+    <div class="cf"><div class="cfh"><span style="color:var(--accent)">DMCA (SLA-aware)</span><small>MOMENT-Large · 29.7 ms</small></div>
+      <div class="cf-track"><div class="cf-fill" style="width:100%;background:var(--accent)">100% windows served</div></div></div>
+    <div class="cf"><div class="cfh"><span style="color:var(--alarm)">Task-only (accuracy)</span><small>TimesFM · 2039 ms</small></div>
+      <div class="cf-track"><div class="cf-fill" style="width:${served}%;background:var(--alarm);justify-content:center;padding:0">${served}%</div></div></div>
+    <div class="note">TimesFM has the best accuracy of all 8 models (MAE <b class="mono">0.0064</b>) but at <b class="mono">2039 ms</b> it is
+    <b class="mono">40.8×</b> over the ${sla} ms SLA, serving only ~<b class="mono">${served}%</b> of fault windows.
+    DMCA excludes it on the latency constraint. <span style="color:var(--faint)">(Thesis figure: 94.5% missed.)</span></div>`;
+
+  let dec='';
+  if(!driftDet){
+    dec=`<div class="sec-l">Re-alignment</div><div class="note">No drift active. On detection, Stage 4 classifies the drift and the
+    re-alignment policy decides whether an SLA-coherent swap is warranted.</div>`;
+  } else {
+    const d=DRIFT[driftType], chronosAdm=MODELS.find(m=>m.id==='Chronos-Tiny').lat<=sla;
+    if(!d.swap){
+      dec=`<div class="sec-l">Re-alignment decision</div>
+        <div class="decision warn"><div class="dt">NO-SWAP POLICY · ${d.lbl}</div>
+        <div class="note">Class <b>${d.lbl}</b> → recalibration only. A model swap is not triggered for this class. ADWIN keeps monitoring.</div></div>`;
+    } else if(chronosAdm && decision==='pending'){
+      dec=`<div class="sec-l">Operator confirmation · SIL-1</div>
+        <div class="decision warn"><div class="dt">SWAP RECOMMENDED → Chronos-Tiny</div>
+        <div class="note">166.8 ms ≤ ${sla} ms SLA ✓ · zero-shot · Apache-2.0. MAE not directly measured (probabilistic) →
+        deploy in <b>shadow mode</b> for validation (GAP 4). SIL-1 allows operator auto-approve.</div>
+        <div class="dw-btns"><button class="dw-btn dw-approve" onclick="hitlDecide(true)">Approve swap</button>
+        <button class="dw-btn dw-keep" onclick="hitlDecide(false)">Keep current</button></div></div>`;
+    } else if(chronosAdm && decision==='swap'){
+      dec=`<div class="sec-l">Re-alignment decision</div>
+        <div class="decision ok"><div class="dt">SWAPPED → Chronos-Tiny (shadow)</div>
+        <div class="note">Operator approved. SLA-coherent swap deployed in shadow mode for validation.</div></div>`;
+    } else if(chronosAdm && decision==='hold'){
+      dec=`<div class="sec-l">Re-alignment decision</div>
+        <div class="decision warn"><div class="dt">HOLD · operator override</div>
+        <div class="note">Operator kept the current model. ADWIN continues monitoring.</div></div>`;
+    } else {
+      dec=`<div class="sec-l">Re-alignment decision</div>
+        <div class="decision warn"><div class="dt">NO ADMISSIBLE IMPROVEMENT · ESCALATE</div>
+        <div class="note">Drift <b>${d.lbl}</b> detected, but no SLA-admissible model on ${DEVICES[device].name} (≤${sla} ms) has a
+        measured MAE that beats the current one. Chronos-Tiny (166.8 ms) is excluded by the latency constraint.
+        System recalibrates and <b>escalates to the operator</b> rather than deploying an out-of-SLA model —
+        the discipline a task-only selector lacks.</div></div>`;
+    }
+  }
+  const outLabel={none:'—',pending:'AWAIT OP',swap:'SWAP',noswap:'RECALIB',escalate:'ESCALATE',hold:'HOLD'}[decision];
+  const kpi=`<div class="sec-l">Cycle KPIs</div><div class="kpi-grid">
+    <div class="kpi"><div class="k">Detection</div><div class="v">${driftDet?'T='+driftAt:'—'}</div><div class="s">ADWIN trigger</div></div>
+    <div class="kpi"><div class="k">Outcome</div><div class="v" style="font-size:15px">${outLabel}</div><div class="s">re-align decision</div></div>
+    <div class="kpi"><div class="k">Swaps</div><div class="v">${swaps}</div><div class="s">SLA-coherent</div></div></div>`;
+  const log=`<div class="sec-l">Audit trail (${evCnt})</div><div class="log">${
+    events.map(e=>`<div class="ev" style="border-left-color:${e.state?stCol(e.state):'var(--accent)'}">
+      <div class="ts">${e.ts} · ${e.type}</div><div class="ms">${e.msg}</div></div>`).join('')}</div>`;
+  return cf+dec+kpi+log;
+}
+
+// ============================================================
+// HITL
+// ============================================================
+function hitlDecide(approve){
+  if(approve){swaps++;document.getElementById('ftSwap').textContent=swaps;decision='swap';
+    updateModel('Chronos-Tiny');addEv('SWAP','Operator approved → Chronos-Tiny deployed (shadow, SLA-coherent)','OK');}
+  else{decision='hold';addEv('HOLD','Operator kept current model; ADWIN continues monitoring','WARN');}
+  if(openStage===5) renderDrawer(5);
+}
+
+// ============================================================
+// TICK
+// ============================================================
+function doTick(t,mae){
+  cdata.l.push('T'+t); cdata.m.push(+mae.toFixed(3)); cdata.t.push(THRESHOLD);
+  if(cdata.l.length>26){cdata.l.shift();cdata.m.shift();cdata.t.shift();}
+  chart.update();
+  document.getElementById('stepLbl').textContent='T '+t;
+  document.getElementById('ftT').textContent=t;
+  document.getElementById('maeNow').textContent=mae.toFixed(3);
+  document.getElementById('maeNow').style.color = mae>=THRESHOLD?'var(--alarm)':(mae>=0.9?'var(--warn)':'var(--ink)');
+
+  if(mae>0.85 && !driftDet) setStages(4);
+
+  if(!driftDet && mae>=THRESHOLD){
+    driftDet=true; driftAt=t;
+    const d=DRIFT[driftType], sla=DEVICES[device].sla;
+    document.getElementById('alarmTxt').textContent='DRIFT · S2 ['+d.lbl+']';
+    document.getElementById('alarmBadge').classList.add('on');
+    addEv('ADWIN',`Drift detected: MAE=${mae.toFixed(3)} ≥ ${THRESHOLD.toFixed(3)} at T=${t}. Class: ${d.lbl}`,'ALARM');
+    setStages(5);
+    // decision
+    const chronosAdm=MODELS.find(m=>m.id==='Chronos-Tiny').lat<=sla;
+    if(!d.swap){decision='noswap';addEv('RECAL',`${d.lbl}: recalibration only, no swap (policy)`,'WARN');}
+    else if(chronosAdm){decision='pending';alertTile(5,true);}
+    else {decision='escalate';addEv('ESCALATE',`No SLA-admissible improvement on ${DEVICES[device].short} → recalibrate + escalate`,'WARN');}
+    // auto-surface XAI
+    openDrawer(4);
+    alertTile(5,decision==='pending');
+  }
+  if(driftDet && decision!=='pending' && mae<0.45){
+    document.getElementById('alarmBadge').classList.remove('on');
+    for(let i=1;i<=5;i++) document.getElementById('t'+i).classList.add('done');
+  }
+  for(let i=0;i<5;i++){
+    const v=i===1?mae:(0.18+Math.abs(Math.sin(t*0.03+i*1.4))*0.12);
+    const st=v>=THRESHOLD?'ALARM':(v>=0.9?'WARN':'OK');
+    setSensor(i,v,st);
+  }
+  if(openStage===4) renderDrawer(4);
+  if(openStage===5) renderDrawer(5);
+}
+
+// ============================================================
+// LOOP
+// ============================================================
+function getSpd(){return parseInt(document.getElementById('spd').value);}
+function loop(now){
+  requestAnimationFrame(loop);
+  if(now-(loop.c||0)>500){const d=new Date();
+    document.getElementById('clk').textContent=`${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;loop.c=now;}
+  const bs=playing?getSpd()*0.5:0.2, tt=now*0.001;
+  strs.forEach(s=>s.el.setAttribute('x',((s.off*320+tt*bs*16)%320)+20));
+  prods.forEach(p=>p.el.setAttribute('x',((p.off*320+tt*bs*11)%320)+20));
+  const intv=600/Math.max(1,getSpd());
+  if(playing && now-lastT>intv){lastT=now;
+    if(simF<frames.length-1){simF++;doTick(...frames[simF]);}
+    else{playing=false;document.getElementById('playBtn').textContent='▶ Play';addEv('SYS','Simulation complete','OK');}}
+}
+
+// ============================================================
+// CONTROLS
+// ============================================================
+function togglePlay(){playing=!playing;document.getElementById('playBtn').textContent=playing?'⏸ Pause':'▶ Play';if(playing&&simF===0)frames=buildFrames();}
+function stepOnce(){playing=false;document.getElementById('playBtn').textContent='▶ Play';if(simF===0)frames=buildFrames();if(simF<frames.length-1){simF++;doTick(...frames[simF]);}}
+function setDevice(d){
+  device=d;
+  document.getElementById('hdrDev').textContent=DEVICES[d].name;
+  document.getElementById('hdrSla').textContent=DEVICES[d].sla+' ms';
+  document.getElementById('devSel').value=d;
+  updateModel(primaryModel());
+  resetSim(true);
+}
+function applyScenario(key){
+  const s=SCENARIOS[key]; driftType=s.drift; traceMode=s.trace;
+  setDevice(s.dev);
+  document.getElementById('scenarioSel').value=key;
+  addEv('SCENARIO',`Loaded ${key.replace('_',' · ')} (drift=${DRIFT[driftType].lbl})`,'OK');
+}
+function resetSim(keep){
+  playing=false; simF=0; swaps=0; driftDet=false; driftAt=-1; decision='none';
+  frames=buildFrames();
+  cdata.l.length=0; cdata.m.length=0; cdata.t.length=0; chart.update();
+  document.getElementById('playBtn').textContent='▶ Play';
+  document.getElementById('ftSwap').textContent='0';
+  document.getElementById('alarmBadge').classList.remove('on');
+  for(let i=1;i<=5;i++){alertTile(i,false);}
+  setStages(0);
+  for(let i=1;i<=3;i++) document.getElementById('t'+i).classList.add('done');
+  updateModel(primaryModel());
+  evCnt=0; events.length=0;
+  addEv('SYS','DMCA console online · Dynamic Model-Context Alignment','OK');
+  addEv('AAS',`Digital Twin profile loaded · ${DEVICES[device].name} · SLA=${DEVICES[device].sla} ms`,'OK');
+  addEv('TOPSIS',`Selection matrix computed · winner=${primaryModel()||'—'}`,'OK');
+  doTick(...frames[0]);
+  if(openStage) renderDrawer(openStage);
+}
+
+// INIT
+resetSim();
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

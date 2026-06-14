@@ -1,0 +1,80 @@
+# ─────────────────────────────────────────────────────────────
+#  DMCA — Dynamic Model-Context Alignment in Industry 4.0
+#  .gitignore
+# ─────────────────────────────────────────────────────────────
+
+# ── Secrets & local env ──────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+
+# ── Python ───────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+.coverage
+htmlcov/
+
+# ── IDE / OS ─────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Thesis sources (kept private until defence) ──────────────
+# The .tex sources stay private until the official discussion.
+# The final PDF will be published separately.
+thesis_draft.tex
+thesis_draft.pdf
+thesis_draft.aux
+thesis_draft.log
+thesis_draft.out
+thesis_draft.toc
+thesis_draft.bbl
+thesis_draft.blg
+thesis_draft.synctex.gz
+thesis_draft.fls
+thesis_draft.fdb_latexmk
+_ending.tex
+_tail.tex
+thesis/
+
+# ── Personal documents ───────────────────────────────────────
+kevin_omede_cv.tex
+kevin_omede_cv.pdf
+
+# ── Heavy data & generated artifacts ─────────────────────────
+data/datasets/
+literature/papers/
+graphify-out/
+.graphify_python
+_archive/
+
+# ── Logs ─────────────────────────────────────────────────────
+*.log
+results/logs/
+
+# ── Claude assistant working files ───────────────────────────
+.claude/sessions/
+.claude/cache/
+
+# ── Separate sub-project (own repository) ────────────────────
+# AutoResearchClaw is maintained as a standalone repository.
+# It was used during this work for literature search assistance.
+AutoResearchClaw/

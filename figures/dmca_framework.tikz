@@ -1,0 +1,250 @@
+% DMCA Framework — Closed-Loop Architecture
+% Usage: \resizebox{\textwidth}{!}{\input{dmca_framework.tikz}}
+\begin{tikzpicture}[>=Stealth, font=\small]
+
+%% ── Named styles (no parameters) ──────────────────────────────────────────
+\tikzset{
+  bproc/.style={rectangle,rounded corners=2pt,draw=blue!50,fill=blue!12,
+    minimum height=0.85cm,align=left,inner sep=4pt},
+  gproc/.style={rectangle,rounded corners=2pt,draw=green!50!black,fill=green!10,
+    minimum height=0.85cm,align=left,inner sep=4pt},
+  oproc/.style={rectangle,rounded corners=2pt,draw=orange!60,fill=orange!10,
+    minimum height=0.85cm,align=left,inner sep=4pt},
+  rproc/.style={rectangle,rounded corners=2pt,draw=red!50,fill=red!8,
+    minimum height=0.85cm,align=left,inner sep=4pt},
+  pproc/.style={rectangle,rounded corners=2pt,draw=purple!50,fill=purple!8,
+    minimum height=0.85cm,align=left,inner sep=4pt},
+  dec/.style={diamond,draw=orange!60,fill=yellow!15,
+    minimum width=1.7cm,minimum height=1.1cm,inner sep=1pt,
+    font=\scriptsize\bfseries,aspect=2.4},
+  farr/.style={->,draw=gray!55,thick},
+  barr/.style={->,draw=blue!55,thick},
+  garr/.style={->,draw=green!45!black,thick},
+  oarr/.style={->,draw=orange!60,thick},
+  rarr/.style={->,draw=red!50,thick},
+  dtread/.style={->,draw=purple!55,dashed,thick,
+    font=\scriptsize\bfseries\color{purple!60}},
+  dtwrite/.style={->,draw=red!55,dashed,thick,
+    font=\scriptsize\bfseries\color{red!60}},
+  yeslbl/.style={font=\scriptsize\bfseries\color{green!45!black}},
+  nolbl/.style={font=\scriptsize\bfseries\color{gray!55}},
+}
+
+%%─── Title ────────────────────────────────────────────────────────────────────
+\node[font=\normalsize\bfseries,anchor=west] at (-0.2,2.15)
+  {DMCA\,---\,Dynamic Model-Context Alignment: Closed-Loop Framework};
+
+%%─── Digital Twin column ──────────────────────────────────────────────────────
+\fill[purple!7,rounded corners=4pt] (12.2,1.8) rectangle (15.7,-17.2);
+\draw[purple!40,rounded corners=4pt,thick] (12.2,1.8) rectangle (15.7,-17.2);
+\node[font=\scriptsize\bfseries\color{purple!65},rotate=90,anchor=south]
+  at (12.42,-7.7) {DIGITAL TWIN\;---\;AAS Type\,1};
+
+% DT sub-boxes
+\node[pproc,text width=2.9cm,font=\scriptsize] at (13.95, 0.90)
+  {\textbf{TechnicalData}\\hardware\_class · ram\_budget\\has\_gpu · vram\_mb};
+\node[pproc,text width=2.9cm,font=\scriptsize] at (13.95,-1.70)
+  {\textbf{OperationalData}\\latency\_sla\_ms\\sensor\_protocol · freq\_hz};
+\node[pproc,text width=2.9cm,font=\scriptsize] at (13.95,-4.00)
+  {\textbf{Capabilities}\\data\_available · task\\license\_requirement};
+\node[pproc,text width=2.9cm,fill=purple!18,font=\scriptsize] at (13.95,-6.80)
+  {\textbf{DeploymentState}~\textit{(dyn.)}\\active\_model · deployed\_at\\
+   baseline\_mae · latency\_p95\\drift\_history\,[ ]};
+\node[pproc,text width=2.9cm,font=\scriptsize] at (13.95,-9.80)
+  {\textbf{SafetyClassification}\\SIL\_level\\requires\_human\_approval};
+\node[pproc,text width=2.9cm,draw=purple!35,fill=purple!4,font=\scriptsize]
+  at (13.95,-11.80)
+  {\textbf{AssetProfiles}\\jetson\_nano.aas.json\\rpi4.aas.json\\jetson\_orin\_nx.aas.json};
+\node[font=\tiny\itshape\color{gray!55},text width=2.9cm,align=center]
+  at (13.95,-14.2)
+  {Future: BaSyx SDK\\AAS Type\,2 REST\\OPC-UA streaming};
+\node[font=\tiny\bfseries\color{purple!55},anchor=west]
+  at (12.30,-15.8) {\scriptsize READ at each Stage\,1 trigger};
+\node[font=\tiny\bfseries\color{red!55},anchor=west]
+  at (12.30,-16.2) {\scriptsize WRITE after each successful swap};
+
+%%─── STAGE 1 ─────────────────────────────────────────────────────────────────
+\fill[blue!7,rounded corners=3pt] (-0.2,1.7) rectangle (12.0,-0.75);
+\draw[blue!40,rounded corners=3pt,thick] (-0.2,1.7) rectangle (12.0,-0.75);
+\node[font=\small\bfseries\color{blue!65},anchor=north west] at (-0.05,1.62)
+  {STAGE\,1\;---\;DT Profiling};
+
+\node[bproc,text width=2.4cm] (aasparser) at (1.3,0.52)
+  {\textbf{AAS Parser}\\
+   \scriptsize\color{gray!60}aas\_parser.py\\json.load()};
+\node[bproc,text width=2.6cm] (subext) at (4.6,0.52)
+  {\textbf{Submodel Extractor}\\
+   \scriptsize\color{gray!60}TechnicalData\\OperationalData};
+\node[bproc,text width=2.8cm,fill=blue!22] (cvec) at (8.4,0.52)
+  {\textbf{Constraint Vector c}\\
+   \scriptsize\{hw, ram, SLA,\\data, license, task\}};
+\draw[barr] (aasparser)--(subext);
+\draw[barr] (subext)--node[above,font=\scriptsize]{$c$}(cvec);
+\draw[dtread] (12.2,0.52)--node[above,font=\tiny]{READ}(cvec.east);
+
+%%─── STAGE 2 ─────────────────────────────────────────────────────────────────
+\fill[blue!5,rounded corners=3pt] (-0.2,-0.85) rectangle (12.0,-4.05);
+\draw[blue!35,rounded corners=3pt,thick] (-0.2,-0.85) rectangle (12.0,-4.05);
+\node[font=\small\bfseries\color{blue!65},anchor=north west] at (-0.05,-0.93)
+  {STAGE\,2\;---\;Model Selection (TOPSIS)};
+
+\node[bproc,text width=2.5cm] (filt) at (1.3,-2.20)
+  {\textbf{FilterAdmissible}\\
+   \scriptsize 6 hard constraints\\lat\,$\leq$\,SLA, RAM\,$\leq$\,B};
+\node[dec] (madm) at (4.5,-2.20) {$\mathcal{M}_{adm}$\\$=\emptyset$?};
+\node[bproc,text width=2.4cm] (topsis) at (7.4,-2.20)
+  {\textbf{TOPSIS Ranker}\\
+   \scriptsize 4 criteria\\w:\,0.5\;0.3\;0.1\;0.1};
+\node[bproc,text width=2.2cm,fill=blue!20] (mstar) at (10.6,-2.20)
+  {\textbf{Ranked $m^{*}$}\\
+   \scriptsize $m_1,m_2,m_3\ldots$\\+\,tie-breaking};
+\draw[barr](filt)--(madm);
+\draw[barr](madm)--node[above,yeslbl]{NO}(topsis);
+\draw[barr](topsis)--(mstar);
+\node[rectangle,rounded corners=2pt,draw=red!45,fill=red!5,
+      text width=2.3cm,minimum height=0.65cm,
+      align=left,inner sep=3pt,font=\scriptsize]
+  (cpalert) at (4.5,-3.6)
+  {\textbf{\color{red!60}Copilot Alert}\\no candidate\;---\;adjust SLA};
+\draw[->,draw=red!50,thick]
+  (madm.south)--node[right,font=\scriptsize\bfseries\color{red!55}]{YES}(cpalert);
+\node[rectangle,rounded corners=2pt,draw=gray!35,fill=gray!5,dashed,
+      text width=1.8cm,minimum height=0.65cm,
+      align=center,inner sep=3pt,font=\scriptsize\color{gray!60}]
+  (hfhub) at (-0.05,-3.6){HuggingFace Hub\\8\,models};
+\draw[->,draw=gray!40,dashed](hfhub)--(filt.south);
+
+%%─── STAGE 3 ─────────────────────────────────────────────────────────────────
+\fill[green!6,rounded corners=3pt] (-0.2,-4.15) rectangle (12.0,-7.25);
+\draw[green!40,rounded corners=3pt,thick] (-0.2,-4.15) rectangle (12.0,-7.25);
+\node[font=\small\bfseries\color{green!55!black},anchor=north west] at (-0.05,-4.23)
+  {STAGE\,3\;---\;Edge Deployment};
+
+\node[gproc,text width=2.5cm] (hfdl) at (1.3,-5.45)
+  {\textbf{HF Download}\\
+   \scriptsize from\_pretrained()\\+\,ONNX\,export};
+\node[dec] (qgate) at (4.6,-5.45) {Quality\\Gate\\PASS?};
+\node[gproc,text width=3.0cm,fill=green!18] (deployed) at (8.6,-5.45)
+  {\textbf{Model Deployed}\\
+   \scriptsize lat\,$P_{95}\leq$\,SLA\\ONNX\,/\,PyTorch\\DT state updated};
+\draw[garr](hfdl)--(qgate);
+\draw[garr](qgate)--node[above,font=\scriptsize\bfseries\color{green!45!black}]{PASS}(deployed);
+\node[rectangle,rounded corners=2pt,draw=red!45,fill=red!5,
+      text width=2.0cm,minimum height=0.6cm,
+      align=center,inner sep=3pt,font=\scriptsize]
+  (fail) at (4.6,-6.75)
+  {\color{red!60}FAIL: retry\\next $m^{*}$};
+\draw[->,draw=red!50,thick](qgate.south)--
+  node[right,font=\scriptsize\bfseries\color{red!55}]{FAIL}(fail);
+\draw[->,draw=red!45,dashed,thick](fail.west)-|(hfdl.south);
+\node[rectangle,rounded corners=2pt,draw=orange!40,fill=orange!5,
+      text width=11.5cm,minimum height=0.50cm,
+      align=left,inner sep=3pt,font=\scriptsize]
+  at (5.75,-7.05)
+  {\textbf{4 checks:}\;\;
+   (1)\,Latency $P_{95}\leq1.5\times$SLA\quad
+   (2)\,Shape $(B,H,F)$\quad
+   (3)\,Validity (no NaN/collapse)\quad
+   (4)\,Memory\,$\leq\!0.85\times$budget};
+\draw[dtwrite](deployed.east)--++(0.4,0)|-node[right,font=\tiny]{WRITE}(12.2,-6.6);
+
+%%─── STAGE 4 ─────────────────────────────────────────────────────────────────
+\fill[orange!6,rounded corners=3pt] (-0.2,-7.35) rectangle (12.0,-10.55);
+\draw[orange!45,rounded corners=3pt,thick] (-0.2,-7.35) rectangle (12.0,-10.55);
+\node[font=\small\bfseries\color{orange!70!black},anchor=north west] at (-0.05,-7.43)
+  {STAGE\,4\;---\;Drift Detection (DMCA-Drift v3.1.1)\quad
+   \textit{\scriptsize see Fig.~\ref{fig:classifier}}};
+
+\node[oproc,text width=2.7cm] (adwin) at (1.5,-8.70)
+  {\textbf{ADWIN} $\delta=0.002$\\
+   \scriptsize MAE residuals\\$O(\log|W|)$/update};
+\node[dec] (driftd) at (4.8,-8.70) {Drift\\detected?};
+\node[oproc,text width=2.9cm] (dclf) at (8.0,-8.70)
+  {\textbf{DMCA-Drift Classifier}\\
+   \scriptsize 8 features, 7 rules\\drift\_type + severity};
+\node[oproc,text width=2.1cm,fill=orange!20] (devt) at (11.3,-8.70)
+  {\textbf{Drift Event}\\
+   \scriptsize type,\,severity\\confidence\\strategy};
+\node[rectangle,rounded corners=2pt,draw=gray!40,fill=gray!6,
+      text width=1.7cm,minimum height=0.55cm,
+      align=center,inner sep=3pt,font=\scriptsize\itshape\color{gray!55}]
+  (cont) at (4.8,-10.05) {continue\\monitoring};
+\draw[->,draw=gray!50,thick](driftd.south)--node[right,nolbl]{NO}(cont);
+\draw[oarr](adwin)--(driftd);
+\draw[oarr](driftd)--node[above,font=\scriptsize\bfseries\color{orange!70!black}]{YES}(dclf);
+\draw[oarr](dclf)--(devt);
+\draw[dtread,<-](dclf.north)-|(13.95,-9.50)
+  node[above,font=\tiny,pos=0.3]{AAS context};
+
+%%─── STAGE 5 ─────────────────────────────────────────────────────────────────
+\fill[red!5,rounded corners=3pt] (-0.2,-10.65) rectangle (12.0,-14.95);
+\draw[red!40,rounded corners=3pt,thick] (-0.2,-10.65) rectangle (12.0,-14.95);
+\node[font=\small\bfseries\color{red!65},anchor=north west] at (-0.05,-10.73)
+  {STAGE\,5\;---\;Re-alignment};
+\node[font=\scriptsize\itshape\color{gray!50},anchor=north east] at (11.85,-10.73)
+  {(shadow\,=\,parallel in Phase\,2)};
+
+\node[rproc,text width=2.4cm] (reread) at (1.3,-11.95)
+  {\textbf{Re-read AAS}\\
+   \scriptsize re-run Stage\,1--2\\current constraints};
+\node[rproc,text width=2.5cm] (shadow) at (4.6,-11.95)
+  {\textbf{Shadow Deploy}\\
+   \scriptsize incumbent $\|$ candidate\\abrupt:10t\;/\;gradual:50t};
+\node[dec,aspect=2.2] (impr) at (7.7,-11.95) {improve\\$>$\,thr?};
+\node[rproc,text width=2.3cm] (copilot) at (1.8,-13.45)
+  {\textbf{Copilot} L1/L2/L3\\
+   \scriptsize +\,COPILOTCONFIRM\\timeout\,$\to$\,reject};
+\node[dec,aspect=2.2] (opd) at (5.4,-13.45) {Operator\\decision?};
+\node[rproc,text width=2.5cm,fill=red!18] (swap) at (2.5,-15.15)
+  {\textbf{Atomic Swap}\\
+   \scriptsize mutex pointer\\Grace period\,10\,t\\AAS WRITE};
+\node[rectangle,rounded corners=2pt,draw=gray!40,fill=gray!6,
+      text width=2.2cm,minimum height=0.70cm,
+      align=left,inner sep=4pt,font=\scriptsize]
+  (rej) at (8.5,-14.25)
+  {Reject + Log\\incumbent continues};
+\draw[rarr](devt.south)--+(0,-0.40)-|(reread.north);
+\draw[rarr](reread)--(shadow);
+\draw[rarr](shadow)--(impr);
+\draw[->,draw=red!50,thick](impr.west)--++(-0.3,0)
+  |-node[above,yeslbl,pos=0.75]{YES}(copilot.north);
+\draw[->,draw=gray!50,thick](impr.south)--
+  node[right,nolbl]{NO}+(0,-0.4)-|(rej.north);
+\draw[rarr](copilot)--(opd);
+\draw[->,draw=green!45!black,thick](opd.south)--
+  node[right,yeslbl]{APPROVE}+(0,-0.4)-|(swap.north);
+\draw[->,draw=red!50,thick](opd.east)--
+  node[above,font=\scriptsize\bfseries\color{red!55}]{REJECT}(rej.west);
+\node[rectangle,rounded corners=2pt,draw=gray!35,fill=gray!4,dashed,
+      text width=1.5cm,minimum height=0.55cm,
+      align=center,inner sep=3pt,font=\scriptsize\color{gray!55}]
+  (audit) at (9.5,-15.15){Audit Trail\\JSONL};
+\draw[->,draw=gray!35,dashed](swap)-|(audit);
+\draw[->,draw=gray!35,dashed](rej)--(audit);
+\draw[dtwrite](swap.east)--++(0.35,0)|-node[right,font=\tiny]{WRITE}(12.2,-14.7);
+
+%%─── Closed loop ──────────────────────────────────────────────────────────────
+\draw[->,draw=red!60,ultra thick,dashed,rounded corners=5pt]
+  (swap.west)--++(-0.9,0)|-(0.52,0.52)--(aasparser.west);
+\node[font=\scriptsize\bfseries\color{red!60},rotate=90,anchor=south] at (-0.65,-7.5)
+  {CLOSED LOOP --- re-trigger Stage\,1};
+
+%%─── Inter-stage arrows ───────────────────────────────────────────────────────
+\foreach \y in {-0.82,-4.12,-7.32,-10.62}{
+  \draw[->,draw=gray!45,very thick](5.9,\y)--+(0,-0.03);
+}
+
+%%─── Legend ───────────────────────────────────────────────────────────────────
+\node[rectangle,rounded corners=2pt,draw=gray!35,fill=white,
+      text width=11.8cm,minimum height=0.75cm,
+      align=left,inner sep=4pt,font=\scriptsize]
+  at (5.7,-16.2)
+  {\textbf{Legend:}\;
+   \tikz[baseline=-0.5ex]\fill[blue!12](0,0)rectangle(0.3,0.18);\;Stage\,1-2\;
+   \tikz[baseline=-0.5ex]\fill[green!10](0,0)rectangle(0.3,0.18);\;Stage\,3\;
+   \tikz[baseline=-0.5ex]\fill[orange!10](0,0)rectangle(0.3,0.18);\;Stage\,4\;
+   \tikz[baseline=-0.5ex]\fill[red!8](0,0)rectangle(0.3,0.18);\;Stage\,5\;
+   \tikz[baseline=-0.5ex]\fill[purple!8](0,0)rectangle(0.3,0.18);\;Digital\,Twin\;
+   $\cdots$ DT read/write\quad $\boldsymbol{=\!=}$ closed loop};
+
+\end{tikzpicture}

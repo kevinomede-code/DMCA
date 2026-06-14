@@ -1,0 +1,140 @@
+%% GAP 4 — Industrial validation framework for AI systems
+%% Thesis: AI Conversational Copilot for Complex Systems — Dynamic Model-Context Alignment
+%% Generated: 2026-04-07
+%%
+%% Gap evidence: benchmarks (HELM, BIG-Bench) ignore industrial criteria:
+%% safety refusal rate, missing alarm rate, P95 edge latency, shadow mode deployment.
+
+@article{PHMForge2026,
+  author    = {{PHMForge Authors}},
+  title     = {{PHMForge}: A Scenario-Driven Agentic Benchmark for Industrial Asset Lifecycle Maintenance},
+  journal   = {arXiv preprint},
+  year      = {2026},
+  eprint    = {2604.01532},
+  archivePrefix = {arXiv},
+  url       = {https://arxiv.org/abs/2604.01532},
+  note      = {Key related work (2026): scenario-driven benchmark for LLM agents in industrial PHM — closest existing work to thesis GAP 4. Confirms gap: no missing alarm rate metric, no shadow mode, no edge latency evaluation.}
+}
+
+@inproceedings{Agents4PLC2024,
+  author    = {{Agents4PLC Authors}},
+  title     = {{Agents4PLC}: Automating Closed-loop {PLC} Code Generation and Verification in Industrial Control Systems using {LLM}-based Agents},
+  journal   = {arXiv preprint},
+  year      = {2024},
+  eprint    = {2410.14209},
+  archivePrefix = {arXiv},
+  doi       = {10.48550/arXiv.2410.14209},
+  note      = {Gap evidence: LLM agents for PLC code generation with safety verification — focuses on code correctness, not operational KPIs (missing alarm, latency). No shadow deployment protocol.}
+}
+
+@article{DriftDetectionAdaptation2025,
+  author    = {{AI Model Adaptation Drift Authors}},
+  title     = {Development of an {AI} Model Adaptation Strategy based on Multi-Resolution Concept Drift Detection: A Case Study in Virtual Metrology for Smart Manufacturing},
+  booktitle = {2025 IEEE Annual Congress on Artificial Intelligence of Things (AIoT)},
+  year      = {2025},
+  doi       = {10.1109/AIoT66900.2025.00056},
+  note      = {Key related work: multi-resolution concept drift detection + model adaptation in manufacturing — covers drift detection and model switching, but no missing alarm metric or safety refusal rate}
+}
+
+@article{SuddenDriftVM2025,
+  author    = {{Sudden Concept Drift VM Authors}},
+  title     = {Sudden Concept Drift Detection and Adaptation in Virtual Metrology for Semiconductor Manufacturing},
+  journal   = {IEEE Access},
+  year      = {2025},
+  doi       = {10.1109/ACCESS.2025.3602848},
+  note      = {Gap evidence: abrupt concept drift in semiconductor manufacturing — good benchmark methodology for drift scenarios but missing industrial AI safety evaluation criteria}
+}
+
+@article{iSafetyBench2025,
+  author    = {{iSafetyBench Authors}},
+  title     = {{iSafetyBench}: A Video-Language Benchmark for Safety in Industrial Environment},
+  booktitle = {2025 IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)},
+  year      = {2025},
+  eprint    = {2508.00399},
+  archivePrefix = {arXiv},
+  doi       = {10.1109/ICCVW69036.2025.00154},
+  note      = {Key related work: industrial safety benchmark for VLMs — safety-critical evaluation in industrial environments (closest to thesis GAP 4 spirit). Confirms gap: no time-series models, no missing alarm rate, no latency criteria for edge deployment.}
+}
+
+@inproceedings{IndusGCC2025,
+  author    = {{IndusGCC Authors}},
+  title     = {{IndusGCC}: A Data Benchmark and Evaluation Framework for {GUI}-Based General Computer Control in Industrial Automation},
+  journal   = {arXiv preprint},
+  year      = {2025},
+  eprint    = {2509.01199},
+  archivePrefix = {arXiv},
+  doi       = {10.48550/arXiv.2509.01199},
+  note      = {Gap evidence: industrial automation benchmark for GUI control — operational benchmark in manufacturing context; no predictive model safety metrics}
+}
+
+@article{ConceptDriftFuzzyEnsemble2025,
+  author    = {{Fuzzy Ensemble Drift Authors}},
+  title     = {Fuzzy-Based Ensemble Method for Robust Concept Drift Detection in Multivariate Time Series},
+  booktitle = {IEEE International Joint Conference on Neural Networks (IJCNN)},
+  year      = {2025},
+  doi       = {10.1109/IJCNN64981.2025.11228919},
+  note      = {Gap evidence: multivariate TS concept drift detection — rigorous drift detection method applicable to thesis simulation; no industrial validation framework}
+}
+
+@inproceedings{CoalMineLLM2025,
+  author    = {{Coal Mine LLM Authors}},
+  title     = {Industrial-Scale Data Processing and {LLM} Evaluation for Coal Mine Safety},
+  booktitle = {International Conference on Critical Infrastructure Protection},
+  year      = {2025},
+  doi       = {10.1145/3784833.3784879},
+  note      = {Gap evidence: LLM evaluation for safety-critical industrial domain (coal mine) — closest industrial safety validation; no generic framework, no edge latency, no missing alarm metric definition}
+}
+
+@article{AgentAuditor2025,
+  author    = {{AgentAuditor Authors}},
+  title     = {{AgentAuditor}: Human-Level Safety and Security Evaluation for {LLM} Agents},
+  journal   = {arXiv preprint},
+  year      = {2025},
+  eprint    = {2506.00641},
+  archivePrefix = {arXiv},
+  doi       = {10.48550/arXiv.2506.00641},
+  note      = {Foundation: human-level safety evaluation for LLM agents — provides safety evaluation methodology; gap: general agent safety, not manufacturing-specific KPIs}
+}
+
+@article{DomainKnowledgeLLMDrift2026,
+  author    = {{Domain Knowledge LLM Drift Authors}},
+  title     = {Domain Knowledge-Enhanced {LLMs} for Fraud and Concept Drift Detection},
+  journal   = {Electronics},
+  year      = {2026},
+  doi       = {10.3390/electronics15030534},
+  note      = {Gap evidence: domain knowledge-enhanced LLM for concept drift — confirms LLM can detect concept drift but in NLP/fraud domain, not industrial time-series manufacturing}
+}
+
+%% ================================================================
+%% Semantic Drift in Digital Twins — added 2026-04-29
+%% ================================================================
+
+@inproceedings{SemanticDriftModelDrivenDT2024,
+  author    = {Abbasi, Faima and Pruski, C{\'e}dric},
+  title     = {Understanding Semantic Drift in Model Driven Digital Twins},
+  booktitle = {Proceedings of the ACM/IEEE 27th International Conference on Model Driven Engineering Languages and Systems Companion (MODELS Companion '24)},
+  year      = {2024},
+  doi       = {10.1145/3652620.3688256},
+  note      = {Gap evidence (Luxembourg Institute of Science and Technology): first formal taxonomy of semantic drift types in DTs. Classifies drift as: model evolution, schema drift, concept drift. Urban mobility use case. Key gap vs DMCA: no adaptive model re-selection triggered by drift — exactly DMCA Stage 4-5.}
+}
+
+@article{SemanticDriftEvalFGCS2025,
+  author    = {Abbasi, Faima and Pruski, C{\'e}dric},
+  title     = {Semantic Drift Evaluation in Language and Data-Specific Digital Twin Frameworks},
+  journal   = {Future Generation Computer Systems},
+  year      = {2025},
+  month     = {November},
+  url       = {https://www.sciencedirect.com/science/article/pii/S0167739X25005345},
+  note      = {Gap evidence: evaluates 4 DT platforms on semantic drift handling. Finding: no existing platform provides procedures for identifying or characterising semantic drift. Directly confirms DMCA gap — no platform provides closed-loop re-alignment. Full DOI TBC via ScienceDirect (pii: S0167739X25005345).}
+}
+
+@article{ConceptDriftDTAnomalyDetection2026,
+  author    = {Abdoune, Farah and Nouiri, Maroua and Cardin, Olivier},
+  title     = {Digital Twin-Based Anomaly Detection Under Concept Drift: A Comparison Between Iterative Batch Learning and Incremental Learning Approaches},
+  journal   = {Expert Systems with Applications},
+  volume    = {299},
+  pages     = {130062},
+  year      = {2026},
+  doi       = {10.1016/j.eswa.2025.130062},
+  note      = {Gap evidence: DT + concept drift detection comparing statistical baseline vs batch Isolation Forests vs incremental Half-Space Trees. Close to DMCA Stage 4 but no adaptive model selection from external catalog, no conversational operator interface.}
+}

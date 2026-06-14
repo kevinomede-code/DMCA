@@ -1,0 +1,107 @@
+{
+  "dataset": "CMAPSS_FD001",
+  "sensor_channel": "s2",
+  "split_ratio": "60/40",
+  "drift_type": "linear_scale_1.0_to_2.0",
+  "detection_method": "ADWIN (river) / threshold fallback",
+  "threshold": 1.991843,
+  "detection_index": 1380,
+  "detection_time_s": 0.0,
+  "new_model_selected": "amazon/chronos-t5-tiny",
+  "new_model_details": {
+    "id": "amazon/chronos-t5-tiny",
+    "task": "forecasting",
+    "min_hw": "raspberry_arm",
+    "latency": "soft_realtime",
+    "zero_shot": true,
+    "license": "apache_2",
+    "params_M": 8
+  },
+  "mae_baseline_train": 0.796119,
+  "mae_new_model": 1.25637,
+  "rmse_new_model": 1.54827,
+  "recovery_time_s": 0.0012,
+  "accuracy_improvement_pct": -3.69,
+  "mae_series_sample": [
+    [
+      1220,
+      0.9928268816539262
+    ],
+    [
+      1230,
+      0.3630260079252938
+    ],
+    [
+      1240,
+      0.2576977721543763
+    ],
+    [
+      1250,
+      0.5984128421676358
+    ],
+    [
+      1260,
+      0.11087165037344304
+    ],
+    [
+      1270,
+      0.15677041200758768
+    ],
+    [
+      1280,
+      0.7739875847840578
+    ],
+    [
+      1290,
+      1.667071529064537
+    ],
+    [
+      1300,
+      0.7882466146707312
+    ],
+    [
+      1310,
+      1.432533932033231
+    ],
+    [
+      1320,
+      0.42209114363519795
+    ],
+    [
+      1330,
+      1.3645197163232816
+    ],
+    [
+      1340,
+      1.05892530942285
+    ],
+    [
+      1350,
+      0.44283949725058047
+    ],
+    [
+      1360,
+      0.9596063707518214
+    ],
+    [
+      1370,
+      0.2658589191529299
+    ],
+    [
+      1380,
+      3.121684635242171
+    ],
+    [
+      1390,
+      1.3232735782392084
+    ],
+    [
+      1400,
+      1.1067090240835529
+    ],
+    [
+      1410,
+      0.17421691483717994
+    ]
+  ]
+}

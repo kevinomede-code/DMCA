@@ -1,0 +1,75 @@
+{
+  "asset_id": "jetson_nano",
+  "asset_type": "EdgeComputeDevice",
+  "description": "NVIDIA Jetson Nano — GPU edge device, 4GB unified memory, SIL-1",
+  "submodels": {
+    "TechnicalData": {
+      "hw_class": "jetson_nano",
+      "ram_budget_mb": 4096,
+      "has_gpu": true,
+      "gpu_vram_mb": 4096,
+      "cpu_cores": 4,
+      "cpu_arch": "ARM Cortex-A57",
+      "gpu_model": "NVIDIA Maxwell 128-core"
+    },
+    "OperationalData": {
+      "latency_sla_ms": 50,
+      "sensor_protocol": "OPC-UA",
+      "update_frequency_hz": 10
+    },
+    "Capabilities": {
+      "data_available": "zero_shot",
+      "task": "time_series_forecasting",
+      "license_requirement": "apache_2.0",
+      "onnx_preferred": true
+    },
+    "DeploymentState": {
+      "active_model": "ibm/patchtst-base-etth1",
+      "deployed_at": null,
+      "format_used": null,
+      "quality_gate_passed": false,
+      "baseline_mae": null,
+      "baseline_latency_p95_ms": null,
+      "baseline_memory_peak_mb": null,
+      "drift_history": [
+        {
+          "drift_type": "abrupt",
+          "severity": "HIGH",
+          "realignment_action": "swap",
+          "active_model": "Salesforce/moirai-1.1-R-small",
+          "new_model": "ibm/patchtst-base-etth1",
+          "improvement_pct": null,
+          "audit_id": "a2a14788",
+          "timestamp": "2026-04-22T03:08:44.812176+00:00"
+        },
+        {
+          "drift_type": "variance_shift",
+          "severity": "MEDIUM",
+          "realignment_action": "no_swap",
+          "active_model": "ibm/patchtst-base-etth1",
+          "new_model": null,
+          "improvement_pct": null,
+          "audit_id": "90735627",
+          "timestamp": "2026-04-22T03:08:44.828939+00:00"
+        },
+        {
+          "drift_type": "gradual",
+          "severity": "MEDIUM",
+          "realignment_action": "reject",
+          "active_model": "Salesforce/moirai-1.1-R-small",
+          "new_model": "Salesforce/moirai-1.1-R-small",
+          "improvement_pct": null,
+          "audit_id": "ad0673d0",
+          "timestamp": "2026-04-22T03:08:44.878952+00:00"
+        }
+      ],
+      "last_swap_trigger": "abrupt",
+      "swap_audit_id": "a2a14788"
+    },
+    "SafetyClassification": {
+      "SIL_level": 1,
+      "requires_human_approval": true,
+      "timeout_default_action": "reject"
+    }
+  }
+}

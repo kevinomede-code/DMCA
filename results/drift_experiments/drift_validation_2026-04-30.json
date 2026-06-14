@@ -1,0 +1,210 @@
+{
+  "confusion_matrix": {
+    "abrupt": {
+      "abrupt": 3,
+      "gradual": 0,
+      "incremental": 0,
+      "variance_shift": 0,
+      "distribution_shift": 0,
+      "outlier_driven": 0,
+      "unclassified": 0,
+      "no_detect": 0
+    },
+    "gradual": {
+      "abrupt": 0,
+      "gradual": 3,
+      "incremental": 0,
+      "variance_shift": 0,
+      "distribution_shift": 0,
+      "outlier_driven": 0,
+      "unclassified": 0,
+      "no_detect": 0
+    },
+    "incremental": {
+      "abrupt": 0,
+      "gradual": 0,
+      "incremental": 3,
+      "variance_shift": 0,
+      "distribution_shift": 0,
+      "outlier_driven": 0,
+      "unclassified": 0,
+      "no_detect": 0
+    },
+    "variance_shift": {
+      "abrupt": 0,
+      "gradual": 0,
+      "incremental": 0,
+      "variance_shift": 3,
+      "distribution_shift": 0,
+      "outlier_driven": 0,
+      "unclassified": 0,
+      "no_detect": 0
+    },
+    "outlier_driven": {
+      "abrupt": 0,
+      "gradual": 0,
+      "incremental": 0,
+      "variance_shift": 0,
+      "distribution_shift": 0,
+      "outlier_driven": 3,
+      "unclassified": 0,
+      "no_detect": 0
+    }
+  },
+  "per_type_accuracy": {
+    "abrupt": 1.0,
+    "gradual": 1.0,
+    "incremental": 1.0,
+    "variance_shift": 1.0,
+    "outlier_driven": 1.0
+  },
+  "overall_accuracy": 1.0,
+  "detection_latency": {
+    "abrupt": 15.0,
+    "gradual": 155.0,
+    "incremental": 121.3,
+    "variance_shift": 41.3,
+    "outlier_driven": 83.0
+  },
+  "false_alarm_rate": 0.0,
+  "results_by_scenario": [
+    {
+      "scenario": "S1_ABRUPT",
+      "ground_truth": "abrupt",
+      "predicted": "abrupt",
+      "correct": true,
+      "detection_latency": 15,
+      "seed": 0
+    },
+    {
+      "scenario": "S1_ABRUPT",
+      "ground_truth": "abrupt",
+      "predicted": "abrupt",
+      "correct": true,
+      "detection_latency": 15,
+      "seed": 1
+    },
+    {
+      "scenario": "S1_ABRUPT",
+      "ground_truth": "abrupt",
+      "predicted": "abrupt",
+      "correct": true,
+      "detection_latency": 15,
+      "seed": 2
+    },
+    {
+      "scenario": "S2_GRADUAL",
+      "ground_truth": "gradual",
+      "predicted": "gradual",
+      "correct": true,
+      "detection_latency": 155,
+      "seed": 0
+    },
+    {
+      "scenario": "S2_GRADUAL",
+      "ground_truth": "gradual",
+      "predicted": "gradual",
+      "correct": true,
+      "detection_latency": 155,
+      "seed": 1
+    },
+    {
+      "scenario": "S2_GRADUAL",
+      "ground_truth": "gradual",
+      "predicted": "gradual",
+      "correct": true,
+      "detection_latency": 155,
+      "seed": 2
+    },
+    {
+      "scenario": "S3_INCREMENTAL",
+      "ground_truth": "incremental",
+      "predicted": "incremental",
+      "correct": true,
+      "detection_latency": 121,
+      "seed": 0
+    },
+    {
+      "scenario": "S3_INCREMENTAL",
+      "ground_truth": "incremental",
+      "predicted": "incremental",
+      "correct": true,
+      "detection_latency": 120,
+      "seed": 1
+    },
+    {
+      "scenario": "S3_INCREMENTAL",
+      "ground_truth": "incremental",
+      "predicted": "incremental",
+      "correct": true,
+      "detection_latency": 123,
+      "seed": 2
+    },
+    {
+      "scenario": "S4_VARIANCE",
+      "ground_truth": "variance_shift",
+      "predicted": "variance_shift",
+      "correct": true,
+      "detection_latency": 47,
+      "seed": 0
+    },
+    {
+      "scenario": "S4_VARIANCE",
+      "ground_truth": "variance_shift",
+      "predicted": "variance_shift",
+      "correct": true,
+      "detection_latency": 40,
+      "seed": 1
+    },
+    {
+      "scenario": "S4_VARIANCE",
+      "ground_truth": "variance_shift",
+      "predicted": "variance_shift",
+      "correct": true,
+      "detection_latency": 37,
+      "seed": 2
+    },
+    {
+      "scenario": "S5_OUTLIER",
+      "ground_truth": "outlier_driven",
+      "predicted": "outlier_driven",
+      "correct": true,
+      "detection_latency": 83,
+      "seed": 0
+    },
+    {
+      "scenario": "S5_OUTLIER",
+      "ground_truth": "outlier_driven",
+      "predicted": "outlier_driven",
+      "correct": true,
+      "detection_latency": 115,
+      "seed": 1
+    },
+    {
+      "scenario": "S5_OUTLIER",
+      "ground_truth": "outlier_driven",
+      "predicted": "outlier_driven",
+      "correct": true,
+      "detection_latency": 51,
+      "seed": 2
+    }
+  ],
+  "n_seeds": 3,
+  "version": "v3.1",
+  "date": "2026-04-30",
+  "changes_from_v3": [
+    "Added F8=max_delta_sigma (Rule 0): max_delta_sigma>8 AND ks>0.25 AND slope>0.3 -> ABRUPT",
+    "INCREMENTAL mono threshold: 0.50 -> 0.45"
+  ],
+  "v3_baseline": {
+    "overall_accuracy": 0.8,
+    "per_type_accuracy": {
+      "abrupt": 0.333,
+      "gradual": 1.0,
+      "incremental": 0.667,
+      "variance_shift": 1.0,
+      "outlier_driven": 1.0
+    },
+    "false_alarm_rate": 0.0
+  }
+}

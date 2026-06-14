@@ -1,0 +1,70 @@
+{
+  "date": "2026-06-10",
+  "dataset": "ETDataset/ett (ETT-h1)",
+  "drift_factor": 1.5,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "per_seed": [
+    {
+      "seed": 0,
+      "status": "completed",
+      "drift_type": "gradual",
+      "detection_idx": 12362,
+      "mae_baseline": 1.664534,
+      "mae_at_detection": 0.761821,
+      "swap_executed": true,
+      "swap_trigger": "distributional_change_improvement",
+      "m_new_selected": "time-series-foundation-models/Lag-Llama",
+      "latency_shadow_ms": 7.02,
+      "elapsed_s": 59.2
+    },
+    {
+      "seed": 1,
+      "status": "completed",
+      "drift_type": "gradual",
+      "detection_idx": 12362,
+      "mae_baseline": 1.664534,
+      "mae_at_detection": 0.761821,
+      "swap_executed": true,
+      "swap_trigger": "distributional_change_improvement",
+      "m_new_selected": "time-series-foundation-models/Lag-Llama",
+      "latency_shadow_ms": 6.43,
+      "elapsed_s": 27.6
+    },
+    {
+      "seed": 2,
+      "status": "completed",
+      "drift_type": "gradual",
+      "detection_idx": 12362,
+      "mae_baseline": 1.664534,
+      "mae_at_detection": 0.761821,
+      "swap_executed": true,
+      "swap_trigger": "distributional_change_improvement",
+      "m_new_selected": "time-series-foundation-models/Lag-Llama",
+      "latency_shadow_ms": 6.55,
+      "elapsed_s": 27.1
+    }
+  ],
+  "variance": {
+    "mae_baseline_mean": 1.664534,
+    "mae_baseline_std": 0.0,
+    "mae_detection_mean": 0.761821,
+    "mae_detection_std": 0.0,
+    "detection_idx_mean": 12362.0,
+    "detection_idx_std": 0.0
+  },
+  "swap_triggers": [
+    "distributional_change_improvement",
+    "distributional_change_improvement",
+    "distributional_change_improvement"
+  ],
+  "drift_types": [
+    "gradual",
+    "gradual",
+    "gradual"
+  ],
+  "all_swapped": true
+}

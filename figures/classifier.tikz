@@ -1,0 +1,215 @@
+% DMCA-Drift Classifier v3.1.1 — Decision Tree
+% Usage in thesis: \input{figures/classifier.tikz}
+% Standalone compile: wrap in \documentclass{standalone} + tikz preamble
+
+\begin{tikzpicture}[
+  >=Stealth,
+  % Rule condition box (left column)
+  rbox/.style={
+    rectangle, rounded corners=2pt, draw=gray!55, fill=white,
+    minimum height=1.0cm, text width=5.6cm,
+    align=left, inner sep=5pt, font=\small
+  },
+  % Swap result box (green)
+  sbox/.style={
+    rectangle, rounded corners=2pt,
+    draw=green!45!black, fill=green!6,
+    minimum height=1.0cm, text width=6.4cm,
+    align=left, inner sep=5pt, font=\small
+  },
+  % No-swap result box (red)
+  nbox/.style={
+    rectangle, rounded corners=2pt,
+    draw=red!50, fill=red!5,
+    minimum height=1.0cm, text width=6.4cm,
+    align=left, inner sep=5pt, font=\small
+  },
+  % Fallback box (gray)
+  fbox/.style={
+    rectangle, rounded corners=2pt,
+    draw=gray!50, fill=gray!6,
+    minimum height=1.0cm, text width=6.4cm,
+    align=left, inner sep=5pt, font=\small
+  },
+  % Arrows
+  yarr/.style={->, draw=green!45!black, thick,
+    font=\scriptsize\bfseries\color{green!45!black}},
+  narr/.style={->, draw=gray!60, thick,
+    font=\scriptsize\bfseries\color{gray!55}},
+]
+
+%% ─── Layer backgrounds ──────────────────────────────────────────────────────
+% Layer 1 — blue
+\fill[blue!8, rounded corners=4pt]
+  (-0.3, 1.85) rectangle (13.2, -0.2);
+\draw[blue!35, rounded corners=4pt, thick]
+  (-0.3, 1.85) rectangle (13.2, -0.2);
+\node[font=\scriptsize\bfseries\color{blue!60!black}, anchor=north west]
+  at (-0.15, 1.80) {LAYER 1 — Statistical Detection};
+
+% Layer 2 — amber
+\fill[orange!7, rounded corners=4pt]
+  (-0.3, -0.35) rectangle (13.2, -11.85);
+\draw[orange!45, rounded corners=4pt, thick]
+  (-0.3, -0.35) rectangle (13.2, -11.85);
+\node[font=\scriptsize\bfseries\color{orange!70!black}, anchor=north west]
+  at (-0.15, -0.40) {LAYER 2 — Feature Extraction \& Rule Classification\quad
+  {\normalfont\itshape first match wins}};
+
+% Layer 3 — purple
+\fill[purple!7, rounded corners=4pt]
+  (-0.3, -12.0) rectangle (13.2, -12.9);
+\draw[purple!40, rounded corners=4pt, thick]
+  (-0.3, -12.0) rectangle (13.2, -12.9);
+\node[font=\scriptsize\bfseries\color{purple!60!black}, anchor=west]
+  at (-0.15, -12.45)
+  {LAYER 3 — AAS Context Enrichment\quad
+  {\normalfont\color{gray!70} asset\_id · SIL\_level · severity · recommended\_action · timestamp}};
+
+%% ─── LAYER 1: ADWIN ─────────────────────────────────────────────────────────
+\node[rectangle, rounded corners=2pt, draw=blue!40, fill=blue!12,
+      minimum height=0.9cm, text width=2.8cm,
+      align=left, inner sep=5pt, font=\small]
+  (mae) at (0, 1.3)
+  {\textbf{MAE Stream}\\
+   \scriptsize\color{gray!70}inference error};
+
+\node[rectangle, rounded corners=2pt, draw=blue!40, fill=blue!12,
+      minimum height=0.9cm, text width=3.2cm,
+      align=left, inner sep=5pt, font=\small]
+  (adwin) at (4.0, 1.3)
+  {\textbf{ADWIN}\;\scriptsize $\delta=0.002$\\
+   \scriptsize\color{gray!70}rolling mean + MAD variance trigger};
+
+\node[diamond, draw=orange!60, fill=yellow!12,
+      minimum width=1.8cm, minimum height=1.1cm,
+      inner sep=2pt, font=\small\bfseries, aspect=2.2]
+  (d1) at (8.3, 1.3) {Drift detected?};
+
+\node[rectangle, rounded corners=2pt, draw=gray!45, fill=gray!6,
+      minimum height=0.7cm, text width=2.4cm,
+      align=center, inner sep=4pt, font=\scriptsize\itshape\color{gray!65}]
+  (wait) at (11.8, 1.3) {continue monitoring};
+
+\draw[yarr] (mae) -- (adwin);
+\draw[yarr] (adwin) -- (d1);
+\draw[narr] (d1) -- node[above, font=\scriptsize\bfseries\color{gray!60}]{NO} (wait);
+\draw[->, draw=red!60, thick]
+  (d1) -- node[right, font=\scriptsize\bfseries\color{red!60}]{YES}
+  ($(d1.south)+(0,-0.3)$) -- ($(feat.north)+(0,0.05)$);
+
+%% ─── Feature box ─────────────────────────────────────────────────────────────
+\node[rectangle, rounded corners=2pt, draw=orange!50, fill=yellow!10,
+      minimum height=0.95cm, text width=12.2cm,
+      align=left, inner sep=5pt, font=\small]
+  (feat) at (6.1, -0.92)
+  {\textbf{8 Features} extracted over detection window:\quad
+   \small F1\,slope · F2\,IQR\,ratio · F3\,monotonicity · F4\,KS\,stat ·
+   F5\,outlier\,density · F6\,plateau\,ratio · F7\,base\,elevation ·
+   \textbf{F8}\,max\,$\Delta\sigma$ \scriptsize[\textit{new v3.1}]};
+
+%% ─── Helper macro for rule rows ──────────────────────────────────────────────
+% Arguments: node-name, y-pos, condition text, result-node-name,
+%            result text, result style (sbox/nbox/fbox), swap label
+\def\rulerow#1#2#3#4#5#6#7{
+  \node[rbox] (#1) at (2.8, #2) {#3};
+  \node[#6]   (#4) at (9.7, #2) {#5};
+  \draw[yarr] (#1.east) -- node[above, font=\scriptsize\bfseries]{YES} (#4.west);
+}
+
+%% ─── Rules ───────────────────────────────────────────────────────────────────
+% R0 — ABRUPT pre-check (v3.1)
+\node[rbox, draw=red!40, fill=red!3]
+  (r0) at (2.8, -2.2)
+  {\textbf{R0 (pre-check)\;·\;Abrupt}\\
+   \scriptsize F8 $>8.0$ \& F4 $>0.25$ \& F1 $>0.3$
+   \hfill\scriptsize\textit{[v3.1]}};
+\node[sbox] (t0) at (9.7, -2.2)
+  {\textbf{\color{green!40!black}ABRUPT}\\
+   \scriptsize sudden step $\gg 8\sigma$ — physical fault \hfill
+   \textbf{\scriptsize\color{green!45!black}$\checkmark$\;swap\;$\to$ Stage 5}};
+\draw[yarr] (r0.east) -- node[above, font=\scriptsize\bfseries]{YES} (t0.west);
+
+% R1 — OUTLIER_DRIVEN
+\node[rbox] (r1) at (2.8, -3.5)
+  {\textbf{R1\;·\;Outlier-Driven}\\
+   \scriptsize F5 $\geq 0.10$ \& F4 $< 0.25$};
+\node[nbox] (t1) at (9.7, -3.5)
+  {\textbf{\color{red!55}OUTLIER\_DRIVEN}\\
+   \scriptsize isolated anomalies, distribution stable
+   \hfill\textbf{\scriptsize\color{red!55}$\times$\;no swap · monitor}};
+\draw[yarr] (r1.east) -- node[above, font=\scriptsize\bfseries]{YES} (t1.west);
+
+% R2 — ABRUPT main
+\node[rbox] (r2) at (2.8, -4.8)
+  {\textbf{R2\;·\;Abrupt}\\
+   \scriptsize F1 $>0.5$ \& F3 $>0.50$ \& F4 $>0.25$};
+\node[sbox] (t2) at (9.7, -4.8)
+  {\textbf{\color{green!40!black}ABRUPT}\\
+   \scriptsize sudden shift, fault or mode change
+   \hfill\textbf{\scriptsize\color{green!45!black}$\checkmark$\;swap\;$\to$ Stage 5}};
+\draw[yarr] (r2.east) -- node[above, font=\scriptsize\bfseries]{YES} (t2.west);
+
+% R3 — VARIANCE_SHIFT
+\node[rbox] (r3) at (2.8, -6.1)
+  {\textbf{R3\;·\;Variance Shift}\\
+   \scriptsize F2 $>1.5$ \& F1 $< 0.2$};
+\node[nbox] (t3) at (9.7, -6.1)
+  {\textbf{\color{red!55}VARIANCE\_SHIFT}\\
+   \scriptsize spread increases, mean stable
+   \hfill\textbf{\scriptsize\color{red!55}$\times$\;no swap · notify operator}};
+\draw[yarr] (r3.east) -- node[above, font=\scriptsize\bfseries]{YES} (t3.west);
+
+% R4 — GRADUAL
+\node[rbox] (r4) at (2.8, -7.4)
+  {\textbf{R4\;·\;Gradual}\\
+   \scriptsize F1 $<0.15$ \& F5 $>0.50$};
+\node[sbox] (t4) at (9.7, -7.4)
+  {\textbf{\color{green!40!black}GRADUAL}\\
+   \scriptsize slow degradation, sensor ageing
+   \hfill\textbf{\scriptsize\color{green!45!black}$\checkmark$\;swap\;$\to$ Stage 5}};
+\draw[yarr] (r4.east) -- node[above, font=\scriptsize\bfseries]{YES} (t4.west);
+
+% R5 — INCREMENTAL
+\node[rbox] (r5) at (2.8, -8.7)
+  {\textbf{R5\;·\;Incremental}\\
+   \scriptsize $0.1\leq$ F1 $\leq0.5$ \& F3 $>0.45$ \scriptsize\textit{[v3.1]}};
+\node[sbox] (t5) at (9.7, -8.7)
+  {\textbf{\color{green!40!black}INCREMENTAL}\\
+   \scriptsize monotonic increase, process wear
+   \hfill\textbf{\scriptsize\color{green!45!black}$\checkmark$\;swap\;$\to$ Stage 5}};
+\draw[yarr] (r5.east) -- node[above, font=\scriptsize\bfseries]{YES} (t5.west);
+
+% R6 — DISTRIBUTION_SHIFT
+\node[rbox] (r6) at (2.8, -10.0)
+  {\textbf{R6\;·\;Distribution Shift}\\
+   \scriptsize F4 $>0.40$};
+\node[sbox] (t6) at (9.7, -10.0)
+  {\textbf{\color{green!40!black}DISTRIBUTION\_SHIFT}\\
+   \scriptsize input distribution changed
+   \hfill\textbf{\scriptsize\color{green!45!black}$\checkmark$\;swap\;$\to$ Stage 5}};
+\draw[yarr] (r6.east) -- node[above, font=\scriptsize\bfseries]{YES} (t6.west);
+
+% Fallback
+\node[rbox, draw=gray!40, fill=gray!4] (r7) at (2.8, -11.3)
+  {\textbf{Fallback}\\
+   \scriptsize no previous rule matched};
+\node[fbox] (t7) at (9.7, -11.3)
+  {\textbf{UNCLASSIFIED}\\
+   \scriptsize edge case or mixed signal
+   \hfill\textbf{\scriptsize\color{gray!60}$\to$ Copilot L3 (human)}};
+\draw[->, draw=gray!55, thick]
+  (r7.east) -- node[above, font=\scriptsize\itshape\color{gray!60}]{always} (t7.west);
+
+%% ─── NO arrows (vertical chain) ──────────────────────────────────────────────
+\foreach \from/\to in {feat/r0, r0/r1, r1/r2, r2/r3, r3/r4, r4/r5, r5/r6, r6/r7}{
+  \draw[narr] (\from.south) -- node[right, font=\scriptsize\bfseries]{NO} (\to.north);
+}
+
+%% ─── Title ───────────────────────────────────────────────────────────────────
+\node[font=\normalsize\bfseries, anchor=west] at (-0.3, 2.2)
+  {DMCA-Drift Classifier v3.1.1};
+\node[font=\scriptsize\color{gray!65}, anchor=west] at (4.5, 2.2)
+  {· 8 features · 7 drift types · held-out accuracy 92\% · FAR 0.000};
+
+\end{tikzpicture}

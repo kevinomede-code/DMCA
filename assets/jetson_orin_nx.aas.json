@@ -1,0 +1,73 @@
+{
+  "asset_id": "jetson_orin_nx",
+  "asset_type": "EdgeComputeDevice",
+  "description": "NVIDIA Jetson Orin NX — high-performance GPU edge, 16GB unified memory, SIL-2",
+  "submodels": {
+    "TechnicalData": {
+      "hw_class": "jetson_orin",
+      "ram_budget_mb": 16384,
+      "has_gpu": true,
+      "gpu_vram_mb": 16384,
+      "cpu_cores": 8,
+      "cpu_arch": "ARM Cortex-A78AE",
+      "gpu_model": "NVIDIA Ampere 1024-core"
+    },
+    "OperationalData": {
+      "latency_sla_ms": 30,
+      "sensor_protocol": "OPC-UA",
+      "update_frequency_hz": 10
+    },
+    "Capabilities": {
+      "data_available": "zero_shot",
+      "task": "time_series_forecasting",
+      "license_requirement": "apache_2.0",
+      "onnx_preferred": true
+    },
+    "DeploymentState": {
+      "active_model": null,
+      "deployed_at": null,
+      "format_used": null,
+      "quality_gate_passed": false,
+      "baseline_mae": null,
+      "baseline_latency_p95_ms": null,
+      "baseline_memory_peak_mb": null,
+      "drift_history": [
+        {
+          "drift_type": "abrupt",
+          "severity": "CRITICAL",
+          "realignment_action": "reject",
+          "active_model": "Salesforce/moirai-1.1-R-small",
+          "new_model": "ibm/patchtst-base-etth1",
+          "improvement_pct": null,
+          "audit_id": "78e1c2bf",
+          "timestamp": "2026-04-22T02:51:37.751979+00:00"
+        },
+        {
+          "drift_type": "abrupt",
+          "severity": "CRITICAL",
+          "realignment_action": "reject",
+          "active_model": "Salesforce/moirai-1.1-R-small",
+          "new_model": "ibm/patchtst-base-etth1",
+          "improvement_pct": null,
+          "audit_id": "76e3b5e2",
+          "timestamp": "2026-04-22T02:52:01.109298+00:00"
+        },
+        {
+          "drift_type": "abrupt",
+          "severity": "CRITICAL",
+          "realignment_action": "reject",
+          "active_model": "Salesforce/moirai-1.1-R-small",
+          "new_model": "ibm/patchtst-base-etth1",
+          "improvement_pct": null,
+          "audit_id": "25131fef",
+          "timestamp": "2026-04-22T03:08:44.850168+00:00"
+        }
+      ]
+    },
+    "SafetyClassification": {
+      "SIL_level": 2,
+      "requires_human_approval": true,
+      "timeout_default_action": "reject"
+    }
+  }
+}

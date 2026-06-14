@@ -1,0 +1,115 @@
+{
+  "status": "completed",
+  "swap_executed": true,
+  "m_curr_initial": "AutonLab/MOMENT-1-large",
+  "m_new_selected": "time-series-foundation-models/Lag-Llama",
+  "drift_type": "gradual",
+  "detection_idx": 12362,
+  "mae_baseline": 1.664534,
+  "mae_at_detection": 0.761821,
+  "mae_shadow": null,
+  "delta_mae_pct": null,
+  "latency_shadow_mean_ms": 6.99,
+  "topsis_scores": {
+    "Salesforce/moirai-1.1-R-small": 0.0,
+    "ibm/patchtst-base-etth1": 1.0,
+    "time-series-foundation-models/Lag-Llama": 0.9322
+  },
+  "quality_gate": {
+    "latency": "p95=6.2ms ≤ SLA=100.0ms → PASS",
+    "shape": "PASS: shape verified in canonical benchmark T4 2026-04-07",
+    "validity": "FAIL: MAE==RMSE (1.302898) — zero-shot collapse detected",
+    "memory": "est. RAM=3MB ≤ 3500MB → PASS",
+    "fallback": "escalated to time-series-foundation-models/Lag-Llama"
+  },
+  "copilot_alert": "# Operator Alert\n\nThe sensor readings show a gradual shift in their pattern, and our current analysis tool has become less reliable at detecting problems. We recommend switching to a faster backup system that should restore normal monitoring within 9 milliseconds. Awaiting COPILOTCONFIRM (auto-approve in 30 s if SIL < 2).",
+  "copilot_confirm": true,
+  "sil_level": 1,
+  "aas_final": {
+    "asset_id": "jetson_nano",
+    "hardware": {
+      "gpu_vram_gb": 4,
+      "ram_gb": 4,
+      "cpu_cores": 4
+    },
+    "sla": {
+      "max_latency_ms": 100.0,
+      "max_ram_mb": 3500
+    },
+    "sensors": {
+      "protocol": "OPC-UA",
+      "sampling_hz": 1
+    },
+    "drift_policy": {
+      "swap_types": [
+        "abrupt",
+        "gradual",
+        "incremental",
+        "distribution_shift"
+      ],
+      "no_swap_types": [
+        "variance_shift",
+        "outlier_driven"
+      ]
+    },
+    "deployment": {
+      "current_model": "time-series-foundation-models/Lag-Llama",
+      "previous_model": "AutonLab/MOMENT-1-large",
+      "swap_timestamp": "2026-06-10T06:23:28.304217",
+      "swap_reason": "gradual",
+      "grace_period_ticks": 10
+    }
+  },
+  "audit_entry": {
+    "event": "dmca_swap",
+    "timestamp": "2026-06-10T06:23:28.304320",
+    "m_curr": "AutonLab/MOMENT-1-large",
+    "m_new": "time-series-foundation-models/Lag-Llama",
+    "drift_type": "gradual",
+    "mae_baseline": 1.664534,
+    "mae_at_detection": 0.761821,
+    "mae_shadow": null,
+    "delta_mae": null,
+    "topsis_scores": {
+      "Salesforce/moirai-1.1-R-small": 0.0,
+      "ibm/patchtst-base-etth1": 1.0,
+      "time-series-foundation-models/Lag-Llama": 0.9322
+    },
+    "qg_pass": {
+      "latency": true,
+      "shape": true,
+      "validity": true,
+      "memory": true
+    },
+    "swap_executed": true,
+    "sil_level": 1
+  },
+  "log": [
+    "[2026-06-10T06:22:41.009334] === DMCA Integration Test | device=cuda ===",
+    "[2026-06-10T06:22:41.009413] Stage 1 | AAS: asset=jetson_nano SLA=100.0ms RAM=3500MB",
+    "[2026-06-10T06:22:41.009468] ETT: carico da GitHub (https://raw.githubusercontent.com/zhouhaoyi/ETDataset/main/ETT-small/ETTh1.csv)",
+    "[2026-06-10T06:22:41.207418] Dataset: ETDataset/ett | col=OT | n=17420",
+    "[2026-06-10T06:22:41.207616] Split 60/40: baseline=10452 drift=6968",
+    "[2026-06-10T06:22:41.207687] Stage 4A | Caricamento M_curr = AutonLab/MOMENT-1-large",
+    "[2026-06-10T06:23:03.581979] Stage 4A | M_curr caricato: 341.2M params",
+    "[2026-06-10T06:23:04.592456] Stage 4A | MAE baseline = 1.6645 ± 0.1197 (n=20 finestre)",
+    "[2026-06-10T06:23:09.265587] Stage 4 | ADWIN drift @ t=12362 MAE=0.7618 (×0.46 baseline)",
+    "[2026-06-10T06:23:20.058231] Stage 4 | drift_type=gradual",
+    "[2026-06-10T06:23:20.529032] Stage 4 | M_curr scaricato dalla VRAM",
+    "[2026-06-10T06:23:20.529118] Stage 2 | Candidati ammissibili (3): ['Salesforce/moirai-1.1-R-small', 'ibm/patchtst-base-etth1', 'time-series-foundation-models/Lag-Llama']",
+    "[2026-06-10T06:23:20.529649] Stage 2 | TOPSIS scores: {'Salesforce/moirai-1.1-R-small': 0.0, 'ibm/patchtst-base-etth1': 1.0, 'time-series-foundation-models/Lag-Llama': 0.9322}",
+    "[2026-06-10T06:23:20.529709] Stage 2 | M_new selezionato = ibm/patchtst-base-etth1 (score=1.0000)",
+    "[2026-06-10T06:23:20.529751] Stage 3 | Quality Gate su ibm/patchtst-base-etth1",
+    "[2026-06-10T06:23:20.529887] Stage 3 | QG: {'latency': 'p95=6.2ms ≤ SLA=100.0ms → PASS', 'shape': 'PASS: shape verified in canonical benchmark T4 2026-04-07', 'validity': 'FAIL: MAE==RMSE (1.302898) — zero-shot collapse detected', 'memory': 'est. RAM=3MB ≤ 3500MB → PASS'}",
+    "[2026-06-10T06:23:20.530010] Stage 3 | QG FAIL su ibm/patchtst-base-etth1 — fallback al candidato #2",
+    "[2026-06-10T06:23:20.530089] Stage 3 | Fallback → time-series-foundation-models/Lag-Llama",
+    "[2026-06-10T06:23:20.530138] Stage 5 | Shadow deploy time-series-foundation-models/Lag-Llama",
+    "[2026-06-10T06:23:24.863673] Stage 5 | M_new caricato in 4.33s ctx=32 type=lag_llama",
+    "[2026-06-10T06:23:25.249487] Stage 5 | Shadow: MAE=None lat=6.99ms (n=55)",
+    "[2026-06-10T06:23:25.249549] Stage 5 | Shadow MAE N/A (probabilistic) — improvement assumed OK",
+    "[2026-06-10T06:23:28.304201] Stage 5 | Copilot L1 alert: 323 chars",
+    "[2026-06-10T06:23:28.304315] Stage 5 | Atomic swap → time-series-foundation-models/Lag-Llama (grace=10 tick)",
+    "[2026-06-10T06:23:28.304419] === DMCA completato. swap_executed=True ==="
+  ],
+  "timestamp": "2026-06-10T06:22:41.009069"
+}

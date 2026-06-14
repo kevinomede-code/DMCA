@@ -1,0 +1,17 @@
+model_id,dataset_name,split,params_M,load_time_s,latency_mean_ms,latency_p95_ms,latency_min_ms,ram_gpu_mb,mae,rmse,device,dtype,n_reps,timestamp,status
+Salesforce/moirai-1.1-R-small,LucasThil/nasa_turbofan_degradation_FD001,train,11.61,12.515,53.727,62.915,15.699,106,,,cuda,float32,20,2026-04-07T03:14:47.271909,ok
+Salesforce/moirai-1.1-R-small,ETDataset/ett,test,11.61,12.501,57.932,58.943,15.622,106,,,cuda,float32,20,2026-04-07T03:14:46.564612,ok
+Salesforce/moirai-1.1-R-large,LucasThil/nasa_turbofan_degradation_FD001,train,305.07,20.841,72.591,73.914,55.347,2360,,,cuda,float32,20,2026-04-07T03:14:47.248525,ok
+Salesforce/moirai-1.1-R-large,ETDataset/ett,test,305.07,13.254,65.107,66.443,64.285,2359,,,cuda,float32,20,2026-04-07T03:15:00.868393,ok
+amazon/chronos-t5-tiny,LucasThil/nasa_turbofan_degradation_FD001,train,8.39,2.988,166.824,203.102,146.599,45,,,cuda,float32,20,2026-04-07T03:15:06.085142,ok
+amazon/chronos-t5-tiny,ETDataset/ett,test,8.39,1.506,154.023,161.897,143.873,45,,,cuda,float32,20,2026-04-07T03:15:13.683601,ok
+amazon/chronos-t5-large,LucasThil/nasa_turbofan_degradation_FD001,train,708.96,19.197,829.961,902.932,807.504,2771,,,cuda,float32,20,2026-04-07T03:15:14.876119,ok
+amazon/chronos-t5-large,ETDataset/ett,test,708.96,20.058,736.328,848.044,701.556,2773,,,cuda,float32,20,2026-04-07T03:15:15.700933,ok
+google/timesfm-1.0-200m,LucasThil/nasa_turbofan_degradation_FD001,train,200.0,9.082,2039.103,2109.519,1931.542,8,0.006353,0.007878,cuda,float32,20,2026-04-07T03:15:18.604792,ok
+google/timesfm-1.0-200m,ETDataset/ett,test,200.0,7.65,1907.301,1958.251,1841.338,8,1.817069,2.278727,cuda,float32,20,2026-04-07T03:15:50.743239,ok
+ibm/patchtst-base-etth1,LucasThil/nasa_turbofan_degradation_FD001,train,0.67,0.16,5.861,6.191,3.074,14,1.302898,1.302898,cuda,float32,20,2026-04-07T03:15:51.925695,ok
+ibm/patchtst-base-etth1,ETDataset/ett,test,0.67,0.117,3.019,3.145,2.894,14,7.171902,7.171902,cuda,float32,20,2026-04-07T03:15:53.448979,ok
+AutonLab/MOMENT-1-large,LucasThil/nasa_turbofan_degradation_FD001,train,341.25,14.654,29.664,33.212,25.84,1408,0.114108,0.171983,cuda,float32,20,2026-04-07T03:15:53.965185,ok
+AutonLab/MOMENT-1-large,ETDataset/ett,test,341.25,5.05,26.813,29.46,25.575,1408,1.710089,2.42779,cuda,float32,20,2026-04-07T03:16:10.265289,ok
+time-series-foundation-models/Lag-Llama,LucasThil/nasa_turbofan_degradation_FD001,train,2.45,1.46,7.768,8.882,6.337,20,,,cuda,float32,20,2026-04-07T03:16:11.660365,ok
+time-series-foundation-models/Lag-Llama,ETDataset/ett,test,2.45,0.18,7.038,11.332,6.299,20,,,cuda,float32,20,2026-04-07T03:16:14.530808,ok
