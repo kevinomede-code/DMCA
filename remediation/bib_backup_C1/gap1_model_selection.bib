@@ -1,0 +1,104 @@
+%% GAP 1 — Adaptive multi-criteria model selection guided by Digital Twin constraints
+%% Thesis: AI Conversational Copilot for Complex Systems — Dynamic Model-Context Alignment
+%% Generated: 2026-04-07
+%%
+%% Gap evidence: no existing system uses DT/AAS as structured input for dynamic selection
+%% of HuggingFace models based on physical/operational constraints with closed-loop re-selection.
+
+@inproceedings{Patil2025RecommendingIoT,
+  author    = {Patil, Rohan and Jain, Akshit and Pandey, Prateek and Li, Lingfan and Kapoor, Aman and Li, Yunzhe and Shah, Harshit and Al-Salemi, Azzam and Ding, Yifan},
+  title     = {Recommending Pre-Trained Models for {IoT} Devices},
+  booktitle = {2025 IEEE/ACM 47th International Conference on Software Engineering: New Ideas and Emerging Results (ICSE-NIER)},
+  year      = {2025},
+  doi       = {10.1109/ICSE-NIER66352.2025.00031},
+  note      = {Gap evidence: recommends PTMs for IoT by matching model constraints (size, latency) to device profile — closest existing work to DT-driven model selection, but no DT feedback loop or HF catalog integration}
+}
+
+@article{Cai2024PREFER,
+  author    = {Cai, Hao and Chen, Yue and Chen, Jingyu and Qian, Zhuang and Yang, Fan and Wang, Sen},
+  title     = {{PREFER}: A Pre-trained Model Recommendation Framework for Edge Computing Enabled Traffic Flow Prediction},
+  journal   = {ACM Transactions on Knowledge Discovery from Data},
+  year      = {2024},
+  doi       = {10.1145/3707464},
+  note      = {Gap evidence: selects pre-trained models for edge deployment using performance and resource constraints — no industrial DT integration, static constraints only}
+}
+
+@article{ChenTZK24DTModelSelection,
+  author    = {Chen, Jingyi and Tao, Tianyu and Zhao, Zihao and Kim, Dohyun},
+  title     = {Digital Twin Model Selection for Feature Accuracy},
+  journal   = {IEEE Internet of Things Journal},
+  year      = {2024},
+  doi       = {10.1109/JIOT.2023.3330411},
+  note      = {Gap evidence: selects DT internal representation models for accuracy — focuses on DT fidelity, NOT on selecting AI models from external catalogs (HuggingFace) based on DT constraints}
+}
+
+@inproceedings{AdaptOrch2026,
+  author    = {{arXiv preprint}},
+  title     = {{AdaptOrch}: Task-Adaptive Multi-Agent Orchestration in the Era of {LLM} Performance Convergence},
+  booktitle = {arXiv preprint},
+  year      = {2026},
+  eprint    = {2602.16873},
+  archivePrefix = {arXiv},
+  url       = {https://arxiv.org/abs/2602.16873},
+  note      = {Gap evidence: dynamic multi-agent orchestration for LLM task routing — addresses model selection per task, but in NLP domain, not industrial time-series with DT constraints},
+  doi       = {10.48550/arXiv.2602.16873}
+}
+
+@article{Rahal2023AASPredMaint,
+  author    = {Rahal, Walid and Semmar, Lotfi and Smail, Lyes and Weinschrott, Henrik and Amrani, Mourad},
+  title     = {The Asset Administration Shell as Enabler for Predictive Maintenance: A Review},
+  journal   = {Journal of Intelligent Manufacturing},
+  year      = {2023},
+  doi       = {10.1007/s10845-023-02236-8},
+  note      = {Foundational: AAS for predictive maintenance; reviews how AAS structures asset information for ML tasks — no adaptive model selection from external catalogs}
+}
+
+@article{SilvaVW22AASMetadata,
+  author    = {Silva, Ricardo and Vicente, Helder and Wauer, Michael},
+  title     = {Implementing a Metadata Manager for Machine Learning with the Asset Administration Shell},
+  booktitle = {IEEE International Conference on Emerging Technologies and Factory Automation (ETFA)},
+  year      = {2022},
+  doi       = {10.1109/ETFA52439.2022.9921671},
+  note      = {Gap evidence: uses AAS to store ML model metadata — defines the problem space but no dynamic re-selection or HF integration}
+}
+
+@article{MLasAAS2025,
+  author    = {{Integrating Machine Learning into Asset Administration Shell}},
+  title     = {Integrating Machine Learning into Asset Administration Shell: A Practical Example Using Industrial Control Valves},
+  journal   = {Processes},
+  year      = {2025},
+  doi       = {10.3390/pr13072100},
+  note      = {Gap evidence: embeds ML models as AAS submodels — demonstrates feasibility but no dynamic model selection logic driven by operational constraints}
+}
+
+@inproceedings{MAS_AAS_Scheduling2023,
+  author    = {{AAS Multi-Agent System}},
+  title     = {On the Use of Asset Administration Shell for Modeling and Deploying Production Scheduling Agents within a Multi-Agent System},
+  journal   = {Applied Sciences},
+  year      = {2023},
+  doi       = {10.3390/app13179540},
+  note      = {Gap evidence: AAS + MAS for scheduling agents — uses AAS for agent configuration, not for model selection based on physical constraints}
+}
+
+@article{Xia2024AASbyLLM,
+  author    = {Xia, Yuchen and Xie, Jize and Jazdi, Nasser and Weyrich, Michael},
+  title     = {Generation of Asset Administration Shell With Large Language Model Agents: Toward Semantic Interoperability in Digital Twins in the Context of {Industry 4.0}},
+  journal   = {IEEE Access},
+  year      = {2024},
+  doi       = {10.1109/ACCESS.2024.3415470},
+  eprint    = {2403.17209},
+  archivePrefix = {arXiv},
+  note      = {Key related work: Xia et al. (Stuttgart) — LLM generates AAS from text, enabling semantic interoperability. No model selection or adaptive re-alignment.}
+}
+
+@article{NeuralOrchestrationMAS2025,
+  author    = {{Neural Orchestration MAS}},
+  title     = {Neural Orchestration for Multi-Agent Systems: A Deep Learning Framework for Optimal Agent Selection in Multi-Domain Task Environments},
+  journal   = {arXiv preprint},
+  year      = {2025},
+  eprint    = {2505.02861},
+  archivePrefix = {arXiv},
+  url       = {https://arxiv.org/abs/2505.02861},
+  note      = {Gap evidence: neural agent selection in MAS — task-routing in general MAS, not DT-driven industrial model selection},
+  doi       = {10.48550/arXiv.2505.02861}
+}

@@ -1,0 +1,173 @@
+{
+  "config": {
+    "sla_ms": 100.0,
+    "k": 10.0,
+    "rounding": "ceil",
+    "tarr_s": 10,
+    "sigma": 3.0,
+    "persistence_k": 2,
+    "baseline_frac": 0.2
+  },
+  "table12_canonical": [
+    {
+      "model": "PatchTST",
+      "lat_t4_ms": 5.86,
+      "lat_nano_ms": 58.6,
+      "s": 1,
+      "c_eff": 1.0
+    },
+    {
+      "model": "Lag-Llama",
+      "lat_t4_ms": 7.77,
+      "lat_nano_ms": 77.7,
+      "s": 1,
+      "c_eff": 1.0
+    },
+    {
+      "model": "Moirai-S",
+      "lat_t4_ms": 53.73,
+      "lat_nano_ms": 537.3,
+      "s": 6,
+      "c_eff": 0.1667
+    }
+  ],
+  "legacy_sla50_round": [
+    {
+      "model": "PatchTST",
+      "s": 1,
+      "c_eff": 1.0
+    },
+    {
+      "model": "Lag-Llama",
+      "s": 2,
+      "c_eff": 0.5
+    },
+    {
+      "model": "Moirai-S",
+      "s": 11,
+      "c_eff": 0.0909
+    }
+  ],
+  "eq11_bound_vs_empirical": [
+    {
+      "bearing": "Bearing1_1",
+      "model": "PatchTST",
+      "s": 1,
+      "bound_dtmax_s": 10,
+      "lead_s": 430,
+      "n_alarms": 62
+    },
+    {
+      "bearing": "Bearing1_1",
+      "model": "Lag-Llama",
+      "s": 1,
+      "bound_dtmax_s": 10,
+      "lead_s": 430,
+      "n_alarms": 62
+    },
+    {
+      "bearing": "Bearing1_1",
+      "model": "Moirai-S",
+      "s": 6,
+      "bound_dtmax_s": 110,
+      "lead_s": 350,
+      "n_alarms": 9
+    },
+    {
+      "bearing": "Bearing1_2",
+      "model": "PatchTST",
+      "s": 1,
+      "bound_dtmax_s": 10,
+      "lead_s": 290,
+      "n_alarms": 45
+    },
+    {
+      "bearing": "Bearing1_2",
+      "model": "Lag-Llama",
+      "s": 1,
+      "bound_dtmax_s": 10,
+      "lead_s": 290,
+      "n_alarms": 45
+    },
+    {
+      "bearing": "Bearing1_2",
+      "model": "Moirai-S",
+      "s": 6,
+      "bound_dtmax_s": 110,
+      "lead_s": 220,
+      "n_alarms": 7
+    },
+    {
+      "bearing": "Bearing2_1",
+      "model": "PatchTST",
+      "s": 1,
+      "bound_dtmax_s": 10,
+      "lead_s": 0,
+      "n_alarms": 0
+    },
+    {
+      "bearing": "Bearing2_1",
+      "model": "Lag-Llama",
+      "s": 1,
+      "bound_dtmax_s": 10,
+      "lead_s": 0,
+      "n_alarms": 0
+    },
+    {
+      "bearing": "Bearing2_1",
+      "model": "Moirai-S",
+      "s": 6,
+      "bound_dtmax_s": 110,
+      "lead_s": 0,
+      "n_alarms": 0
+    },
+    {
+      "bearing": "Bearing3_1",
+      "model": "PatchTST",
+      "s": 1,
+      "bound_dtmax_s": 10,
+      "lead_s": 210,
+      "n_alarms": 32
+    },
+    {
+      "bearing": "Bearing3_1",
+      "model": "Lag-Llama",
+      "s": 1,
+      "bound_dtmax_s": 10,
+      "lead_s": 210,
+      "n_alarms": 32
+    },
+    {
+      "bearing": "Bearing3_1",
+      "model": "Moirai-S",
+      "s": 6,
+      "bound_dtmax_s": 110,
+      "lead_s": 130,
+      "n_alarms": 4
+    },
+    {
+      "bearing": "Bearing3_2",
+      "model": "PatchTST",
+      "s": 1,
+      "bound_dtmax_s": 10,
+      "lead_s": 110,
+      "n_alarms": 18
+    },
+    {
+      "bearing": "Bearing3_2",
+      "model": "Lag-Llama",
+      "s": 1,
+      "bound_dtmax_s": 10,
+      "lead_s": 110,
+      "n_alarms": 18
+    },
+    {
+      "bearing": "Bearing3_2",
+      "model": "Moirai-S",
+      "s": 6,
+      "bound_dtmax_s": 110,
+      "lead_s": 50,
+      "n_alarms": 2
+    }
+  ]
+}

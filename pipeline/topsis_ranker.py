@@ -85,10 +85,18 @@ def filter_admissible(catalog: list[dict], constraints: dict) -> list[dict]:
     for m in catalog:
         reasons = []
 
-        # C1 — Latency: topsis_latency_ms <= sla * 1.5 (allow 50% margin for Phase 1)
-        lat = m.get("topsis_latency_ms", 9999)
+        # C1 — Latency: the benchmark latency is measured on the reference GPU
+        # (T4) and must be converted to the TARGET DEVICE scale before being
+        # compared against the SLA. The conversion factor is a property of the
+        # target hardware (AAS/device profile), not of the model: e.g. x10 for
+        # the Jetson Nano edge class. Default 1.0 = evaluate on the reference
+        # device itself. The 1.5 multiplier is the Phase-1 measurement margin.
+        lat_factor = float(constraints.get("latency_factor", 1.0))
+        lat = m.get("topsis_latency_ms", 9999) * lat_factor
         if lat > sla_ms * 1.5:
-            reasons.append(f"latency {lat:.1f}ms > sla*1.5 {sla_ms*1.5:.1f}ms")
+            reasons.append(
+                f"latency {lat:.1f}ms (x{lat_factor:g} device factor) "
+                f"> sla*1.5 {sla_ms*1.5:.1f}ms")
 
         # C2 — Hardware: model min_hw must not exceed asset hw_class
         if _hw_rank(m.get("min_hw", "pc_gpu_entry")) > _hw_rank(hw_class):
@@ -96,9 +104,25 @@ def filter_admissible(catalog: list[dict], constraints: dict) -> list[dict]:
                 f"min_hw={m.get('min_hw')} > hw_class={hw_class}"
             )
 
-        # C3 — Data availability: zero_shot models only if asset is zero_shot
-        if data_avail == "zero_shot" and not m.get("zero_shot", False):
-            reasons.append("requires training data, asset is zero_shot")
+        # C3 — Data availability. On an asset with no training data the model
+        # must be deployable zero-shot. Two forms of evidence qualify:
+        #   (a) the model is a natively zero-shot foundation model, or
+        #   (b) a zero-shot benchmark measurement exists for it in the catalog
+        #       (has_measured_mae), so its zero-shot behaviour is *known* and
+        #       can be adjudicated downstream by the Stage-3 quality gate.
+        # Models with neither are rejected: their zero-shot behaviour is unknown
+        # and no evidence supports deploying them.
+        # Note: branch (b) deliberately admits supervised models such as
+        # PatchTST. Their zero-shot degradation (MAE == RMSE collapse) is left
+        # to Stage 3 rather than pre-empted here, because the selection criteria
+        # cannot predict the collapse from the ranking features alone -- which
+        # is precisely what motivates a separate quality gate.
+        if data_avail == "zero_shot":
+            zs_native   = m.get("zero_shot", False)
+            zs_evidence = m.get("has_measured_mae", False)
+            if not (zs_native or zs_evidence):
+                reasons.append(
+                    "not zero-shot capable and no zero-shot benchmark evidence")
 
         # C4 — License: restricted licenses are rejected unless explicitly allowed
         model_license = m.get("license", "unknown")

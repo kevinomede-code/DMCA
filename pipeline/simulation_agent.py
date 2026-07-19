@@ -549,51 +549,77 @@ def hw_rank(hw: str) -> int:
         return 999
 
 
+def _device_latency_factor(hardware: str) -> float:
+    """Fattore di conversione T4 -> dispositivo target.
+
+    Le latenze del catalogo sono misurate sulla GPU di riferimento (T4). Le
+    classi edge girano circa un ordine di grandezza piu' lente: x10 e' la
+    convenzione conservativa usata in tutta la tesi e in
+    missed_alarm_simulation.py. Le classi PC/GPU sono valutate a scala di
+    riferimento (fattore 1.0).
+    """
+    return 10.0 if hardware in ("plc_embedded", "raspberry_arm",
+                                "jetson_nano", "jetson_orin") else 1.0
+
+
 def select_model(catalog: list, task: str, hardware: str,
                  latency_sla_ms: int, data_available: str,
                  ignore_hardware: bool = False,
                  ignore_latency: bool = False,
-                 task_only: bool = False) -> dict | None:
+                 task_only: bool = False,
+                 latency_factor: float | None = None) -> dict | None:
     """
     Selezione modello dalla catalog list dato un profilo AAS sintetico.
     Ritorna il miglior candidato o None.
+
+    DELEGA a pipeline/topsis_ranker.py, cosi' che esista UN SOLO selettore nel
+    sistema: quello descritto nella tesi (vincoli hard + TOPSIS a 4 criteri con
+    pesi MAE .5 / latency .3 / params .1 / license .1). In precedenza questa
+    funzione conteneva un selettore inline che filtrava su classi categoriche
+    (hard_realtime/soft_realtime/batch) e sceglieva con min(params_M): una
+    euristica diversa dal metodo documentato, che poteva selezionare modelli
+    oltre l'SLA (es. chronos-t5-tiny a 2031 ms su un budget di 100 ms).
+
+    I flag dell'ablation sono realizzati rilassando i constraint corrispondenti,
+    senza duplicare la logica di filtro:
+      ignore_hardware -> hw_class portata al tier massimo
+      ignore_latency  -> SLA portato a +infinito
+      task_only       -> si applica il solo filtro task, poi TOPSIS
     """
-    candidates = []
-    for m in catalog:
-        if task_only:
-            # Solo filtro task
-            if m.get("task") not in (task, "forecasting"):
-                continue
-            candidates.append(m)
-            continue
+    try:
+        from pipeline.topsis_ranker import filter_admissible, TopsisRanker
+    except ImportError:
+        from topsis_ranker import filter_admissible, TopsisRanker
 
-        # Filtro task
-        if m.get("task") not in (task, "forecasting"):
-            continue
-
-        # Filtro hardware
-        if not ignore_hardware:
-            if hw_rank(m.get("min_hw", "pc_gpu_entry")) > hw_rank(hardware):
-                continue
-
-        # Filtro zero_shot / few_shot
-        if data_available == "zero_shot" and not m.get("zero_shot", False):
-            continue
-
-        # Filtro latenza
-        if not ignore_latency:
-            lat_class = m.get("latency", "batch")
-            if latency_sla_ms <= 10 and lat_class != "hard_realtime":
-                continue
-            if latency_sla_ms <= 500 and lat_class == "batch":
-                continue
-
-        candidates.append(m)
+    if task_only:
+        # Baseline "task-only": modella il selettore NAIVE che ottimizza la sola
+        # accuratezza, ignorando i vincoli di deployment. Non e' una
+        # configurazione di DMCA ma il termine di paragone contro cui DMCA si
+        # misura (il "TimesFM paradox": chi guarda solo il MAE sceglie un
+        # modello da 2 s di latenza). Per questo NON usa TOPSIS multi-criterio.
+        candidates = [m for m in catalog
+                      if m.get("task") in (task, "forecasting")]
+        if not candidates:
+            return None
+        return min(candidates, key=lambda m: m.get("topsis_mae", 9999))
+    else:
+        if latency_factor is None:
+            latency_factor = _device_latency_factor(hardware)
+        constraints = {
+            "hw_class":       "pc_gpu_entry" if ignore_hardware else hardware,
+            "latency_sla_ms": 1e9 if ignore_latency else latency_sla_ms,
+            "latency_factor": 1.0 if ignore_latency else latency_factor,
+            "data_available": data_available,
+            "task":           task,
+            "ram_mb":         3500,
+        }
+        candidates = filter_admissible(catalog, constraints)
 
     if not candidates:
         return None
-    # Preferisci il modello con meno parametri (edge-friendly)
-    return min(candidates, key=lambda m: m.get("params_M", 9999))
+
+    ranked = TopsisRanker().rank(candidates)
+    return ranked[0][0] if ranked else None
 
 
 def run_ablation():

@@ -5,17 +5,6 @@
 %% Gap evidence: literature measures system accuracy, not operator trust quality over time.
 %% Missing: trust calibration as explicit longitudinal objective in industrial AI deployment.
 
-@inproceedings{He2025ConvXAI_Trust,
-  author    = {He, Gaole and Aarts, Bram and Gadiraju, Ujwal},
-  title     = {Is Conversational {XAI} All You Need? Human-{AI} Decision Making With a Conversational {XAI} Assistant},
-  booktitle = {International Conference on Intelligent User Interfaces (IUI)},
-  year      = {2025},
-  doi       = {10.1145/3708359.3712133},
-  eprint    = {2501.17546},
-  archivePrefix = {arXiv},
-  note      = {Key evidence for GAP 5: measures trust and reliance effects of conversational XAI — shows conversational XAI does NOT automatically produce calibrated trust; confirms explicit trust calibration mechanism needed}
-}
-
 @inproceedings{AdjustForTrust2025,
   author    = {{Adjust for Trust Authors}},
   title     = {Adjust for Trust: Mitigating Trust-Induced Inappropriate Reliance on {AI} Assistance},
@@ -24,7 +13,7 @@
   doi       = {10.48550/arXiv.2502.13321},
   eprint    = {2502.13321},
   archivePrefix = {arXiv},
-  note      = {Key evidence for GAP 5: proposes adjusting AI recommendations based on user trust level — intervenes on trust as dynamic variable. No industrial context, no longitudinal measurement, no TS model integration.}
+  annote      = {Key evidence for GAP 5: proposes adjusting AI recommendations based on user trust level — intervenes on trust as dynamic variable. No industrial context, no longitudinal measurement, no TS model integration.}
 }
 
 @article{PsychologicalTraitsReliance2024,
@@ -33,7 +22,7 @@
   journal   = {International Journal of Human-Computer Interaction},
   year      = {2024},
   doi       = {10.1080/10447318.2024.2348216},
-  note      = {Foundation for GAP 5: individual factors affecting appropriate reliance — confirms diversity in trust calibration; no longitudinal industrial study, no explicit calibration objective}
+  annote      = {Foundation for GAP 5: individual factors affecting appropriate reliance — confirms diversity in trust calibration; no longitudinal industrial study, no explicit calibration objective}
 }
 
 @article{EyeTrackingTrustCalibration2024,
@@ -42,7 +31,7 @@
   journal   = {Sensors},
   year      = {2024},
   doi       = {10.3390/s24247946},
-  note      = {Key evidence for GAP 5: eye-tracking to measure trust calibration in automated supervisory control — closest to industrial operator trust measurement. Confirms gap: physiological measurement only, no feedback loop to AI system.}
+  annote      = {Key evidence for GAP 5: eye-tracking to measure trust calibration in automated supervisory control — closest to industrial operator trust measurement. Confirms gap: physiological measurement only, no feedback loop to AI system.}
 }
 
 @article{HumanAutomationTrustDevelopment2024,
@@ -51,7 +40,7 @@
   journal   = {Journal of Cognitive Engineering and Decision Making},
   year      = {2024},
   doi       = {10.1177/15553434241296573},
-  note      = {Foundation for GAP 5: trust development over automation exposure — longitudinal trust study in simulated vehicle operations. Confirms trust development dynamics; no AI adjustment mechanism, not manufacturing.}
+  annote      = {Foundation for GAP 5: trust development over automation exposure — longitudinal trust study in simulated vehicle operations. Confirms trust development dynamics; no AI adjustment mechanism, not manufacturing.}
 }
 
 @article{XAI_ExplainableMaritimeShips2025,
@@ -62,7 +51,7 @@
   eprint    = {2509.15959},
   archivePrefix = {arXiv},
   doi       = {10.48550/arXiv.2509.15959},
-  note      = {Related work: XAI + trust calibration for safety-critical autonomous systems (maritime) — adaptive interfaces and trust; no TS model integration, no explicit trust calibration metric as success criterion}
+  annote      = {Related work: XAI + trust calibration for safety-critical autonomous systems (maritime) — adaptive interfaces and trust; no TS model integration, no explicit trust calibration metric as success criterion}
 }
 
 @article{AIReliance_OverRelying2025,
@@ -73,7 +62,7 @@
   eprint    = {2504.07423},
   archivePrefix = {arXiv},
   doi       = {10.48550/arXiv.2504.07423},
-  note      = {Foundation for GAP 5: critiques current reliance metrics in AI evaluation — argues proxy outcomes (accuracy) miss trust quality. Directly supports thesis argument that trust calibration must be explicit success metric.}
+  annote      = {Foundation for GAP 5: critiques current reliance metrics in AI evaluation — argues proxy outcomes (accuracy) miss trust quality. Directly supports thesis argument that trust calibration must be explicit success metric.}
 }
 
 @article{TrustFromDistrust2025,
@@ -84,7 +73,7 @@
   eprint    = {2511.16769},
   archivePrefix = {arXiv},
   doi       = {10.48550/arXiv.2511.16769},
-  note      = {Foundation for GAP 5: models trust dynamics in AI-human decision making — introduces deferred trust concept, relevant for longitudinal trust modeling in industrial copilot}
+  annote      = {Foundation for GAP 5: models trust dynamics in AI-human decision making — introduces deferred trust concept, relevant for longitudinal trust modeling in industrial copilot}
 }
 
 @article{AppropriateRelianceExpertise2025,
@@ -93,7 +82,7 @@
   journal   = {Journal of Decision Systems},
   year      = {2025},
   doi       = {10.1080/12460125.2025.2593251},
-  note      = {Foundation for GAP 5: expertise and self-confidence as modulators of reliance — manufacturing operators have domain expertise; confirms calibration must account for operator expertise level}
+  annote      = {Foundation for GAP 5: expertise and self-confidence as modulators of reliance — manufacturing operators have domain expertise; confirms calibration must account for operator expertise level}
 }
 
 @inproceedings{InteractiveXAIReliance2025,
@@ -101,7 +90,7 @@
   title     = {Interactive {XAI} and Appropriate Reliance: The Role of Conversations in Effective Human-{AI} Decision-Making},
   booktitle = {International Conference on Interaction Sciences},
   year      = {2025},
-  note      = {Key evidence: conversational XAI interaction specifically studied for appropriate reliance — confirms conversations matter for reliance calibration; gap: no industrial deployment, no longitudinal trust tracking}
+  annote      = {Key evidence: conversational XAI interaction specifically studied for appropriate reliance — confirms conversations matter for reliance calibration; gap: no industrial deployment, no longitudinal trust tracking}
 }
 
 %% ── Trust calibration foundational (added 2026-05-13) ───────────────────────
@@ -115,8 +104,5 @@
   number    = {1},
   pages     = {50--80},
   doi       = {10.1518/hfes.46.1.50_30392},
-  note      = {Foundational trust calibration model: trust should match system reliability
-               (neither over- nor under-reliance); trust drifts toward over-reliance under
-               sustained correct AI performance then collapses on first failure ---
-               motivates DMCA GAP~5 longitudinal trust tracking objective}
+  annote      = {Foundational trust calibration model: trust should match system reliability (neither over- nor under-reliance); trust drifts toward over-reliance under sustained correct AI performance then collapses on first failure --- motivates DMCA GAP~5 longitudinal trust tracking objective}
 }

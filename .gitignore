@@ -78,3 +78,6 @@ results/logs/
 # AutoResearchClaw is maintained as a standalone repository.
 # It was used during this work for literature search assistance.
 AutoResearchClaw/
+
+# Layer 3 private product repo (own git) — never in public thesis repo
+alignedge/alignedge-product/

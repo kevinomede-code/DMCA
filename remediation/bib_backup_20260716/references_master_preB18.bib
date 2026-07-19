@@ -1,0 +1,1599 @@
+% ============================================================
+% references_master.bib
+% FILE UNICO CONSOLIDATO — Dynamic Model-Context Alignment (DMCA)
+% Tesi magistrale — Kevin Omede
+% Generato automaticamente da step2_consolidate.py
+% Data: 2026-04-16
+%
+% Contiene TUTTE le entry da:
+%   - references.bib (57 entry)
+%   - arxiv_downloaded.bib (9 entry, de-duplicate)
+%   - new_references.bib (32 entry, de-duplicate)
+%
+% USO: in thesis_draft.tex usa
+%   \bibliographystyle{IEEEtran}
+%   \bibliography{../literature/bibtex/references_master}
+% ============================================================
+
+@techreport{PlattformI40_AAS_2019,
+  author      = {{Plattform Industrie 4.0}},
+  title       = {Details of the {Asset Administration Shell} -- {Part~1}: The Exchange of Information Between Partners in the Value Chain of {Industrie~4.0}},
+  institution = {Plattform Industrie 4.0 / ZVEI},
+  year        = {2019},
+  url         = {https://www.plattform-i40.de/IP/Redaktion/EN/Downloads/Publikation/Details_of_the_Asset_Administration_Shell_Part1_V3.html},
+  note        = {Foundational standard document: defines AAS interoperability profiles Type~1 (passive file exchange) and Type~2 (reactive API-served); directly motivates the DMCA Stage~1 design choice}
+}
+
+@article{Jacoby2023AASInPractice,
+  author    = {Jacoby, Michael and Becker, Benno and Burger, Achim and Meisel, Alexander and Malakuti, Somayeh and Stojanovic, Nenad and Vietz, Daniel},
+  title     = {Open-Source Implementations of the Reactive {Asset Administration Shell}: A Survey},
+  journal   = {Sensors},
+  volume    = {23},
+  number    = {11},
+  pages     = {5229},
+  year      = {2023},
+  doi       = {10.3390/s23115229},
+  note      = {Survey of open-source AAS implementations — Type~1 passive exchange is the practical baseline for constrained edge environments and reproducible research workflows}
+}
+
+@inproceedings{Mayer2019BaSyx,
+  author    = {Mayer, Christian and Pesch, Maximilian and Hoffmann, Max and Milz, Matthias and Schluse, Michael},
+  title     = {{Eclipse BaSyx}: Middleware Architecture for {Industry~4.0} {Asset Administration Shell} Deployments},
+  booktitle = {Proceedings of the IEEE Industrial Cyber-Physical Systems (ICPS)},
+  year      = {2019},
+  doi       = {10.1109/ICPHYS.2019.8780167},
+  note      = {Reference implementation of Type~2 reactive AAS as open-source Eclipse middleware; Future Work baseline for DMCA Phase~2}
+}
+
+@techreport{nvidia_jetson_datasheet,
+  author      = {{NVIDIA Corporation}},
+  title       = {Jetson Nano Developer Kit: Technical Specifications},
+  institution = {NVIDIA},
+  year        = {2023},
+  url         = {https://developer.nvidia.com/embedded/jetson-nano-developer-kit},
+  note        = {ARM Cortex-A57 CPU, Maxwell GPU; used to estimate 5--20$\times$ latency conversion factor from NVIDIA T4 server GPU baseline in DMCA Stage~3 quality gate}
+}
+
+@article{xia2024aas,
+  author  = {Xia, Yuchen and Xiao, Zhewen and Jazdi, Nasser and Weyrich, Michael},
+  title   = {{Generation of Asset Administration Shell With Large Language Model
+             Agents: Toward Semantic Interoperability in Digital Twins
+             in the Context of Industry 4.0}},
+  journal = {IEEE Access},
+  year    = {2024},
+  doi     = {10.1109/ACCESS.2024.3415470},
+  note    = {arXiv:2403.17209. Institute of Industrial Automation and Software
+             Engineering, University of Stuttgart.
+             PDF: literature/papers/01\_digital\_twin\_llm/Xia\_2024\_AASbyLLM\_v4.pdf}
+}
+
+@inproceedings{xia2024llmsim,
+  author    = {Xia, Yuchen and Dittler, Daniel and Jazdi, Nasser
+               and Chen, Haonan and Weyrich, Michael},
+  title     = {{LLM Experiments with Simulation: Large Language Model
+               Multi-Agent System for Simulation Model Parametrization
+               in Digital Twins}},
+  booktitle = {29th IEEE International Conference on Emerging Technologies
+               and Factory Automation (ETFA)},
+  year      = {2024},
+  url       = {https://arxiv.org/abs/2405.18092},
+  note      = {arXiv:2405.18092. University of Stuttgart.
+               Cited for LLM-driven simulation of DT scenarios and
+               automated what-if analysis without manual scenario specification.
+               PDF: literature/papers/01\_digital\_twin\_llm/Xia\_2024\_LLMSim.pdf},},
+  doi       = {10.48550/arXiv.2406.07718}
+}@article{xia2025arch,
+  author  = {Xia, Yuchen and Zhang, Jize and Jazdi, Nasser and Weyrich, Michael},
+  title   = {{Incorporating Large Language Models into Production Systems
+             for Enhanced Task Automation and Flexibility}},
+  journal = {VDI-Berichte},
+  volume  = {2437},
+  year    = {2024},
+  doi     = {10.51202/9783181024379},
+  url     = {https://arxiv.org/abs/2407.08550},
+  note    = {arXiv:2407.08550. University of Stuttgart.
+             PDF: literature/papers/01\_digital\_twin\_llm/Xia\_2025\_Architecture.pdf}
+}
+
+@inproceedings{xia2023autonomous,
+  author    = {Xia, Yuchen and Shenoy, Manthan and Jazdi, Nasser and Weyrich, Michael},
+  title     = {{Towards Autonomous System: Flexible Modular Production System
+               Enhanced with Large Language Model Agents}},
+  booktitle = {49th Annual Conference of the IEEE Industrial Electronics Society
+               (IECON)},
+  year      = {2023},
+  note      = {Institute of Industrial Automation and Software Engineering,
+               University of Stuttgart.
+               PDF: literature/papers/01\_digital\_twin\_llm/Xia\_2023\_Autonomous.pdf},},
+  doi       = {10.48550/arXiv.2306.10169}
+}@article{ansari2024chronos,
+  author  = {Ansari, Abdul Fatir and Stella, Lorenzo and Turkmen, Caner
+             and Zhang, Xiyuan and Mercado, Pedro and Shen, Huibin
+             and Shchur, Oleksandr and Rangapuram, Syama Sundar
+             and Arango, Sebastian Pineda and Kapoor, Shubham
+             and Zschiegner, Jasper and Maddix, Danielle C.
+             and Wang, Hao and Mahoney, Michael W.
+             and Torkkola, Kari and Wilson, Andrew Gordon
+             and Bohlke-Schneider, Michael and Wang, Yuyang},
+  title   = {{Chronos: Learning the Language of Time Series}},
+  journal = {Transactions on Machine Learning Research (TMLR)},
+  year    = {2024},
+  note    = {arXiv:2403.07815. Amazon Research. Published October 2024.
+               PDF: literature/papers/02\_foundation\_models\_timeseries/Ansari\_2024\_Chronos.pdf},},
+  doi       = {10.48550/arXiv.2403.07815}
+}@inproceedings{das2024timesfm,
+  author    = {Das, Abhimanyu and Kong, Weihao and Sen, Rajat and Zhou, Yichen},
+  title     = {{A Decoder-Only Foundation Model for Time-Series Forecasting}},
+  booktitle = {Proceedings of the 41st International Conference on Machine
+               Learning (ICML)},
+  year      = {2024},
+  note      = {VERIFY arXiv ID. Google DeepMind.
+               Zero-shot forecasting, decoder-only transformer architecture.
+               PDF: literature/papers/02\_foundation\_models\_timeseries/Das\_2024\_TimesFM.pdf},},
+  doi       = {10.48550/arXiv.2310.10688}
+}@inproceedings{goswami2024moment,
+  author    = {Goswami, Mononito and Szafer, Konrad and Choudhry, Arjun
+               and Cai, Yifu and Li, Shuo and Dubrawski, Artur},
+  title     = {{MOMENT: A Family of Open Time-series Foundation Models}},
+  booktitle = {Proceedings of the 41st International Conference on Machine
+               Learning (ICML)},
+  year      = {2024},
+  note      = {arXiv:2402.03885. Carnegie Mellon University.
+               PDF: literature/papers/02\_foundation\_models\_timeseries/Goswami\_2024\_MOMENT.pdf},},
+  doi       = {10.48550/arXiv.2402.03885}
+}@inproceedings{jin2024timellm,
+  author    = {Jin, Ming and Wang, Shiyu and Ma, Lintao and Chu, Zhixuan
+               and Zhang, James Y. and Shi, Xiaoming and Chen, Pin-Yu
+               and Liang, Yuxuan and Li, Yuan-Fang and Pan, Shirui
+               and Wen, Qingsong},
+  title     = {{Time-LLM: Time Series Forecasting by Reprogramming
+               Large Language Models}},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024},
+  note      = {arXiv:2310.01728.
+               PDF: literature/papers/02\_foundation\_models\_timeseries/Jin\_2024\_TimeLLM.pdf},},
+  doi       = {10.48550/arXiv.2310.01728}
+}
+
+@article{jin2023surveyts,
+  author  = {Jin, Ming and Kong, Yaxuan and Liang, Yuxuan
+             and Zhang, Chaoli and Xue, Siqiao and Wang, Xue
+             and Zhang, James Y. and Wang, Yi and Chen, Haifeng
+             and Li, Xiaoli and Tseng, Vincent S. and Zheng, Yu
+             and Chen, Lei and Xiong, Hui and Pan, Shirui
+             and Wen, Qingsong},
+  title   = {{Large Models for Time Series and Spatio-Temporal Data:
+             A Survey and Outlook}},
+  journal = {arXiv preprint arXiv:2310.10196},
+  year    = {2026},
+  note    = {Version 3, 8 June 2026.
+             Accepted by ACM Computing Surveys.},
+  doi     = {10.48550/arXiv.2310.10196},
+  annote  = {Survey 150+ paper LLM/PFM per TS.
+             Tab.3 (p.14): zero dataset industriali tra 30+ benchmark.
+             \S7.3 (p.16): drift adaptation ``still an under-explored problem''.
+             Evidenza per GAP~1 e GAP~4.
+             PDF: literature/papers/02\_foundation\_models\_timeseries/jin\_2023\_survey.pdf}
+}
+
+@inproceedings{nie2023patchtst,
+  author    = {Nie, Yuqi and Nguyen, Nam H. and Sinthong, Phanwadee
+               and Kalagnanam, Jayant},
+  title     = {{A Time Series Worth 64 Words: Long-term Forecasting
+               with Transformers}},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2023},
+  note      = {arXiv:2211.14730. IBM Research.
+               PatchTST: VisionTransformer per TS patches, 0.67M params.
+               PDF: literature/papers/02\_foundation\_models\_timeseries/Nie\_2023\_PatchTST.pdf},},
+  doi       = {10.48550/arXiv.2211.14730}
+}@article{rasul2024lagllama,
+  author  = {Rasul, Kashif and Ashok, Arjun and Williams, Andrew Robert
+             and Ghonia, Hena and Bhagwatkar, Rishika and Khorasani, Arian
+             and Darvishi Bayazi, Mohammad Javad and Adamopoulos, George
+             and Riachi, Roland and Hassen, Nadhir and Bilo{\v{s}}, Marin
+             and Garg, Sahil and Schneider, Anderson and Chapados, Nicolas
+             and Drouin, Alexandre and Zantedeschi, Valentina
+             and Nevmyvaka, Yuriy and Rish, Irina},
+  title   = {{Lag-Llama: Towards Foundation Models for Probabilistic
+             Time Series Forecasting}},
+  journal = {Transactions on Machine Learning Research (TMLR)},
+  year    = {2024},
+  note    = {arXiv:2310.08278.
+             PDF: literature/papers/02\_foundation\_models\_timeseries/Rasul\_2023\_LagLlama.pdf},},
+  doi       = {10.48550/arXiv.2310.08278}
+}@inproceedings{woo2024moirai,
+  author    = {Woo, Gerald and Liu, Chenghao and Kumar, Akshat
+               and Xiong, Caiming and Savarese, Silvio and Sahoo, Doyen},
+  title     = {{Unified Training of Universal Time Series Forecasting
+               Transformers}},
+  booktitle = {Proceedings of the 41st International Conference on
+               Machine Learning (ICML)},
+  year      = {2024},
+  url       = {https://arxiv.org/abs/2402.02592},
+  note      = {arXiv:2402.02592. Salesforce Research. Moirai.
+               WARNING: Woo\_2024\_Moirai.pdf locale contiene paper sbagliato.
+               Re-download da https://arxiv.org/abs/2402.02592},},
+  doi       = {10.48550/arXiv.2402.02592}
+}@inproceedings{zhou2021informer,
+  author    = {Zhou, Haoyi and Zhang, Shanghang and Peng, Jieqi
+               and Zhang, Shuai and Li, Jianxin and Xiong, Hui
+               and Zhang, Wancai},
+  title     = {{Informer: Beyond Efficient Transformer for Long Sequence
+               Time-Series Forecasting}},
+  booktitle = {Proceedings of the 35th AAAI Conference on Artificial
+               Intelligence},
+  year      = {2021},
+  pages     = {11106--11115},
+  note      = {arXiv:2012.07436. AAAI 2021 Best Paper Award.
+               Introduce ETT datasets (ETT-h1, ETT-h2, ETT-m1, ETT-m2).
+               PDF: literature/papers/02\_foundation\_models\_timeseries/Zhou\_2021\_Informer.pdf},
+  doi       = {10.48550/arXiv.2012.07436}
+}
+
+@article{chronosteer2025,
+  author  = {Wang, Chengsen and Qi, Qi and Rao, Zhongwen and Pan, Lujia
+             and Wang, Jingyu and Liao, Jianxin},
+  title   = {{ChronoSteer: Bridging Large Language Model and Time Series
+             Foundation Model via Synthetic Data}},
+  journal = {arXiv preprint},
+  year    = {2025},
+  note    = {arXiv:2505.10083. Beijing University of Posts and Telecommunications
+             + Huawei Noah's Ark Lab.
+             PDF: literature/papers/02\_foundation\_models\_timeseries/ChronoSteer\_2025.pdf},},
+  doi       = {10.48550/arXiv.2501.11944}
+}@inproceedings{wang2024timemixer,
+  author    = {Wang, Shiyu and Wu, Haixu and Shi, Xiaoming
+               and Hu, Tengge and Luo, Huakun and Ma, Lintao
+               and Zhang, James Y. and Zhou, Jun},
+  title     = {{TimeMixer: Decomposable Multiscale Mixing
+               for Time Series Forecasting}},
+  booktitle = {Proceedings of the 12th International Conference
+               on Learning Representations (ICLR)},
+  year      = {2024},
+  note      = {arXiv:2405.14616},},
+  doi       = {10.48550/arXiv.2405.14616}
+}
+
+@inproceedings{fits2024,
+  author    = {Xu, Zhijian and Zeng, Ailing and Xu, Qiang},
+  title     = {{FITS}: Modeling Time Series with 10k Parameters},
+  booktitle = {The Twelfth International Conference on Learning Representations (ICLR)},
+  year      = {2024},
+  eprint    = {2307.03756},
+  archivePrefix = {arXiv},
+  doi       = {10.48550/arXiv.2307.03756}
+}
+@inproceedings{icsenir2025,
+  author    = {Patil, Parth V. and Jiang, Wenxin and Peng, Huiyun
+               and LeBlanc, Josh and Smith, Lawrence and Davis, James C.
+               and Lugo, Daniel and Kalu, Kelechi G. and Heo, Hyeonwoo
+               and Aou, Nathanael},
+  title     = {{Recommending Pre-Trained Models for IoT Devices}},
+  booktitle = {2025 IEEE/ACM 47th International Conference on Software
+               Engineering: New Ideas and Emerging Results (ICSE-NIER)},
+  year      = {2025},
+  note      = {Purdue University. Identifica hardware constraints come
+               future work nelle raccomandazioni PTM correnti.
+               PDF: literature/papers/03\_automl\_edge/ICSE-NIER\_2025\_pretrained.pdf}
+}
+
+@article{white2023nasinights,
+  author  = {White, Colin and Safari, Mahmoud and Sukthanker, Rhea
+             and Ru, Binxin and Elsken, Thomas and Zela, Arber
+             and Dey, Debadeepta and Hutter, Frank},
+  title   = {{Neural Architecture Search: Insights from 1000 Papers}},
+  journal = {Journal of Machine Learning Research},
+  year    = {2023},
+  volume  = {24},
+  note    = {arXiv:2301.08727. Survey di 1000+ paper NAS.
+             p.2: cita Benmeziane et al. 2021 per memory/latency-constrained NAS.
+             Evidenza per hardware-aware NAS come sottoarea chiave.
+             PDF: literature/papers/03\_automl\_edge/white\_2023\_nasinights.pdf},},
+  doi       = {10.48550/arXiv.2301.08727}
+}@inproceedings{cai2020ofa,
+  author    = {Cai, Han and Gan, Chuang and Wang, Tianhao
+               and Zhang, Zhekai and Han, Song},
+  title     = {{Once-for-All: Train One Network and Specialize
+               it for Efficient Deployment}},
+  booktitle = {International Conference on Learning Representations
+               (ICLR)},
+  year      = {2020},
+  note      = {arXiv:1908.09791},},
+  doi       = {10.48550/arXiv.1908.09791}
+}@article{lindauer2022smac3,
+  author  = {Lindauer, Marius and Eggensperger, Katharina
+             and Feurer, Matthias and Biedenkapp, Andr{\'e}
+             and Deng, Difan and Benjamins, Carolin
+             and Ruhkopf, Tim and Sass, Ren{\'e} and Hutter, Frank},
+  title   = {{SMAC3: A Versatile Bayesian Optimization Package
+             for Hyperparameter Optimization}},
+  journal = {Journal of Machine Learning Research},
+  year    = {2022},
+  volume  = {23},
+  number  = {54},
+  pages   = {1--9},
+  url     = {https://jmlr.org/papers/v23/21-0888.html},
+  doi           = {10.48550/arXiv.2109.09887},
+}@article{erickson2020autogluon,
+  author  = {Erickson, Nick and Mueller, Jonas and Shirkov, Alexander
+             and Zhang, Hang and Larroy, Pedro and Li, Mu and Smola, Alexander},
+  title   = {{AutoGluon-Tabular: Robust and Accurate AutoML
+             for Structured Data}},
+  journal = {arXiv preprint},
+  year    = {2020},
+  note    = {arXiv:2003.06505. Presented at ICML AutoML Workshop},},
+  doi       = {10.48550/arXiv.2003.06505}
+}@article{benmeziane2021hwnas,
+  author    = {Benmeziane, Hadjer and El Maghraoui, Kaoutar
+               and Ouarnoughi, Hamza and Niar, Smail
+               and Wistuba, Martin and Wang, Naigang},
+  title     = {{A Comprehensive Survey on Hardware-Aware
+               Neural Architecture Search}},
+  journal   = {arXiv preprint},
+  year      = {2021},
+  note      = {arXiv:2101.09336.
+               EXTRACTED cites-edge: ref~[28] in ICSE-NIER 2025 god node.
+               Tassonomia HW-NAS su 60+ paper: search spaces, strategie,
+               hardware estimation, target platforms. Aperto problem
+               di NAS per task non-vision e hardware dinamico -- motiva
+               direttamente il re-alignment loop di DMCA.},},
+  doi       = {10.48550/arXiv.2101.09336}
+}@inproceedings{tan2019mnasnet,
+  author    = {Tan, Mingxing and Chen, Bo and Pang, Ruoming
+               and Vasudevan, Vijay and Sandler, Mark
+               and Howard, Andrew and Le, Quoc V.},
+  title     = {{MnasNet: Platform-Aware Neural Architecture Search
+               for Mobile}},
+  booktitle = {2019 IEEE/CVF Conference on Computer Vision and
+               Pattern Recognition (CVPR)},
+  year      = {2019},
+  pages     = {2820--2828},
+  doi       = {10.1109/CVPR.2019.00293},
+  note      = {EXTRACTED cites-edge: ref~[29] in ICSE-NIER 2025 god node.
+               RL-NAS con latenza reale da device nel reward. L'equazione
+               di ranking di ICSE-NIER è ispirata al reward MnasNet.
+               DMCA è ortogonale: usa AAS/DT per vincoli dichiarativi,
+               nessun training loop RL.}
+}
+
+@inproceedings{liang2024tsfmkdd,
+  author    = {Liang, Yuxuan and Wen, Honghao and Nie, Yuqi
+               and Jiang, Yushan and Jin, Ming and Song, Dongjin
+               and Pan, Shirui and Wen, Qingsong},
+  title     = {{Foundation Models for Time Series Analysis:
+               A Tutorial and Survey}},
+  booktitle = {Proceedings of the 30th ACM SIGKDD Conference on
+               Knowledge Discovery and Data Mining},
+  year      = {2024},
+  pages     = {6555--6565},
+  annote    = {arXiv:2403.14735. Methodological tutorial/survey; no
+               deployment experiments. No hardware profiling, no DT
+               integration.},
+  doi       = {10.48550/arXiv.2403.14735}
+}
+
+@inproceedings{liu2024itransformer,
+  author    = {Liu, Yong and Hu, Tengge and Zhang, Haoran
+               and Wu, Ailing and Wang, Jianmin and Long, Mingsheng},
+  title     = {{iTransformer: Inverted Transformers Are Effective
+               for Time Series Forecasting}},
+  booktitle = {International Conference on Learning Representations
+               (ICLR)},
+  year      = {2024},
+  note      = {arXiv:2310.06625},
+  doi       = {10.48550/arXiv.2310.06625}
+}
+
+@inproceedings{challu2023nhits,
+  author    = {Challu, Cristian and Olivares, Kin G.
+               and Oreshkin, Boris N.
+               and Garza Ramirez, Federico
+               and Mergenthaler-Canseco, Max
+               and Dubrawski, Artur},
+  title     = {{N-HiTS: Neural Hierarchical Interpolation
+               for Time Series Forecasting}},
+  booktitle = {Proceedings of the 37th AAAI Conference
+               on Artificial Intelligence},
+  year      = {2023},
+  volume    = {37},
+  number    = {6},
+  pages     = {6989--6997},
+  doi       = {10.1609/aaai.v37i6.26259},
+  note      = {arXiv:2201.12886}
+}
+
+@inproceedings{oreshkin2020nbeats,
+  author    = {Oreshkin, Boris N. and Carpov, Dmitri
+               and Chapados, Nicolas and Bengio, Yoshua},
+  title     = {{N-BEATS: Neural Basis Expansion Analysis
+               for Interpretable Time Series Forecasting}},
+  booktitle = {International Conference on Learning
+               Representations (ICLR)},
+  year      = {2020},
+  note      = {arXiv:1905.10437},},
+  doi       = {10.48550/arXiv.1905.10437}
+}@article{lim2021tft,
+  author  = {Lim, Bryan and Ar\i{}k, Sercan {\"O}.
+             and Loeff, Nicolas and Pfister, Tomas},
+  title   = {{Temporal Fusion Transformers for Interpretable
+             Multi-horizon Time Series Forecasting}},
+  journal = {International Journal of Forecasting},
+  year    = {2021},
+  volume  = {37},
+  number  = {4},
+  pages   = {1748--1764},
+  doi     = {10.1016/j.ijforecast.2021.03.012},
+  note    = {arXiv:1912.09363}
+}
+
+@inproceedings{zeng2023dlinear,
+  author    = {Zeng, Ailing and Chen, Muxi and Zhang, Lei and Xu, Qiang},
+  title     = {{Are Transformers Effective for Time Series Forecasting?}},
+  booktitle = {Proceedings of the 37th AAAI Conference
+               on Artificial Intelligence},
+  year      = {2023},
+  volume    = {37},
+  number    = {9},
+  pages     = {11121--11128},
+  doi       = {10.1609/aaai.v37i9.26317},
+  note      = {arXiv:2205.13504}
+}
+
+@inproceedings{bifet2007adwin,
+  author    = {Bifet, Albert and Gavald{\`a}, Ricard},
+  title     = {{Learning from Time-Changing Data with Adaptive Windowing}},
+  booktitle = {Proceedings of the 2007 SIAM International Conference
+               on Data Mining (SDM)},
+  year      = {2007},
+  pages     = {443--448},
+  doi       = {10.1137/1.9781611972771.42},
+  note      = {ADWIN: meccanismo finestra adattiva per concept drift detection.}
+}
+
+@article{gama2014survey,
+  author  = {Gama, Jo{\~a}o and {\v{Z}}liobait{\.e}, Indr{\.e}
+             and Bifet, Albert and Pechenizkiy, Mykola
+             and Bouchachia, Abdelhamid},
+  title   = {{A Survey on Concept Drift Adaptation}},
+  journal = {ACM Computing Surveys},
+  year    = {2014},
+  volume  = {46},
+  number  = {4},
+  pages   = {44:1--44:37},
+  doi     = {10.1145/2523813}
+}
+
+@article{kreuzberger2023mlops,
+  author  = {Kreuzberger, Dominik and K{\"u}hl, Niklas
+             and Hirschl, Sebastian},
+  title   = {{Machine Learning Operations (MLOps): Overview,
+             Definition, and Architecture}},
+  journal = {IEEE Access},
+  year    = {2023},
+  volume  = {11},
+  pages   = {31866--31879},
+  doi     = {10.1109/ACCESS.2023.3262138},
+  note    = {arXiv:2205.02302. Gap: monitoring block presente,
+             automated re-selection block assente. DMCA aggiunge
+             re-selection come componente architetturale di primo livello.}
+}
+
+@article{lu2020drift,
+  author  = {Lu, Jie and Liu, Anjin and Dong, Fan and Gu, Feng
+             and Gama, Jo{\~a}o and Zhang, Guangquan},
+  title   = {{Learning under Concept Drift: A Review}},
+  journal = {IEEE Transactions on Knowledge and Data Engineering},
+  year    = {2019},
+  volume  = {31},
+  number  = {12},
+  pages   = {2346--2363},
+  doi     = {10.1109/TKDE.2018.2876857},
+  note    = {Extended arXiv version: arXiv:2004.05785}
+}
+
+@inproceedings{shankar2022operationalizing,
+  author    = {Shankar, Shreya and Garcia, Rolando and Hellerstein,
+               Joseph M. and Parameswaran, Aditya},
+  title     = {{Operationalizing Machine Learning: An Interview Study}},
+  booktitle = {Proceedings of the 45th International Conference on
+               Software Engineering: Software Engineering in Practice
+               (ICSE-SEIP)},
+  year      = {2023},
+  note      = {arXiv:2209.09125. 18 semi-structured interviews con ML
+               engineers (veicoli autonomi, finanza, cloud). Key quote
+               §4.2: MLEs rispondono al drift switching a ``a simpler,
+               historical, or retrained version'' — non da catalog
+               selection. §4.5.1: ``none of the participants reported
+               any scientific procedure for determining the [retraining]
+               cadence''. §5.1.2: nessun partecipante ha risolto il
+               Goldilocks alert problem. Evidenza empirica per GAP 1.},},
+  doi       = {10.48550/arXiv.2209.09125}
+}@inproceedings{sculley2015debt,
+  author    = {Sculley, D. and Holt, Gary and Golovin, Daniel
+               and Davydov, Eugene and Phillips, Todd and Ebner, Dietmar
+               and Chaudhary, Vinay and Young, Michael
+               and Crespo, Jean-Fran{\c{c}}ois and Dennison, Dan},
+  title     = {{Hidden Technical Debt in Machine Learning Systems}},
+  booktitle = {Advances in Neural Information Processing Systems
+               (NeurIPS)},
+  year      = {2015},
+  volume    = {28},
+  pages     = {2503--2511},
+  doi           = {10.5555/2969442.2969519},
+}@inproceedings{omar2024drift,
+  author    = {Omar, Rafiullah and Bogner, Justus and Leest, Joran
+               and Stoico, Vincenzo and Lago, Patricia and Muccini, Henry},
+  title     = {{How to Sustainably Monitor ML-Enabled Systems?
+               Accuracy and Energy Efficiency Tradeoffs in
+               Concept Drift Detection}},
+  booktitle = {Proceedings of the 11th International Conference on
+               Information and Communications Technology for Sustainability
+               (ICT4S)},
+  year      = {2024},
+  doi       = {10.1109/ICT4S64576.2024.00026},
+  url       = {https://arxiv.org/abs/2404.19452},
+  note      = {arXiv:2404.19452. University of L'Aquila + Vrije Universiteit Amsterdam.
+               PDF: literature/papers/05\_mlops\_drift/Omar\_2024\_DriftDetection.pdf}
+}
+
+@inproceedings{he2025xai,
+  author    = {He, Gaole and Aishwarya, Nilay and Gadiraju, Ujwal},
+  title     = {{Is Conversational XAI All You Need? Human-AI Decision Making
+               With a Conversational XAI Assistant}},
+  booktitle = {Proceedings of the 30th International Conference on
+               Intelligent User Interfaces (IUI)},
+  year      = {2025},
+  note      = {arXiv:2501.17546. IUI 2025.},
+  doi       = {10.1145/3708359.3712133}
+}@inproceedings{schemmer2023trust,
+  author    = {Schemmer, Max and K{\"u}hl, Niklas and Benz, Carina
+               and Barber, Andrea and Satzger, Gerhard},
+  title     = {{Appropriate Reliance on AI Advice: Conceptualization
+               and the Effect of Explanations}},
+  booktitle = {Proceedings of the 28th International Conference on
+               Intelligent User Interfaces (IUI)},
+  year      = {2023},
+  note      = {arXiv:2302.02187. Karlsruhe Institute of Technology.
+               PDF: literature/papers/06\_xai\_trust/Schemmer\_2023\_Trust.pdf},},
+  doi       = {10.48550/arXiv.2304.07144}
+}@inproceedings{saxena2008cmapss,
+  author    = {Saxena, Abhinav and Goebel, Kai and Simon, Don
+               and Eklund, Neil},
+  title     = {{Damage Propagation Modeling for Aircraft Engine
+               Run-to-Failure Simulation}},
+  booktitle = {2008 International Conference on Prognostics and
+               Health Management (PHM)},
+  year      = {2008},
+  pages     = {1--9},
+  doi       = {10.1109/PHM.2008.4711414},
+  note      = {NASA NTRS. C-MAPSS dataset: 4 subset FD001--FD004.
+               PDF: literature/papers/04\_datasets/Saxena\_2008\_CMAPSS.pdf}
+}
+
+@misc{maryanskyy2026,
+  author = {Maryanskyy, Artem},
+  title  = {{When Agents Disagree: The Selection Bottleneck
+            in Multi-Agent LLM Pipelines}},
+  year   = {2026},
+  note   = {Preprint. artem.maryanskyy@uber.com.
+            Evidenza per GAP~1: selection-based aggregation > synthesis.
+            PDF: literature/papers/07\_mas\_industrial/Maryanskyy\_2026\_Bottlenecks.pdf}
+}
+
+@article{deng2020edgeintelligence,
+  author   = {Deng, Shuiguang and Zhao, Hailiang and Fang, Weihong
+              and Yin, Jianwei and Dustdar, Schahram and Zomaya, Albert Y.},
+  title    = {{Edge Intelligence: The Confluence of Edge Computing
+               and Artificial Intelligence}},
+  journal  = {IEEE Internet of Things Journal},
+  year     = {2020},
+  volume   = {7},
+  number   = {8},
+  pages    = {7457--7469},
+  doi      = {10.1109/JIOT.2020.2984887}
+}
+
+@inproceedings{lin2020mcunet,
+  author    = {Lin, Ji and Chen, Wei-Ming and Lin, Yujun
+               and Cohn, John and Gan, Chuang and Han, Song},
+  title     = {{MCUNet: Tiny Deep Learning on IoT Devices}},
+  booktitle = {Advances in Neural Information Processing Systems
+               (NeurIPS)},
+  year      = {2020},
+  volume    = {33},
+  pages     = {11711--11722},
+  note      = {arXiv:2007.10319},},
+  doi       = {10.48550/arXiv.2007.10319}
+}@inproceedings{banbury2021mlperftiny,
+  author    = {Banbury, Colby and Reddi, Vijay Janapa and Lam, Maxwell
+               and Fu, William and Fazel, Amin and Holleman, Jeremy
+               and Huang, Xinyuan and Hurtado, Robert and Kanter, David
+               and Lokhmotov, Anton and Patterson, David and Pau, Danilo
+               and Seo, Jae-sun and Sievert, Jeff and Thakker, Urmish
+               and Verhelst, Marian and Yadav, Poojan and Warden, Pete},
+  title     = {{MLPerf Tiny Benchmark}},
+  booktitle = {Proceedings of the Neural Information Processing Systems
+               Track on Datasets and Benchmarks},
+  year      = {2021},
+  volume    = {1},
+  note      = {arXiv:2106.07597},},
+  doi       = {10.48550/arXiv.2106.07597}
+}@inproceedings{liberis2021munas,
+  author    = {Liberis, Edgar and Dudziak, {\L}ukasz and Lane, Nicholas D.},
+  title     = {{{$\mu$}NAS: Constrained Neural Architecture Search
+               for Microcontrollers}},
+  booktitle = {Proceedings of the 1st Workshop on Machine Learning
+               and Systems (EuroMLSys)},
+  year      = {2021},
+  pages     = {70--79},
+  doi       = {10.1145/3437984.3458836}
+}
+
+@inproceedings{chen2018tvm,
+  author    = {Chen, Tianqi and Moreau, Thierry and Jiang, Ziheng
+               and Zheng, Lianmin and Yan, Eddie and Cowan, Meghan
+               and Shen, Haichen and Wang, Leyuan and Hu, Yuwei
+               and Ceze, Luis and Guestrin, Carlos
+               and Krishnamurthy, Arvind},
+  title     = {{TVM: An Automated End-to-End Optimizing Compiler
+               for Deep Learning}},
+  booktitle = {13th USENIX Symposium on Operating Systems Design
+               and Implementation (OSDI)},
+  year      = {2018},
+  pages     = {578--594},
+  note      = {arXiv:1802.04799},},
+  doi       = {10.48550/arXiv.1802.04799}
+}@inproceedings{dudek2023kenning,
+  author    = {Dudek, Wojciech and Szymanska, Natalia
+               and Kryjak, Tomasz and Gorgon, Marek},
+  title     = {{Kenning: an Open-Source Framework for Implementing
+               and Testing Inference Libraries and Deployment
+               Scenarios on Embedded Devices}},
+  booktitle = {2023 Design, Automation {\&} Test in Europe
+               Conference {\&} Exhibition (DATE)},
+  year      = {2023},
+  pages     = {1--6},
+  doi       = {10.23919/DATE56975.2023.10137028},
+  note      = {Multi-backend edge deployment framework:
+               ONNX Runtime, TFLite, Apache TVM, IREE.
+               Automated latency/RAM benchmark su MCU, ARM,
+               Jetson targets. No DT-driven model selection.
+               Graphify: INFERRED --[enables]--> ICSE-NIER 2025.}
+}
+
+@inproceedings{lin2024awq,
+  author    = {Lin, Ji and Tang, Jiaming and Tang, Haotian
+               and Yang, Shang and Dang, Xingyu
+               and Gan, Chuang and Han, Song},
+  title     = {{AWQ: Activation-Aware Weight Quantization
+               for LLM Compression and Acceleration}},
+  booktitle = {Proceedings of Machine Learning and Systems
+               (MLSys)},
+  year      = {2024},
+  volume    = {6},
+  note      = {arXiv:2306.00978.
+               INT4 quantization con protezione pesi salienti.
+               3x speedup su edge GPU vs FP16. Applicabile al
+               copilot LLM di DMCA su Jetson Orin.
+               Composable con DMCA: comprime il modello
+               selezionato, non lo seleziona.},},
+  doi       = {10.48550/arXiv.2306.00978}
+}@inproceedings{david2021tflitemicro,
+  author    = {David, Robert and Duke, Jared and Jain, Advait
+               and Janapa Reddi, Vijay and Jeffries, Nat
+               and Li, Jian and Kreeger, Nick and Navia, Ian
+               and Wan, Frederic and Rhodes, Rocky},
+  title     = {{TensorFlow Lite Micro}: Embedded Machine Learning
+               for {TinyML} Systems},
+  booktitle = {Proceedings of Machine Learning and Systems
+               (MLSys 2021)},
+  year      = {2021},
+  note      = {arXiv:2010.08678.
+               Runtime TFLite per MCU $<$1MB RAM/Flash senza OS.
+               Pipeline INT8 quantization + interprete C++ portabile.
+               Benchmark su 11 MCU board. No DT integration.
+               Nota: 2021 — foundational reference, fuori finestra.},},
+  doi       = {10.48550/arXiv.2010.08678}
+}@article{menghani2023efficient,
+  author  = {Menghani, Gaurav},
+  title   = {{Efficient Deep Learning: A Survey on Making Deep
+             Learning Models Smaller, Faster, and Better}},
+  journal = {ACM Computing Surveys},
+  year    = {2023},
+  volume  = {55},
+  number  = {12},
+  pages   = {259:1--259:40},
+  doi     = {10.1145/3578938}
+}
+
+@article{gou2021distillation,
+  author  = {Gou, Jianping and Yu, Baosheng and Maybank, Stephen J.
+             and Tao, Dacheng},
+  title   = {{Knowledge Distillation: A Survey}},
+  journal = {International Journal of Computer Vision},
+  year    = {2021},
+  volume  = {129},
+  number  = {6},
+  pages   = {1789--1819},
+  doi     = {10.1007/s11263-021-01453-z},
+  note    = {arXiv:2006.05525}
+}
+
+@inproceedings{dettmers2022llmint8,
+  author    = {Dettmers, Tim and Lewis, Mike and Belkada, Younes
+               and Zettlemoyer, Luke},
+  title     = {{LLM.int8(): 8-bit Matrix Multiplication
+               for Transformers at Scale}},
+  booktitle = {Advances in Neural Information Processing Systems
+               (NeurIPS)},
+  year      = {2022},
+  volume    = {35},
+  pages     = {30318--30332},
+  note      = {arXiv:2208.07339},},
+  doi       = {10.48550/arXiv.2208.07339}
+}@inproceedings{sanh2019distilbert,
+  author    = {Sanh, Victor and Debut, Lysandre and Chaumond, Julien
+               and Wolf, Thomas},
+  title     = {{DistilBERT, a Distilled Version of BERT: Smaller,
+               Faster, Cheaper and Lighter}},
+  booktitle = {5th Workshop on Energy Efficient Machine Learning
+               and Cognitive Computing (EMC2), NeurIPS},
+  year      = {2019},
+  note      = {arXiv:1910.01108},},
+  doi       = {10.48550/arXiv.1910.01108}
+}@inproceedings{frantar2023gptq,
+  author    = {Frantar, Elias and Ashkboos, Saleh
+               and Hoefler, Torsten and Alistarh, Dan},
+  title     = {{GPTQ: Accurate Post-Training Quantization
+               for Generative Pre-trained Transformers}},
+  booktitle = {International Conference on Learning Representations
+               (ICLR)},
+  year      = {2023},
+  note      = {arXiv:2210.17323},},
+  doi       = {10.48550/arXiv.2210.17323}
+}@article{bauer2025arch,
+  author  = {Gautam, Anuj and Aryal, Manish Raj and Deshpande, Sourabh
+             and Padalkar, Shailesh and Nikolaenko, Mikhail
+             and Tang, Ming and Anand, Sam},
+  title   = {{IIoT-Enabled Digital Twin for Legacy and Smart Factory
+             Machines with LLM Integration}},
+  journal = {Journal of Manufacturing Systems},
+  volume  = {80},
+  pages   = {511--523},
+  year    = {2025},
+  doi     = {10.1016/j.jmsy.2025.03.022},
+  note    = {University of Cincinnati. Multi-agent LLM + IIoT + Digital Twin
+             architecture (ChatCNC) con RAG e bidirectional information flow.
+             PDF: literature/papers/01\_digital\_twin\_llm/Gautam\_2025\_IIoT\_DT\_LLM.pdf}
+}
+
+@article{adams2023,
+  author  = {Dean, Jeffrey and Barroso, Luiz Andr{\'e}},
+  title   = {{The Tail at Scale}},
+  journal = {Communications of the {ACM}},
+  volume  = {56},
+  number  = {2},
+  pages   = {74--80},
+  year    = {2013},
+  doi     = {10.1145/2408776.2408794},
+  url     = {https://dl.acm.org/doi/10.1145/2408776.2408794},
+  note    = {Google. Fondamento teorico per l'uso di latenza percentile
+             (P95/P99) come metrica SLA primaria.
+             PDF: literature/papers/04\_model\_compression/Dean\_2013\_TailAtScale.pdf}
+}
+
+@article{MDPI2026,
+  author  = {Shin, Minjong and Jung, Jae-Yoon},
+  title   = {{An Edge AI System Framework Based on the Asset Administration
+             Shell Standard}},
+  journal = {Systems},
+  year    = {2026},
+  volume  = {14},
+  number  = {2},
+  pages   = {205},
+  doi     = {10.3390/systems14020205},
+  note    = {MDPI Systems, Open Access. Published: 15 February 2026.
+             Kyung Hee University, Republic of Korea.
+             Keywords: Edge AI; AAS; OPC UA; autonomous manufacturing.
+             PDF: literature/papers/01\_digital\_twin\_llm/Shin\_2026\_AAS\_EdgeAI.pdf}
+}
+
+@article{SCI2024,
+  author  = {Shi, Dachuan and Liedl, Philipp and Bauernhansl, Thomas},
+  title   = {{Interoperable Information Modelling Leveraging Asset Administration
+             Shell and Large Language Model for Quality Control Toward Zero
+             Defect Manufacturing}},
+  journal = {Journal of Manufacturing Systems},
+  year    = {2024},
+  volume  = {77},
+  pages   = {678--696},
+  doi     = {10.1016/j.jmsy.2024.10.011},
+  note    = {Fraunhofer IPA + Universit{\"a}t Stuttgart.
+             AAS + LLM per interoperabilit{\`a} informazioni in ZDM.
+             Case study: injection molding quality control.
+             PDF: literature/papers/07\_mas\_industrial/Shi\_2024\_ZDM\_AAS.pdf}
+}
+
+@misc{modal2024,
+  author       = {{Modal Labs}},
+  title        = {{Modal: The Cloud Platform for AI and Machine Learning}},
+  year         = {2024},
+  howpublished = {\url{https://modal.com}},
+  note         = {Serverless cloud platform. NVIDIA T4 GPU (16 GB GDDR6).
+                  Scale-to-zero billing (per-second granularity).
+                  Accessed: 2026.}
+}
+
+% ── ADWIN and concept drift extensions (added 2026-04-27) ───────────────────
+
+@article{River2020,
+  author  = {Montiel, Jacob and
+             Halford, Max and
+             Bienvenu, Martin-Louis and
+             Salmon, Jean-Louis and
+             Probst, Philipp and
+             Nguyen, Thi-Thu-Huong and
+             others},
+  title   = {{River}: Machine Learning for Streaming Data in {Python}},
+  journal = {Journal of Machine Learning Research},
+  year    = {2021},
+  volume  = {22},
+  number  = {110},
+  pages   = {1--8},
+  url     = {http://jmlr.org/papers/v22/20-1380.html},
+  note    = {River = merger of Creme and scikit-multiflow.
+             Default ADWIN delta=0.002 inherited from original Bifet 2007 experiments.},},
+  doi       = {10.1145/3394486.3403198}
+}@inproceedings{Moharram2022ADWINpp,
+  author    = {Moharram, Hassan and Awad, Ahmed and El-Kafrawy, Passent M.},
+  title     = {{Optimizing ADWIN for Steady Streams}},
+  booktitle = {Proceedings of the 37th ACM/SIGAPP Symposium on
+               Applied Computing (SAC~'22)},
+  year      = {2022},
+  pages     = {439--447},
+  doi       = {10.1145/3477314.3507074},
+  publisher = {ACM},
+  note      = {ADWIN++ --- adaptive bucket dropping reduces memory by ~80\%
+               for steady-state streams while preserving detection accuracy.}
+}
+
+@inproceedings{Tosi2023OPTWIN,
+  author    = {Tosi, Mauro Dalle Lucca and Theobald, Martin},
+  title     = {{OPTWIN}: Drift Identification with Optimal Sub-Windows},
+  booktitle = {Proceedings of the IEEE International Conference on
+               Data Engineering Workshops (ICDEW)},
+  year      = {2024},
+  doi       = {10.1109/ICDEW62826.2024.00019},
+  url       = {https://arxiv.org/abs/2305.11942},
+  note      = {arXiv:2305.11942 (2023). Uses t-test + f-test on mean and
+               variance for provably optimal sub-window split.
+               Key citation: Phase~2 streaming target for DMCA.}
+}
+
+% ── Industry Alignment — Avio Aero / GE Aerospace Digital Transformation ──────
+% STATUS: PENDING INTEGRATION — paragrafo \textbf{Industry alignment.} in thesis_draft.tex
+% andrà aggiunto insieme all'integrazione del caso studio Avio Aero (cap. 5 / sezione Conclusion)
+% chiavi: moenck2024dtmro, geaerospace2018brindisi, weitering2024geai
+
+@article{moenck2024dtmro,
+  author    = {Moenck, Keno and Rath, Jan-Erik and Koch, Julian and Wendt, Arne
+               and Kalscheuer, Florian and Sch{\"u}ppstuhl, Thorsten and Schoepflin, Daniel},
+  title     = {Digital Twins in Aircraft Production and {MRO}: Challenges and Opportunities},
+  journal   = {CEAS Aeronautical Journal},
+  volume    = {15},
+  pages     = {1051--1067},
+  year      = {2024},
+  doi       = {10.1007/s13272-024-00740-y},
+  note      = {Peer-reviewed survey of DT integration in aircraft production and MRO\@.
+               Identifies adaptive data-driven model selection as an open requirement.
+               Industry alignment evidence for DMCA cap.~5.}
+}
+
+@misc{geaerospace2018brindisi,
+  author       = {{GE Aerospace}},
+  title        = {{3D} Inside: A New Additive Manufacturing Facility in the South of
+                  {Italy} Will Build Parts for the {GE Catalyst} Engine},
+  howpublished = {GE Aerospace News},
+  year         = {2018},
+  month        = {March},
+  url          = {https://www.geaerospace.com/news/articles/technology/3d-inside-new-additive-manufacturing-facility-south-italy-will-build-parts-ge},
+  note         = {Primary source: Avio Aero Brindisi facility built under Italy's
+                  National Industry~4.0 Plan. `Born smart' machines connected to
+                  GE Predix for continuous sensor-to-cloud data collection.
+                  Digital-native Catalyst engine with DT-ready sensor architecture.
+                  Industry alignment evidence for DMCA cap.~5.}
+}
+
+@article{weitering2024geai,
+  author    = {Weitering, Hanneke},
+  title     = {{GE Aerospace} Expands Scope of Artificial Intelligence Support},
+  journal   = {Aviation International News},
+  year      = {2024},
+  month     = {July},
+  url       = {https://www.ainonline.com/aviation-news/aerospace/2024-07-19/ge-aerospace-expands-scope-artificial-intelligence-support},
+  note      = {GE Aerospace broadens AI for engine inspection and predictive maintenance
+               across turbofan MRO fleet. ProDAPS detects anomalies 60\% earlier.
+               Industry alignment evidence for DMCA cap.~5.}
+}
+
+@article{NowakAssis2025ADWINU,
+  author  = {Nowak Assis, Daniel and
+             Souza, Vin{\'i}cius Mour{\~a}o Alves de},
+  title   = {{ADWIN-U}: Adaptive Windowing for Unsupervised Drift
+             Detection on Data Streams},
+  journal = {Knowledge and Information Systems},
+  year    = {2025},
+  volume  = {67},
+  pages   = {10005--10034},
+  doi     = {10.1007/s10115-025-02523-1},
+  note    = {Unsupervised extension of ADWIN (no labels required).
+             Introduces BAR metric. Phase~2 target for DMCA streaming.}
+}
+
+
+%% ================================================================
+%% Anwer Seminar — MAS Resilient DTs, Semantic Drift, Standards
+%% Added 2026-04-29
+%% ================================================================
+
+@article{VrabicErkoyuncu2021ResilientDT,
+  author    = {Vrabi{\v{c}}, Rok and Erkoyuncu, John Ahmet and Farsi, Maryam and Ariansyah, Dedy},
+  title     = {An Intelligent Agent-Based Architecture for Resilient Digital Twins in Manufacturing},
+  journal   = {CIRP Annals},
+  volume    = {70},
+  number    = {1},
+  pages     = {349--352},
+  year      = {2021},
+  doi       = {10.1016/j.cirp.2021.04.049},
+  note      = {MAS detect-evaluate-respond-adapt loop for DT resilience. Repairs stale virtual models on disruption. Key gap vs DMCA: response is internal DT repair, not external catalog re-selection.}
+}
+
+@article{Nie2023MultiAgentCloudEdgeDT,
+  author    = {Nie, Qingwei and Tang, Dunbing and Liu, Changchun and Wang, Liping and Song, Jiaye},
+  title     = {A Multi-Agent and Cloud-Edge Orchestration Framework of Digital Twin for Distributed Production Control},
+  journal   = {Robotics and Computer-Integrated Manufacturing},
+  volume    = {82},
+  year      = {2023},
+  doi       = {10.1016/j.rcim.2023.102543},
+  note      = {Cloud+edge MAS for DT-based distributed manufacturing control. Structurally analogous to DMCA orchestrator/deployment split. No adaptive model selection or XAI.}
+}
+
+@article{MultiAgentsDTSurvey2024,
+  author    = {Kalyani, Yogeswaranathan and Collier, Rem},
+  title     = {The Role of Multi-Agents in Digital Twin Implementation: Short Survey},
+  journal   = {ACM Computing Surveys},
+  volume    = {57},
+  number    = {7},
+  year      = {2024},
+  doi       = {10.1145/3697350},
+  note      = {Survey 22 papers (2020--2024): MAS roles in DT = data collection, sync, decision, actuation. DMCA adds fifth role: constraint-aware catalog selection.}
+}
+
+@article{KlarArvidsson2023DTMaturity,
+  author    = {Klar, Robert and Arvidsson, Niklas and Angelakis, Vangelis},
+  title     = {Digital Twins' Maturity: The Need for Interoperability},
+  journal   = {IEEE Systems Journal},
+  volume    = {18},
+  number    = {1},
+  pages     = {713--724},
+  year      = {2023},
+  doi       = {10.1109/JSYST.2023.3340422},
+  note      = {DT maturity framed as interoperability levels across complex systems. DMCA targets predictive-prescriptive transition (levels 3-4).}
+}
+
+@inproceedings{Pfeiffer2025ETFAUnifyingDT,
+  author    = {Pfeiffer, J{\'e}r{\^o}me and Zhang, Jingxi and Combemale, Beno{\^i}t and Michael, Judith and Rumpe, Bernhard and Wimmer, Manuel and Wortmann, Andreas},
+  title     = {Towards a Unifying Reference Model for Digital Twins of Cyber-Physical Systems},
+  booktitle = {30th IEEE International Conference on Emerging Technologies and Factory Automation (ETFA)},
+  address   = {Porto, Portugal},
+  year      = {2025},
+  eprint    = {2507.04871},
+  archivePrefix = {arXiv},
+  note      = {Synthesises 7 DT reference models into a detailed unifying CPS model. DMCA positions as implementation of this reference architecture.},
+  doi       = {10.48550/arXiv.2507.04871}
+}
+
+@techreport{IEC632781_2023,
+  author      = {{IEC}},
+  title       = {{IEC} 63278-1:2023 --- Asset Administration Shell for Industrial Applications, Part 1: Asset Administration Shell Structure},
+  institution = {International Electrotechnical Commission},
+  year        = {2023},
+  month       = {December},
+  number      = {IEC 63278-1 Ed.1.0},
+  note        = {International standard (Dec 2023) defining AAS structure. Foundation for DMCA Stage 1 DT profiling. Supersedes Plattform Industrie 4.0 proprietary specs.}
+}
+
+@techreport{ISOIEC30188_CD,
+  author      = {{ISO/IEC JTC 1/SC 41}},
+  title       = {{ISO/IEC} 30188 (CD) --- Digital Twin --- Reference Architecture},
+  institution = {ISO / IEC},
+  year        = {2024},
+  note        = {Committee Draft: DT reference architecture using ISO/IEC/IEEE 42010. Status: CD consultation ballot as of 2024. Forward reference for DMCA standards alignment.}
+}
+
+@techreport{IDTA02008_TimeSeries,
+  author      = {{Industrial Digital Twin Association (IDTA)}},
+  title       = {{IDTA} 02008-1-1 --- Submodel Template: Time Series Data},
+  institution = {IDTA},
+  year        = {2023},
+  month       = {March},
+  number      = {IDTA-02008-1-1},
+  url         = {https://industrialdigitaltwin.org/wp-content/uploads/2023/03/IDTA-02008-1-1_Submodel_TimeSeriesData.pdf},
+  note        = {Official IDTA submodel for standardised time-series data in AAS. Phase 2 target: map OPC-UA streams to this template for standards compliance.}
+}
+
+@inproceedings{SemanticDriftModelDrivenDT2024,
+  author    = {Abbasi, Faima and Brimont, Pierre and Pruski, C{\'e}dric and Sottet, Jean-S{\'e}bastien},
+  title     = {Understanding Semantic Drift in Model Driven Digital Twins},
+  booktitle = {Proceedings of the ACM/IEEE 27th International Conference on Model Driven Engineering Languages and Systems Companion (MODELS Companion '24)},
+  year      = {2024},
+  pages     = {419--430},
+  doi       = {10.1145/3652620.3688256},
+  annote    = {Formal classification of semantic drift (data-driven, technical conceptual, knowledge conceptual, interpretation). Four management phases; authors scope to identification and characterisation. DMCA addresses the maintenance phase.}
+}
+
+@article{ConceptDriftDTAnomalyDetection2026,
+  author    = {Abdoune, Farah and Nouiri, Maroua and Cardin, Olivier},
+  title     = {Digital Twin-Based Anomaly Detection Under Concept Drift: A Comparison Between Iterative Batch Learning and Incremental Learning Approaches},
+  journal   = {Expert Systems with Applications},
+  volume    = {299},
+  pages     = {130062},
+  year      = {2026},
+  doi       = {10.1016/j.eswa.2025.130062},
+  note      = {DT + concept drift: incremental HST outperforms batch IF. No external catalog selection or conversational interface.}
+}
+
+}
+
+@inproceedings{Amad2025CALMDT,
+  author    = {Amad, Hussein and Astorga, Nicolas and van der Schaar, Mihaela},
+  title     = {Continuously Updating Digital Twins using Large Language Models},
+  booktitle = {Proceedings of the 42nd International Conference on Machine
+               Learning (ICML)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {267},
+  pages     = {1343--1366},
+  year      = {2025},
+  url       = {https://arxiv.org/abs/2506.12091},
+  note      = {Frames digital twinning as an in-context learning problem:
+               LLM updates the twin representation at inference time without
+               parameter changes. Adapts the virtual model, not the inference
+               endpoint. No catalog selection or drift-type classification.},},
+  doi       = {10.48550/arXiv.2506.12091}
+}@article{Abdoune2025DTDrift,
+  author    = {Abdoune, Farid and Nouiri, Maroua and Cardin, Olivier},
+  title     = {Digital twin-based anomaly detection under concept drift:
+               {A} comparison between iterative batch learning and incremental
+               learning approaches},
+  journal   = {Expert Systems with Applications},
+  year      = {2025},
+  publisher = {Elsevier},
+  doi       = {10.1016/j.eswa.2025.036784},
+  url       = {https://www.sciencedirect.com/science/article/abs/pii/S0957417425036784},
+  note      = {DT + drift adaptation: compares batch retraining (Isolation Forest)
+               vs incremental learning (HST). Retrains the same algorithm family;
+               no selection from external model catalog. No multi-type drift
+               classification. Closest structural DT-drift competitor to DMCA.}
+}
+
+@inproceedings{Li2025ASMEDTPDM,
+  author    = {Li, Zhicheng and Mahesh, Harish and Rai, Rahul},
+  title     = {{AI-Driven Digital Twin Framework for Predictive Maintenance:
+               Dynamic Decision Making and Adaptive Model Updates}},
+  booktitle = {Proceedings of the ASME 2025 International Design Engineering
+               Technical Conferences and Computers and Information in
+               Engineering Conference (IDETC-CIE)},
+  year      = {2025},
+  month     = {August},
+  address   = {Anaheim, CA, USA},
+  url       = {https://asmedigitalcollection.asme.org/IDETC-CIE/proceedings-abstract/IDETC-CIE2025/89213/V02BT02A040/1225796},
+  note      = {DT + MCD drift detection + U-LoRA adaptive surrogate update.
+               Adapts existing model via fine-tuning; no catalog selection.
+               Domain-specific (tire maintenance). No conversational interface.}
+}
+
+% ---------------------------------------------------------------------------
+% Continual Learning / Catastrophic Forgetting
+% ---------------------------------------------------------------------------@article{Kirkpatrick2017EWC,
+  author    = {Kirkpatrick, James and Pascanu, Razvan and Rabinowitz, Neil
+               and Veness, Joel and Desjardins, Guillaume and Rusu, Andrei A.
+               and Milan, Kieran and Quan, John and Ramalho, Tiago and
+               Grabska-Barwinska, Agnieszka and Hassabis, Demis and
+               Clopath, Claudia and Kumaran, Dharshan and Hadsell, Raia},
+  title     = {Overcoming catastrophic forgetting in neural networks},
+  journal   = {Proceedings of the National Academy of Sciences},
+  volume    = {114},
+  number    = {13},
+  pages     = {3521--3526},
+  year      = {2017},
+  publisher = {National Academy of Sciences},
+  doi       = {10.1073/pnas.1611835114},
+  note      = {Elastic Weight Consolidation (EWC): formalises catastrophic
+               forgetting and shows fine-tuning on new-domain data degrades
+               performance on the prior distribution. Cited in DMCA to
+               motivate catalog re-selection over retraining.}
+}
+
+% ---------------------------------------------------------------------------
+% Research Methodology
+% ---------------------------------------------------------------------------
+
+@article{Hevner2004DSR,
+  author    = {Hevner, Alan R. and March, Salvatore T. and Park, Jinsoo
+               and Ram, Sudha},
+  title     = {Design Science in Information Systems Research},
+  journal   = {{MIS} Quarterly},
+  volume    = {28},
+  number    = {1},
+  pages     = {75--105},
+  year      = {2004},
+  publisher = {Management Information Systems Research Center},
+  doi       = {10.2307/25148625},
+  note      = {Seminal DSR framework: seven guidelines for IS design-science
+               research. Used in DMCA Chapter 3 to justify constructive
+               methodology.}
+}
+
+@article{Peffers2007DSRM,
+  author    = {Peffers, Ken and Tuunanen, Tuure and Rothenberger, Marcus A.
+               and Chatterjee, Samir},
+  title     = {A Design Science Research Methodology for Information Systems
+               Research},
+  journal   = {Journal of Management Information Systems},
+  volume    = {24},
+  number    = {3},
+  pages     = {45--77},
+  year      = {2007},
+  publisher = {Taylor \& Francis},
+  doi       = {10.2753/MIS0742-1222240302},
+  note      = {DSRM six-stage process model: problem identification,
+               objective definition, artefact design, demonstration,
+               evaluation, communication.}
+}
+
+% ---------------------------------------------------------------------------
+% MCDA / TOPSIS / AHP / ELECTRE / WSM
+% ---------------------------------------------------------------------------
+
+@article{Fishburn1967WSM,
+  author    = {Fishburn, Peter C.},
+  title     = {Additive Utilities with Incomplete Product Sets:
+               Application to Priorities and Assignments},
+  journal   = {Operations Research},
+  volume    = {15},
+  number    = {3},
+  pages     = {537--551},
+  year      = {1967},
+  doi       = {10.1287/opre.15.3.537},
+  note      = {Foundational reference for the Weighted Sum Model (WSM).
+               Establishes additivity conditions under which a linear
+               weighted sum correctly represents preferences. Referenced
+               in DMCA \S3 as baseline MCDA method not adopted due to
+               commensurability requirements across heterogeneous criteria.}
+}
+
+@book{saaty1980analytic,
+  author    = {Saaty, Thomas L.},
+  title     = {The Analytic Hierarchy Process: Planning, Priority Setting,
+               Resource Allocation},
+  publisher = {McGraw-Hill},
+  address   = {New York},
+  year      = {1980},
+  note      = {Original AHP formulation: pairwise comparison matrices,
+               eigenvector weight derivation, consistency ratio. Referenced
+               in DMCA §3 as alternative MCDA method not adopted.},},
+  doi       = {10.1016/0305-0483(87)90473-8}
+}@article{roy1968electre,
+  author    = {Roy, Bernard},
+  title     = {Classement et choix en pr\'esence de points de vue multiples
+               (la m\'ethode {ELECTRE})},
+  journal   = {Revue Fran\c{c}aise d'Informatique et de Recherche
+               Op\'erationnelle},
+  volume    = {2},
+  number    = {8},
+  pages     = {57--75},
+  year      = {1968},
+  doi       = {10.1051/ro/196802V100571},
+  note      = {Original ELECTRE outranking method. Referenced in DMCA §3
+               as alternative MCDA method not adopted due to incomparability
+               semantics.}
+}
+
+@book{Hwang1981TOPSIS,
+  author    = {Hwang, Ching-Lai and Yoon, Kwangsun},
+  title     = {Multiple Attribute Decision Making: Methods and
+               Applications --- A State-of-the-Art Survey},
+  publisher = {Springer-Verlag},
+  address   = {Berlin, Heidelberg},
+  year      = {1981},
+  series    = {Lecture Notes in Economics and Mathematical Systems},
+  volume    = {186},
+  doi       = {10.1007/978-3-642-48318-9},
+  note      = {Original TOPSIS formulation: ideal and anti-ideal solutions,
+               Euclidean distance, relative closeness coefficient. Basis for
+               Stage 2 model selector in DMCA.}
+}
+
+%% ── Section 2.4 cognitive foundations + XAI (added 2026-05-13) ─────────────
+
+@book{simon1957bounded,
+  author    = {Simon, Herbert A.},
+  title     = {Models of Man: Social and Rational},
+  publisher = {Wiley},
+  year      = {1957},
+  address   = {New York},
+  note      = {Foundational bounded rationality: under time pressure operators
+               satisfice rather than optimise --- theoretical basis for
+               DMCA copilot L1/L2/L3 load-adaptive architecture},
+  doi       = {10.1037/h0042769}
+}
+
+@book{kahneman2011thinking,
+  author    = {Kahneman, Daniel},
+  title     = {Thinking, Fast and Slow},
+  publisher = {Farrar, Straus and Giroux},
+  year      = {2011},
+  address   = {New York},
+  isbn      = {978-0374275631},
+  note      = {Dual-process theory: System~1 (fast, heuristic) vs System~2
+               (slow, deliberative). Foundation for load-adaptive XAI:
+               L1 System~1 compatible; L3+COPILOTCONFIRM forces System~2},},
+  doi       = {10.1017/S0140525X00003435}
+}@article{evans2008dual,
+  author    = {Evans, Jonathan St B.T.},
+  title     = {Dual-Processing Accounts of Reasoning, Judgment, and Social Cognition},
+  journal   = {Annual Review of Psychology},
+  year      = {2008},
+  volume    = {59},
+  pages     = {255--278},
+  doi       = {10.1146/annurev.psych.59.103006.093629},
+  note      = {System~1 heuristics fail when context changes --- relevant to
+               drift scenarios where the operator's prior heuristic becomes invalid}
+}
+
+@article{sweller1988cognitive,
+  author    = {Sweller, John},
+  title     = {Cognitive Load During Problem Solving: Effects on Learning},
+  journal   = {Cognitive Science},
+  year      = {1988},
+  volume    = {12},
+  number    = {2},
+  pages     = {257--285},
+  doi       = {10.1207/s15516709cog1202_4},
+  note      = {Cognitive Load Theory: intrinsic, extraneous, germane load.
+               Design constraint for DMCA XAI: minimise extraneous load to
+               preserve germane processing for safety-critical judgement}
+}
+
+@article{lee2004trust,
+  author    = {Lee, John D. and See, Katrina A.},
+  title     = {Trust in Automation: Designing for Appropriate Reliance},
+  journal   = {Human Factors},
+  year      = {2004},
+  volume    = {46},
+  number    = {1},
+  pages     = {50--80},
+  doi       = {10.1518/hfes.46.1.50_30392},
+  note      = {Trust as dynamic variable calibrated to system reliability;
+               documents drift toward over-reliance --- motivates DMCA GAP~5
+               longitudinal trust tracking and conservative timeout policy}
+}
+
+@article{miller2019explanation,
+  author    = {Miller, Tim},
+  title     = {Explanation in Artificial Intelligence: Insights from the Social Sciences},
+  journal   = {Artificial Intelligence},
+  year      = {2019},
+  volume    = {267},
+  pages     = {1--38},
+  doi       = {10.1016/j.artint.2018.07.007},
+  note      = {XAI designed for developers not end users: gap evidence for
+               industrial operator context requiring conversational redesign}
+}
+
+@inproceedings{lundberg2017shap,
+  author    = {Lundberg, Scott M. and Lee, Su-In},
+  title     = {A Unified Approach to Interpreting Model Predictions},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2017},
+  pages     = {4765--4774},
+  url       = {https://proceedings.neurips.cc/paper/2017/hash/8a20a8621978632d76c43dfd28b67767-Abstract.html},
+  note      = {SHAP: analyst-oriented XAI requiring data literacy ---
+               contrast with DMCA conversational approach for non-technical operators},},
+  doi       = {10.48550/arXiv.1705.07874}
+}@inproceedings{ribeiro2016lime,
+  author    = {Ribeiro, Marco Tulio and Singh, Sameer and Guestrin, Carlos},
+  title     = {``{Why Should I Trust You?}'': Explaining the Predictions of Any Classifier},
+  booktitle = {Proceedings of the 22nd {ACM SIGKDD} International Conference on
+               Knowledge Discovery and Data Mining},
+  year      = {2016},
+  pages     = {1135--1144},
+  doi       = {10.1145/2939672.2939778},
+  note      = {LIME: post-hoc XAI requiring statistical literacy ---
+               contrast with DMCA natural language conversational approach}
+}
+
+@article{Page2021PRISMA,
+  author    = {Page, Matthew J. and McKenzie, Joanne E. and Bossuyt, Patrick M.
+               and Boutron, Isabelle and Hoffmann, Tammy C. and Mulrow, Cynthia D.
+               and Shamseer, Larissa and Tetzlaff, Jennifer M. and Akl, Elie A.
+               and Brennan, Sue E. and Chou, Roger and Glanville, Julie and
+               Grimshaw, Jeremy M. and Hr\'{o}bjartsson, Asbj\o{}rn and Lalu,
+               Manoj M. and Li, Tianjing and Loder, Elizabeth W. and Mayo-Wilson,
+               Evan and McDonald, Steve and McGuinness, Luke A. and Stewart,
+               Lesley A. and Thomas, James and Tricco, Andrea C. and Welch,
+               Vivian A. and Whiting, Penny and Moher, David},
+  title     = {The {PRISMA} 2020 Statement: An Updated Guideline for Reporting
+               Systematic Reviews},
+  journal   = {BMJ},
+  volume    = {372},
+  pages     = {n71},
+  year      = {2021},},
+  doi       = {10.1136/bmj.n71}
+}
+
+@article{Traag2019Leiden,
+  author    = {Traag, Vincent A. and Waltman, Ludo and van Eck, Nees Jan},
+  title     = {From Louvain to {Leiden}: Guaranteeing Well-Connected Communities},
+  journal   = {Scientific Reports},
+  volume    = {9},
+  number    = {1},
+  pages     = {5233},
+  year      = {2019},
+  doi       = {10.1038/s41598-019-41695-z},
+}
+
+@inproceedings{he2023convxai,
+  author    = {He, Gaole and Kulesza, Todd and Gadiraju, Ujwal},
+  title     = {Knowing About Knowing: An Illusion of Human Competence Can Hinder
+               Appropriate Reliance on {AI} Systems},
+  booktitle = {Proceedings of the {CHI} Conference on Human Factors in
+               Computing Systems},
+  year      = {2023},
+  pages     = {1--18},
+  doi       = {10.1145/3544548.3581025},
+  publisher = {ACM},
+}
+
+@inproceedings{nectoux2012pronostia,
+  author    = {Nectoux, Patrick and Gouriveau, Rafael and Medjaher, Kamal and
+               Ramasso, Emmanuel and Chebel-Morello, Brigitte and Zerhouni, Noureddine
+               and Varnier, Christophe},
+  title     = {{PRONOSTIA}: An Experimental Platform for Bearings Accelerated
+               Degradation Tests},
+  booktitle = {Proceedings of the {IEEE} International Conference on Prognostics
+               and Health Management ({PHM} Challenge Workshop)},
+  year      = {2012},
+  pages     = {1--8},
+  address   = {Denver, CO, USA},
+  url       = {https://hal.science/hal-00719503},
+  note      = {No formal DOI — challenge workshop paper (Semantic Scholar CorpusId 15847836).
+               FEMTO-ST accelerated run-to-failure bearing testbench.
+               3 operating conditions, 17 bearings, 25.6~kHz vibration.
+               Primary dataset for Case Study B.}
+}
+
+@book{rausand2004reliability,
+  author    = {Rausand, Marvin and H{\o}yland, Arnljot},
+  title     = {System Reliability Theory: Models, Statistical Methods,
+               and Applications},
+  edition   = {2nd},
+  publisher = {Wiley-Interscience},
+  address   = {Hoboken, NJ, USA},
+  year      = {2004}
+}
+
+@techreport{lee2007ims,
+  author      = {Lee, Jay and Qiu, Hai and Yu, Gang and Lin, Jing},
+  title       = {Bearing Data Set, {IMS}, University of Cincinnati},
+  institution = {Intelligent Maintenance Systems ({IMS}) Center,
+                 University of Cincinnati},
+  year        = {2007},
+  type        = {Dataset},
+  howpublished= {UCI Machine Learning Repository via NASA Prognostics Data Repository},
+  url         = {https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/},
+  note        = {4-bearing run-to-failure dataset, 984 files, 20~kHz.
+                 Phase~2 cross-dataset extension target. No DOI.}
+}
+
+
+% ── Aggiunto per §2.12 Smart Manufacturing ─────────────────────────────────
+
+@article{AgentAuditor2025,
+  author    = {{AgentAuditor Authors}},
+  title     = {{AgentAuditor}: Human-Level Safety and Security Evaluation for {LLM} Agents},
+  journal   = {arXiv preprint},
+  year      = {2025},
+  eprint    = {2506.00641},
+  archivePrefix = {arXiv},
+  doi       = {10.48550/arXiv.2506.00641},
+  note      = {Foundation: human-level safety evaluation for LLM agents — provides safety evaluation methodology; gap: general agent safety, not manufacturing-specific KPIs}
+}
+
+@article{Bandhana2025AIMfg,
+  author  = {Bandhana, Arti and Vok{\v{r}}{\'{i}}nek, Ji{\v{r}}{\'{i}}},
+  title   = {{AI-Driven Manufacturing: Surveying for Industry~4.0 and Beyond}},
+  journal = {SN Operations Research Forum},
+  volume  = {6},
+  number  = {4},
+  year    = {2025},
+  doi     = {10.1007/s43069-025-00554-6},
+  note    = {Comprehensive survey covering AI integration across manufacturing execution systems, multi-agent orchestration, and smart factory enablers.}
+}
+
+@article{Cao2024LSFMManufacturing,
+  author  = {Cao, Haotian and others},
+  title   = {Large Scale Foundation Models for Intelligent Manufacturing Applications: {A} Survey},
+  journal = {arXiv preprint},
+  year    = {2024},
+  eprint  = {2312.06718},
+  archivePrefix = {arXiv},
+  doi     = {10.48550/arXiv.2312.06718},
+  note    = {Systematic survey of large-scale foundation models applied to intelligent manufacturing; maps LSFM capabilities to manufacturing challenges: quality control, process optimisation, predictive maintenance.}
+}
+
+@article{Chapelin2025DriftMfg,
+  author  = {Chapelin, Julien and Voisin, Alexandre and Rose, Bertrand and Iung, Beno{\^{i}}t and Steck, Lionel},
+  title   = {Data-driven drift detection and diagnosis framework for predictive maintenance of heterogeneous production processes: Application to a multiple tapping process},
+  journal = {Engineering Applications of Artificial Intelligence},
+  volume  = {139},
+  pages   = {109552},
+  year    = {2025},
+  doi     = {10.1016/j.engappai.2024.109552},
+  note    = {Drift detection in heterogeneous manufacturing: novelty detection, ensemble learning, continuous learning applied to tapping process. First real-case validation of drift-triggered maintenance cycle.}
+}
+
+@article{CognitiveDT2025,
+  author    = {{Cognitive DT Authors}},
+  title     = {A Cognitive Digital Twin for {Industry 5.0} Based on a Large Language Model Agent},
+  booktitle = {International Conferences on Human-Machine Systems},
+  year      = {2025},
+  doi       = {10.1109/ICHMS65439.2025.11154278},
+  note      = {Key related work: cognitive DT with LLM agent for Industry 5.0 — closest in spirit to thesis (cognitive DT + conversational operator interaction); no model selection from HF catalog, no TS integration}
+}
+
+@article{ConceptDriftFuzzyEnsemble2025,
+  author    = {{Fuzzy Ensemble Drift Authors}},
+  title     = {Fuzzy-Based Ensemble Method for Robust Concept Drift Detection in Multivariate Time Series},
+  booktitle = {IEEE International Joint Conference on Neural Networks (IJCNN)},
+  year      = {2025},
+  doi       = {10.1109/IJCNN64981.2025.11228919},
+  note      = {Gap evidence: multivariate TS concept drift detection — rigorous drift detection method applicable to thesis simulation; no industrial validation framework}
+}
+
+@article{DTai2026LLMWorldModels,
+  author    = {{Digital Twin AI Authors}},
+  title     = {Digital Twin {AI}: Opportunities and Challenges from Large Language Models to World Models},
+  journal   = {arXiv preprint},
+  year      = {2026},
+  eprint    = {2601.01321},
+  archivePrefix = {arXiv},
+  doi       = {10.48550/arXiv.2601.01321},
+  note      = {2026 preprint: frames DT evolution toward agentic AI — data assimilation preventing model drift, LLM integration for reasoning, world model stage. Relevant to DMCA thesis positioning on agentic DT continuum.}
+}
+
+@article{DomainKnowledgeLLMDrift2026,
+  author    = {{Domain Knowledge LLM Drift Authors}},
+  title     = {Domain Knowledge-Enhanced {LLMs} for Fraud and Concept Drift Detection},
+  journal   = {Electronics},
+  year      = {2026},
+  doi       = {10.3390/electronics15030534},
+  note      = {Gap evidence: domain knowledge-enhanced LLM for concept drift — confirms LLM can detect concept drift but in NLP/fraud domain, not industrial time-series manufacturing}
+}
+
+@article{DriftDetectionAdaptation2025,
+  author    = {{AI Model Adaptation Drift Authors}},
+  title     = {Development of an {AI} Model Adaptation Strategy based on Multi-Resolution Concept Drift Detection: A Case Study in Virtual Metrology for Smart Manufacturing},
+  booktitle = {2025 IEEE Annual Congress on Artificial Intelligence of Things (AIoT)},
+  year      = {2025},
+  doi       = {10.1109/AIoT66900.2025.00056},
+  note      = {Key related work: multi-resolution concept drift detection + model adaptation in manufacturing — covers drift detection and model switching, but no missing alarm metric or safety refusal rate}
+}
+
+@article{FactoryNet2026,
+  author  = {Othman, Karim and Petersen, Jonas and Ignuta-Ciuncanu, Matei
+             and Mazzoleni, Camilla and Martelli, Federico and Lombardi, Alessandro
+             and Maggioni, Riccardo and Petersen, Philipp},
+  title   = {{FactoryNet}: {A} Large-Scale Dataset toward Industrial Time-Series Foundation Models},
+  journal = {arXiv preprint arXiv:2605.09081},
+  year    = {2026},
+  eprint  = {2605.09081},
+  archivePrefix = {arXiv},
+  doi     = {10.48550/arXiv.2605.09081},
+  annote  = {Authors' framing: first universal pretraining corpus for industrial time-series; 51M datapoints, 23k task executions, six embodiments; S-E-F-C schema. Scope: robotic manipulation and machining.}
+}
+
+@article{Hinder2024DriftSurvey,
+  author  = {Hinder, Fabian and Vaquet, Valerie and Hammer, Barbara},
+  title   = {One or Two Things We Know About Concept Drift --- {A} Survey on Monitoring in Evolving Environments. {Part A}: Detecting Concept Drift},
+  journal = {Frontiers in Artificial Intelligence},
+  year    = {2024},
+  doi     = {10.3389/frai.2024.1330257},
+  note    = {Comprehensive survey on concept drift detection in unsupervised data streams; directly relevant to manufacturing monitoring and anomaly detection.}
+}
+
+@article{Kottapalli2025TSFMSurvey,
+  author  = {Kottapalli, Siva Rama Krishna and Hubli, Karthik and Chandrashekhara, Sandeep and Jain, Garima and Hubli, Sunayana and Botla, Gayathri and Doddaiah, Ramesh},
+  title   = {Foundation Models for Time Series: {A} Survey},
+  journal = {arXiv preprint},
+  year    = {2025},
+  eprint  = {2504.04011},
+  archivePrefix = {arXiv},
+  doi     = {10.48550/arXiv.2504.04011},
+  note    = {Taxonomy of TS foundation models by architecture; covers patch-based, autoregressive, and LLM-adapted variants; benchmark comparison for zero-shot and few-shot industrial settings.}
+}
+
+@article{PHMForge2026,
+  author    = {{PHMForge Authors}},
+  title     = {{PHMForge}: A Scenario-Driven Agentic Benchmark for Industrial Asset Lifecycle Maintenance},
+  journal   = {arXiv preprint},
+  year      = {2026},
+  eprint    = {2604.01532},
+  archivePrefix = {arXiv},
+  url       = {https://arxiv.org/abs/2604.01532},
+  note      = {Key related work (2026): scenario-driven benchmark for LLM agents in industrial PHM — closest existing work to thesis GAP 4. Confirms gap: no missing alarm rate metric, no shadow mode, no edge latency evaluation.},
+  doi       = {10.48550/arXiv.2604.01532}
+}
+
+@article{Rahal2023AAS_PredMaint_DT,
+  author    = {Rahal, Walid and Semmar, Lotfi and Smail, Lyes and Weinschrott, Henrik and Amrani, Mourad},
+  title     = {The Asset Administration Shell as Enabler for Predictive Maintenance: A Review},
+  journal   = {Journal of Intelligent Manufacturing},
+  year      = {2023},
+  doi       = {10.1007/s10845-023-02236-8},
+  note      = {Foundational: comprehensive review of AAS for predictive maintenance (31 citations) — maps directly to thesis use case; gap: no adaptive model selection}
+}
+
+@article{Tao2019DTIndustry,
+  author  = {Tao, Fei and Zhang, He and Liu, Ang and Nee, Andrew Y. C.},
+  title   = {Digital Twin in Industry: State-of-the-Art},
+  journal = {IEEE Transactions on Industrial Informatics},
+  volume  = {15},
+  number  = {4},
+  pages   = {2405--2415},
+  year    = {2019},
+  doi     = {10.1109/TII.2018.2873186},
+  note    = {Canonical survey of Digital Twin in manufacturing: components, current development, and industrial applications; 2780+ citations.}
+}
+
+@article{WangWZLLX25IndustrialTS,
+  author    = {Wang, Hao and Wu, Jianling and Zhang, Lingfeng and Li, Guang and Liu, Bing and Xiao, Wei},
+  title     = {A Transformer-Based Industrial Time Series Prediction Model With Multivariate Dynamic Embedding},
+  journal   = {IEEE Transactions on Industrial Informatics},
+  year      = {2025},
+  doi       = {10.1109/TII.2024.3488783},
+  note      = {Foundational: Transformer for industrial TS with dynamic embedding to handle distribution shift (15 citations) — directly relevant to CMAPSS/ETT benchmarks in thesis}
+}
+
+@article{Xia2024AASbyLLM_DT,
+  author    = {Xia, Yuchen and Xie, Jize and Jazdi, Nasser and Weyrich, Michael},
+  title     = {Generation of Asset Administration Shell With Large Language Model Agents: Toward Semantic Interoperability in Digital Twins in the Context of {Industry 4.0}},
+  journal   = {IEEE Access},
+  year      = {2024},
+  doi       = {10.1109/ACCESS.2024.3415470},
+  eprint    = {2403.17209},
+  archivePrefix = {arXiv},
+  note      = {Key Xia et al. (Stuttgart): LLM generates AAS from unstructured text — 44 citations; key related work from the most relevant research group; establishes AASbyLLM tool referenced in CLAUDE.md}
+}
+
+@article{Zhang2025AAS_DT,
+  author    = {Zhang, Zhen and Eggersgluss, Sven and Hohenauer, Markus and Morozov, Andrey and Weyrich, Michael},
+  title     = {Digital Twin and the Asset Administration Shell},
+  journal   = {Journal of Software and Systems Modeling},
+  year      = {2025},
+  doi       = {10.1007/s10270-024-01255-0},
+  note      = {Foundational: engineering DT with AAS as systematic approach — 34 citations; establishes AAS as the DT engineering foundation used in thesis}
+}
+
+@article{iSafetyBench2025,
+  author    = {{iSafetyBench Authors}},
+  title     = {{iSafetyBench}: A Video-Language Benchmark for Safety in Industrial Environment},
+  booktitle = {2025 IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)},
+  year      = {2025},
+  eprint    = {2508.00399},
+  archivePrefix = {arXiv},
+  doi       = {10.1109/ICCVW69036.2025.00154},
+  note      = {Key related work: industrial safety benchmark for VLMs — safety-critical evaluation in industrial environments (closest to thesis GAP 4 spirit). Confirms gap: no time-series models, no missing alarm rate, no latency criteria for edge deployment.}
+}
+                                                                                                                                                                                                                                                                                                                                                                                                       

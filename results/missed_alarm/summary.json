@@ -1,0 +1,28 @@
+{
+  "config": {
+    "edge_profile": "jetson_nano",
+    "sla_ms": 100,
+    "t4_to_nano_factor": 10,
+    "primary_sigma": 3.0,
+    "baseline_frac": 0.2,
+    "persistence_k": 2,
+    "dataset": "pronostia",
+    "models": {
+      "PatchTST": 5.86,
+      "Lag-Llama": 7.77,
+      "Moirai-S": 53.73
+    }
+  },
+  "headline": {
+    "total_bearings": 5,
+    "patchtst_actionable_count": 1,
+    "lag_llama_actionable_count": 1,
+    "moirai_s_actionable_count": 1,
+    "patchtst_mean_lead_s": 208.0,
+    "lag_llama_mean_lead_s": 208.0,
+    "moirai_s_mean_lead_s": 150.0,
+    "patchtst_total_alarms": 157,
+    "lag_llama_total_alarms": 157,
+    "moirai_s_total_alarms": 22
+  }
+}

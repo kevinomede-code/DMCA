@@ -1,0 +1,101 @@
+%% Foundational papers — HuggingFace Time Series Foundation Models
+%% Thesis: AI Conversational Copilot for Complex Systems — Dynamic Model-Context Alignment
+%% Generated: 2026-04-07
+%%
+%% These are the key TSFMs available on HuggingFace that form the model catalog
+%% from which the thesis orchestrator selects. All are known papers listed in CLAUDE.md.
+
+@article{Ansari2024Chronos,
+  author    = {Ansari, Abdul Fatir and Stella, Lorenzo and Turkmen, Caner and Zhang, Xiyuan and Merrill, Pedro and Mahoney, Huibin and Abdallah, Amara and Abdulghani, Melih and Arik, Sercan O. and Toker, Dmitriy and Schroeder, James and Uglovets, Arash and Grzyb, Pawel and Koval, Evgeny and Wang, Yuyang and others},
+  title     = {Chronos: Learning the Language of Time Series},
+  journal   = {arXiv preprint},
+  year      = {2024},
+  eprint    = {2403.07815},
+  archivePrefix = {arXiv},
+  note      = {Baseline model: amazon/chronos-t5-tiny et al. — zero-shot univariate forecasting via language model pre-training on time series; HuggingFace: amazon/chronos-t5-tiny, amazon/chronos-t5-small, amazon/chronos-t5-large},
+  doi       = {10.48550/arXiv.2403.07815}
+}
+
+@article{Woo2024Moirai,
+  author    = {Woo, Gerald and Liu, Chenghao and Kumar, Akshat and Xiong, Caiming and Savarese, Silvio and Sahoo, Doyen},
+  title     = {Unified Training of Universal Time Series Forecasting Transformers},
+  journal   = {arXiv preprint},
+  year      = {2024},
+  eprint    = {2402.02592},
+  archivePrefix = {arXiv},
+  note      = {Baseline model: Salesforce/moirai-1.1-R-small — zero-shot universal forecasting; HuggingFace: Salesforce/moirai-1.1-R-small, Salesforce/moirai-1.1-R-base, Salesforce/moirai-1.1-R-large},
+  doi       = {10.48550/arXiv.2402.02592}
+}
+
+@article{Das2024TimesFM,
+  author    = {Das, Abhimanyu and Kong, Weihao and Leach, Andrew and Mathur, Shaan and Sen, Rajat and Yu, Rose},
+  title     = {A Decoder-Only Foundation Model for Time-Series Forecasting},
+  journal   = {arXiv preprint},
+  year      = {2024},
+  eprint    = {2310.10688},
+  archivePrefix = {arXiv},
+  note      = {Baseline model: TimesFM (Google) — decoder-only 200M parameter foundation model for zero-shot forecasting; HuggingFace: google/timesfm-1.0-200m},
+  doi       = {10.48550/arXiv.2310.10688}
+}
+
+@article{Goswami2024MOMENT,
+  author    = {Goswami, Mononito and Szafer, Konrad and Choudhry, Arjun and Cai, Yifu and Li, Shuo and Dubrawski, Artur},
+  title     = {{MOMENT}: A Family of Open Time-series Foundation Models},
+  journal   = {arXiv preprint},
+  year      = {2024},
+  eprint    = {2402.03885},
+  archivePrefix = {arXiv},
+  note      = {Baseline model: MOMENT family — open TSFM for classification, anomaly detection, imputation, forecasting; HuggingFace: AutonLab/MOMENT-1-large},
+  doi       = {10.48550/arXiv.2402.03885}
+}
+
+@article{Nie2023PatchTST,
+  author    = {Nie, Yuqi and Nam H. Nguyen and Pankaj Soni and Kha-Doan Tran},
+  title     = {A Time Series is Worth 64 Words: Long-term Forecasting with Transformers},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2023},
+  eprint    = {2211.14730},
+  archivePrefix = {arXiv},
+  note      = {Baseline model: ibm/patchtst-base-etth1 — lightweight edge model ~5M params; patch-based Transformer for TS forecasting; HuggingFace: ibm/patchtst-base-etth1},
+  doi       = {10.48550/arXiv.2211.14730}
+}
+
+@article{Rasul2023LagLlama,
+  author    = {Rasul, Kashif and Ashok, Arjun and Williams, Andrew Robert and Ghonia, Hena and Bhatt, Rishika and Khorasani, Arian and Drozd, Oleksandr and Ermon, Stefano and Schneider, Roland and others},
+  title     = {Lag-{Llama}: Towards Foundation Models for Probabilistic Time Series Forecasting},
+  journal   = {arXiv preprint},
+  year      = {2023},
+  eprint    = {2310.08278},
+  archivePrefix = {arXiv},
+  note      = {Baseline model: Lag-Llama — probabilistic zero-shot TS forecasting using LLaMA architecture; HuggingFace: time-series-foundation-models/Lag-Llama},
+  doi       = {10.48550/arXiv.2310.08278}
+}
+
+@article{ContextAlignmentTS2025,
+  author    = {{Context-Alignment LLM TS Authors}},
+  title     = {Context-Alignment: Activating and Enhancing {LLM} Capabilities in Time Series},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2025},
+  eprint    = {2501.03747},
+  archivePrefix = {arXiv},
+  doi       = {10.48550/arXiv.2501.03747},
+  note      = {Foundational for GAP 2: alignment strategies between LLM context and TS data — key prior work showing LLMs can reason about TS when properly aligned}
+}
+
+@article{TimeRAF2025,
+  author    = {{TimeRAF Authors}},
+  title     = {{TimeRAF}: Retrieval-Augmented Foundation Model for Zero-Shot Time Series Forecasting},
+  journal   = {IEEE Transactions on Knowledge and Data Engineering},
+  year      = {2025},
+  doi       = {10.1109/TKDE.2025.3579137},
+  note      = {Related: RAG applied to TSFM for zero-shot forecasting — retrieval-augmented TSFM; confirms retrieval-augmented model selection is an emerging direction}
+}
+
+@article{WangWZLLX25IndustrialTS,
+  author    = {Wang, Hao and Wu, Jianling and Zhang, Lingfeng and Li, Guang and Liu, Bing and Xiao, Wei},
+  title     = {A Transformer-Based Industrial Time Series Prediction Model With Multivariate Dynamic Embedding},
+  journal   = {IEEE Transactions on Industrial Informatics},
+  year      = {2025},
+  doi       = {10.1109/TII.2024.3488783},
+  note      = {Foundational: Transformer for industrial TS with dynamic embedding to handle distribution shift (15 citations) — directly relevant to CMAPSS/ETT benchmarks in thesis}
+}

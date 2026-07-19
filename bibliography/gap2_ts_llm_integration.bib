@@ -5,18 +5,6 @@
 %% Gap evidence: industrial systems use TS models OR conversational LLMs, never together
 %% with adaptive selection. No orchestrator dynamically chooses between TS and LLM based on problem type.
 
-@inproceedings{ChronoSteer2025,
-  author    = {{ChronoSteer Authors}},
-  title     = {{ChronoSteer}: Bridging Large Language Model and Time Series Foundation Model via Synthetic Data},
-  journal   = {arXiv preprint},
-  year      = {2025},
-  eprint    = {2505.10083},
-  archivePrefix = {arXiv},
-  doi       = {10.48550/arXiv.2505.10083},
-  url       = {https://arxiv.org/abs/2505.10083},
-  note      = {Key related work: directly bridges LLM and TSFM — closest to GAP 2 thesis contribution. Generates synthetic TS data to transfer LLM reasoning to TS domain. No industrial deployment, no orchestrator, no model selection logic.}
-}
-
 @inproceedings{ChatTime2024,
   author    = {{ChatTime Authors}},
   title     = {{ChatTime}: A Unified Multimodal Time Series Foundation Model Bridging Numerical and Textual Data},
@@ -25,7 +13,7 @@
   eprint    = {2412.11376},
   archivePrefix = {arXiv},
   doi       = {10.48550/arXiv.2412.11376},
-  note      = {Key related work: unified model handling both numerical TS and text — gap evidence: static unified model, no orchestrator dynamically routing to best model for given problem type}
+  annote      = {Key related work: unified model handling both numerical TS and text — gap evidence: static unified model, no orchestrator dynamically routing to best model for given problem type}
 }
 
 @article{LLM_TSFD2024,
@@ -34,7 +22,7 @@
   journal   = {Expert Systems with Applications},
   year      = {2024},
   doi       = {10.1016/j.eswa.2024.125861},
-  note      = {Key related work: LLM applied to industrial TS fault diagnosis with human-in-the-loop — uses LLM for reasoning about TS anomalies. No adaptive model routing or TS foundation model integration.}
+  annote      = {Key related work: LLM applied to industrial TS fault diagnosis with human-in-the-loop — uses LLM for reasoning about TS anomalies. No adaptive model routing or TS foundation model integration.}
 }
 
 @article{TS_MLLM2026,
@@ -45,7 +33,8 @@
   eprint    = {2603.07572},
   archivePrefix = {arXiv},
   url       = {https://arxiv.org/abs/2603.07572},
-  note      = {Key related work (2026): MLLM for industrial TS PHM — multimodal LLM for equipment health management. No adaptive orchestration between TS and LLM branches.}
+  annote      = {Key related work (2026): MLLM for industrial TS PHM — multimodal LLM for equipment health management. No adaptive orchestration between TS and LLM branches.},
+  doi       = {10.48550/arXiv.2603.07572}
 }
 
 @article{IndustrialGeneralIntelligence2024,
@@ -56,7 +45,8 @@
   eprint    = {2409.01207},
   archivePrefix = {arXiv},
   url       = {https://arxiv.org/abs/2409.01207},
-  note      = {Survey: transition from traditional DL to large-scale models for IIoT — covers the space but confirms no adaptive orchestrator combining TS and LLM}
+  annote      = {Survey: transition from traditional DL to large-scale models for IIoT — covers the space but confirms no adaptive orchestrator combining TS and LLM},
+  doi       = {10.48550/arXiv.2406.06130}
 }
 
 @article{RAAD_LLM2025,
@@ -67,18 +57,7 @@
   eprint    = {2503.02800},
   archivePrefix = {arXiv},
   doi       = {10.48550/arXiv.2503.02800},
-  note      = {Gap evidence: LLM + RAG for anomaly detection in industrial environments — uses retrieval-augmented LLM, not a TS foundation model + LLM combined orchestrator}
-}
-
-@inproceedings{Xia2023FlexibleManufacturing,
-  author    = {Xia, Yuchen and Shu, Tao and Jazdi, Nasser and Li, Weidong and Weyrich, Michael},
-  title     = {Towards Autonomous System: Flexible Modular Production System Enhanced with Large Language Model Agents},
-  booktitle = {IEEE International Conference on Emerging Technologies and Factory Automation (ETFA)},
-  year      = {2023},
-  doi       = {10.1109/ETFA54631.2023.10275362},
-  eprint    = {2304.14721},
-  archivePrefix = {arXiv},
-  note      = {Foundational Xia et al. work: LLM agents + DT for production control — natural language task planning. No time-series model integration or adaptive model selection.}
+  annote      = {Gap evidence: LLM + RAG for anomaly detection in industrial environments — uses retrieval-augmented LLM, not a TS foundation model + LLM combined orchestrator}
 }
 
 @inproceedings{IntegratingDTLLMML2025,
@@ -87,18 +66,7 @@
   booktitle = {International Conference on Algorithms, Data Mining, and Information Technology (ADMIT)},
   year      = {2025},
   doi       = {10.1109/ADMIT67050.2025.11337038},
-  note      = {Gap evidence: integrates DT, LLM, and ML in manufacturing — proposes the concept but does not implement adaptive selection between TS and LLM models based on problem type}
-}
-
-@article{ContextAlignment_LLM_TS2025,
-  author    = {{Context-Alignment LLM TS}},
-  title     = {Context-Alignment: Activating and Enhancing {LLM} Capabilities in Time Series},
-  booktitle = {International Conference on Learning Representations (ICLR)},
-  year      = {2025},
-  eprint    = {2501.03747},
-  archivePrefix = {arXiv},
-  doi       = {10.48550/arXiv.2501.03747},
-  note      = {Key related work: aligns LLM context with TS data via prompting strategies — activation/enhancement of LLMs for TS, no industrial deployment or model selection orchestrator}
+  annote      = {Gap evidence: integrates DT, LLM, and ML in manufacturing — proposes the concept but does not implement adaptive selection between TS and LLM models based on problem type}
 }
 
 @article{TimeDiT2024,
@@ -109,5 +77,5 @@
   eprint    = {2409.02322},
   archivePrefix = {arXiv},
   doi       = {10.48550/arXiv.2409.02322},
-  note      = {Foundation model: diffusion transformer for TS — general-purpose TSFM, relevant as comparison baseline for GAP 2 experiments}
+  annote      = {Foundation model: diffusion transformer for TS — general-purpose TSFM, relevant as comparison baseline for GAP 2 experiments}
 }

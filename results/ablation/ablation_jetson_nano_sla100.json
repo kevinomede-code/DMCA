@@ -1,0 +1,119 @@
+{
+  "generated": "2026-07-19T05:09:19",
+  "profile": "Jetson Nano, SLA=100ms, T4-to-edge x10, zero-shot, time_series_forecasting",
+  "selector": "pipeline/topsis_ranker.py (filter_admissible + TopsisRanker) \u2014 unico selettore del sistema",
+  "stage3_note": "TOPSIS #1 PatchTST viene bloccato dallo Stage-3 quality gate (MAE==RMSE zero-shot collapse); Lag-Llama diventa la selezione operativa.",
+  "configurations": {
+    "all_filters": {
+      "n_admissible": 2,
+      "ranking": [
+        {
+          "rank": 1,
+          "id": "ibm/patchtst-base-etth1",
+          "topsis_score": 0.985627,
+          "lat_edge_ms": 61.91,
+          "topsis_mae": 1.303
+        },
+        {
+          "rank": 2,
+          "id": "time-series-foundation-models/Lag-Llama",
+          "topsis_score": 0.014373,
+          "lat_edge_ms": 88.82,
+          "topsis_mae": 999.0
+        }
+      ]
+    },
+    "ignore_latency": {
+      "n_admissible": 7,
+      "ranking": [
+        {
+          "rank": 1,
+          "id": "ibm/patchtst-base-etth1",
+          "topsis_score": 0.989559,
+          "lat_edge_ms": 6.19,
+          "topsis_mae": 1.303
+        },
+        {
+          "rank": 2,
+          "id": "time-series-foundation-models/Lag-Llama",
+          "topsis_score": 0.562376,
+          "lat_edge_ms": 8.88,
+          "topsis_mae": 999.0
+        },
+        {
+          "rank": 3,
+          "id": "Salesforce/moirai-1.1-R-small",
+          "topsis_score": 0.556124,
+          "lat_edge_ms": 62.91,
+          "topsis_mae": 999.0
+        },
+        {
+          "rank": 4,
+          "id": "Salesforce/moirai-1.1-R-large",
+          "topsis_score": 0.542959,
+          "lat_edge_ms": 73.91,
+          "topsis_mae": 999.0
+        },
+        {
+          "rank": 5,
+          "id": "amazon/chronos-t5-tiny",
+          "topsis_score": 0.539024,
+          "lat_edge_ms": 203.1,
+          "topsis_mae": 999.0
+        },
+        {
+          "rank": 6,
+          "id": "google/timesfm-1.0-200m",
+          "topsis_score": 0.458371,
+          "lat_edge_ms": 2109.52,
+          "topsis_mae": 0.006
+        },
+        {
+          "rank": 7,
+          "id": "amazon/chronos-t5-large",
+          "topsis_score": 0.369994,
+          "lat_edge_ms": 902.93,
+          "topsis_mae": 999.0
+        }
+      ]
+    },
+    "ignore_hardware": {
+      "n_admissible": 2,
+      "ranking": [
+        {
+          "rank": 1,
+          "id": "ibm/patchtst-base-etth1",
+          "topsis_score": 0.985627,
+          "lat_edge_ms": 61.91,
+          "topsis_mae": 1.303
+        },
+        {
+          "rank": 2,
+          "id": "time-series-foundation-models/Lag-Llama",
+          "topsis_score": 0.014373,
+          "lat_edge_ms": 88.82,
+          "topsis_mae": 999.0
+        }
+      ]
+    },
+    "training_data_available": {
+      "n_admissible": 2,
+      "ranking": [
+        {
+          "rank": 1,
+          "id": "ibm/patchtst-base-etth1",
+          "topsis_score": 0.985627,
+          "lat_edge_ms": 61.91,
+          "topsis_mae": 1.303
+        },
+        {
+          "rank": 2,
+          "id": "time-series-foundation-models/Lag-Llama",
+          "topsis_score": 0.014373,
+          "lat_edge_ms": 88.82,
+          "topsis_mae": 999.0
+        }
+      ]
+    }
+  }
+}

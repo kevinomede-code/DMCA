@@ -5,17 +5,6 @@
 %% Gap evidence: XAI exists as separate module (SHAP, dashboards), not embedded in dialogue.
 %% Missing: 3-level XAI with confidence scoring that prevents over-reliance in industrial context.
 
-@inproceedings{He2025ConvXAI,
-  author    = {He, Gaole and Aarts, Bram and Gadiraju, Ujwal},
-  title     = {Is Conversational {XAI} All You Need? Human-{AI} Decision Making With a Conversational {XAI} Assistant},
-  booktitle = {International Conference on Intelligent User Interfaces (IUI)},
-  year      = {2025},
-  doi       = {10.1145/3708359.3712133},
-  eprint    = {2501.17546},
-  archivePrefix = {arXiv},
-  note      = {KEY paper (Gaole He, TU Delft): conversational XAI assistant for human-AI decision making. Directly tests whether conversational XAI reduces over-reliance. Confirms gap: no industrial deployment, no 3-level confidence scoring, no integration with TS models.}
-}
-
 @article{ThreeLevelXAI2025,
   author    = {{Three-level XAI Framework Authors}},
   title     = {A Three-level Framework for {LLM}-enhanced Explainable {AI}: From Technical Explanations to Natural Language},
@@ -24,7 +13,7 @@
   doi       = {10.1007/s10796-025-10668-1},
   eprint    = {2506.05887},
   archivePrefix = {arXiv},
-  note      = {Key related work: 3-level XAI framework (technical → intermediate → natural language) — directly maps to thesis 3-level XAI design. Confirms the framework concept; no industrial TS deployment or conversational integration within an orchestrator.}
+  annote      = {Key related work: 3-level XAI framework (technical → intermediate → natural language) — directly maps to thesis 3-level XAI design. Confirms the framework concept; no industrial TS deployment or conversational integration within an orchestrator}
 }
 
 @inproceedings{DeliberativeAI2024,
@@ -35,7 +24,7 @@
   doi       = {10.1145/3706598.3713423},
   eprint    = {2403.16812},
   archivePrefix = {arXiv},
-  note      = {Key related work: LLM-empowered deliberative AI enabling dialogue-based negotiation with AI recommendations — gap evidence: general decision-making context, not industrial, no confidence calibration for TS models}
+  annote      = {Key related work: LLM-empowered deliberative AI enabling dialogue-based negotiation with AI recommendations — gap evidence: general decision-making context, not industrial, no confidence calibration for TS models}
 }
 
 @article{ImpactImperfectXAI2023,
@@ -46,7 +35,7 @@
   doi       = {10.1145/3641022},
   eprint    = {2307.13566},
   archivePrefix = {arXiv},
-  note      = {Foundation: imperfect XAI can harm decision quality — baseline for understanding when conversational XAI helps or hurts. Cited by He et al. 2025.}
+  annote      = {Foundation: imperfect XAI can harm decision quality — baseline for understanding when conversational XAI helps or hurts. Cited by He et al. 2025}
 }
 
 @inproceedings{ToRelyOrNot2024,
@@ -57,7 +46,7 @@
   doi       = {10.1145/3706598.3714097},
   eprint    = {2412.15584},
   archivePrefix = {arXiv},
-  note      = {Gap evidence: interventions to reduce over-reliance on LLMs — confidence calibration through transparency. No industrial context, no TS integration, confirms gap for domain-specific calibration.}
+  annote      = {Gap evidence: interventions to reduce over-reliance on LLMs — confidence calibration through transparency. No industrial context, no TS integration, confirms gap for domain-specific calibration}
 }
 
 @inproceedings{SelfConfidenceCalibration2024,
@@ -68,7 +57,7 @@
   doi       = {10.1145/3613904.3642671},
   eprint    = {2403.09552},
   archivePrefix = {arXiv},
-  note      = {Foundation: human self-confidence calibration in AI-assisted decisions — addresses the human-side of appropriate reliance, complementary to thesis XAI design}
+  annote      = {Foundation: human self-confidence calibration in AI-assisted decisions — addresses the human-side of appropriate reliance, complementary to thesis XAI design}
 }
 
 @article{ImperfectionsXAI2025,
@@ -77,7 +66,7 @@
   journal   = {ACM Transactions on Interactive Intelligent Systems},
   year      = {2025},
   doi       = {10.1145/3750052},
-  note      = {Foundation: survey of XAI failure modes — comprehensive enumeration of when XAI misleads operators; confirms need for calibrated 3-level XAI in thesis}
+  annote      = {Foundation: survey of XAI failure modes — comprehensive enumeration of when XAI misleads operators; confirms need for calibrated 3-level XAI in thesis}
 }
 
 @article{OntologyXAIManufacturing2024,
@@ -86,7 +75,7 @@
   journal   = {Journal of Intelligent Manufacturing},
   year      = {2024},
   doi       = {10.1007/s10845-023-02304-z},
-  note      = {Foundational survey: XAI methods in manufacturing, focusing on ontology-based explanations — confirms XAI in manufacturing exists but as standalone modules, not conversational}
+  annote      = {Foundational survey: XAI methods in manufacturing, focusing on ontology-based explanations — confirms XAI in manufacturing exists but as standalone modules, not conversational}
 }
 
 @article{RAISE_XAI_Industrial2025,
@@ -95,7 +84,7 @@
   journal   = {International Scientific Journal of Engineering and Management},
   year      = {2025},
   doi       = {10.55041/isjem05276},
-  note      = {Gap evidence: RL-based adaptive XAI for industrial CPS — adaptive XAI in industrial context, but not conversational and no integration with prediction model selection}
+  annote      = {Gap evidence: RL-based adaptive XAI for industrial CPS — adaptive XAI in industrial context, but not conversational and no integration with prediction model selection}
 }
 
 @inproceedings{iLLuMinaTE2025,
@@ -104,7 +93,7 @@
   booktitle = {AAAI Conference on Artificial Intelligence},
   year      = {2025},
   doi       = {10.1609/aaai.v39i27.35065},
-  note      = {Related framework: LLM-XAI integration using social science explanation theories — conversational XAI for education, demonstrates the framework pattern; gap: no industrial TS context, no over-reliance prevention mechanism}
+  annote      = {Related framework: LLM-XAI integration using social science explanation theories — conversational XAI for education, demonstrates the framework pattern; gap: no industrial TS context, no over-reliance prevention mechanism}
 }
 
 %% ── Cognitive foundations (added 2026-05-13, Block 1 of Sec. 2.4) ──────────
@@ -115,9 +104,8 @@
   publisher = {Wiley},
   year      = {1957},
   address   = {New York},
-  note      = {Foundational bounded rationality: under time pressure and cognitive load operators
-               satisfice rather than optimise --- theoretical basis for cognitive design of
-               DMCA copilot L1/L2/L3 load-adaptive architecture}
+  annote      = {Foundational bounded rationality: under time pressure and cognitive load operators satisfice rather than optimise --- theoretical basis for cognitive design of DMCA copilot L1/L2/L3 load-adaptive architecture},
+  doi           = {10.1037/h0042769}
 }
 
 @book{kahneman2011thinking,
@@ -127,9 +115,7 @@
   year      = {2011},
   address   = {New York},
   isbn      = {978-0374275631},
-  note      = {Dual-process theory: System~1 (fast, heuristic, automatic) vs System~2
-               (slow, deliberative). Theoretical foundation for load-adaptive XAI in
-               DMCA copilot: L1 is System~1 compatible; L3+COPILOTCONFIRM forces System~2}
+  annote      = {Dual-process theory: System~1 (fast, heuristic, automatic) vs System~2 (slow, deliberative). Theoretical foundation for load-adaptive XAI in DMCA copilot: L1 is System~1 compatible; L3+COPILOTCONFIRM forces System~2}
 }
 
 @article{evans2008dual,
@@ -140,9 +126,7 @@
   volume    = {59},
   pages     = {255--278},
   doi       = {10.1146/annurev.psych.59.103006.093629},
-  note      = {Formalises dual-process theory in reasoning: System~1 heuristics are adaptive
-               in stable contexts but fail when context changes --- directly relevant to concept
-               drift scenarios where the operator's prior heuristic becomes invalid}
+  annote      = {Formalises dual-process theory in reasoning: System~1 heuristics are adaptive in stable contexts but fail when context changes --- directly relevant to concept drift scenarios where the operator's prior heuristic becomes invalid}
 }
 
 @article{sweller1988cognitive,
@@ -154,9 +138,7 @@
   number    = {2},
   pages     = {257--285},
   doi       = {10.1207/s15516709cog1202_4},
-  note      = {Foundational Cognitive Load Theory: intrinsic, extraneous, germane load.
-               Design constraint for DMCA XAI: minimise extraneous load to preserve
-               germane processing for safety-critical operator judgement}
+  annote      = {Foundational Cognitive Load Theory: intrinsic, extraneous, germane load. Design constraint for DMCA XAI: minimise extraneous load to preserve germane processing for safety-critical operator judgement}
 }
 
 @article{miller2019explanation,
@@ -167,9 +149,7 @@
   volume    = {267},
   pages     = {1--38},
   doi       = {10.1016/j.artint.2018.07.007},
-  note      = {Structural mismatch: XAI systems designed for developers not end users.
-               Gap evidence for industrial XAI: explanations pragmatically inaccessible
-               to operators without statistical training}
+  annote      = {Structural mismatch: XAI systems designed for developers not end users. Gap evidence for industrial XAI: explanations pragmatically inaccessible to operators without statistical training}
 }
 
 @inproceedings{lundberg2017shap,
@@ -179,9 +159,8 @@
   year      = {2017},
   pages     = {4765--4774},
   url       = {https://proceedings.neurips.cc/paper/2017/hash/8a20a8621978632d76c43dfd28b67767-Abstract.html},
-  note      = {SHAP: feature-attribution XAI. Cited as example of analyst-oriented XAI
-               requiring data literacy --- contrast with DMCA conversational approach
-               for non-technical industrial operators}
+  annote      = {SHAP: feature-attribution XAI. Cited as example of analyst-oriented XAI requiring data literacy --- contrast with DMCA conversational approach for non-technical industrial operators},
+  doi           = {10.48550/arXiv.1705.07874},
 }
 
 @inproceedings{ribeiro2016lime,
@@ -192,100 +171,10 @@
   year      = {2016},
   pages     = {1135--1144},
   doi       = {10.1145/2939672.2939778},
-  note      = {LIME: local model-agnostic explanation. Cited as post-hoc XAI requiring
-               statistical literacy --- contrast with DMCA natural language conversational
-               approach for industrial operators}
+  annote      = {LIME: local model-agnostic explanation. Cited as post-hoc XAI requiring statistical literacy --- contrast with DMCA natural language conversational approach for industrial operators}
 }
 
 %% ── Cognitive foundations (added 2026-05-13, Block 1 of Sec. 2.4) ──────────
-
-@book{simon1957bounded,
-  author    = {Simon, Herbert A.},
-  title     = {Models of Man: Social and Rational},
-  publisher = {Wiley},
-  year      = {1957},
-  address   = {New York},
-  note      = {Foundational bounded rationality: under time pressure and cognitive load operators
-               satisfice rather than optimise --- theoretical basis for cognitive design of
-               DMCA copilot L1/L2/L3 load-adaptive architecture}
-}
-
-@book{kahneman2011thinking,
-  author    = {Kahneman, Daniel},
-  title     = {Thinking, Fast and Slow},
-  publisher = {Farrar, Straus and Giroux},
-  year      = {2011},
-  address   = {New York},
-  isbn      = {978-0374275631},
-  note      = {Dual-process theory: System~1 (fast, heuristic, automatic) vs System~2
-               (slow, deliberative). Theoretical foundation for load-adaptive XAI in
-               DMCA copilot: L1 is System~1 compatible; L3+COPILOTCONFIRM forces System~2}
-}
-
-@article{evans2008dual,
-  author    = {Evans, Jonathan St B.T.},
-  title     = {Dual-Processing Accounts of Reasoning, Judgment, and Social Cognition},
-  journal   = {Annual Review of Psychology},
-  year      = {2008},
-  volume    = {59},
-  pages     = {255--278},
-  doi       = {10.1146/annurev.psych.59.103006.093629},
-  note      = {Formalises dual-process theory in reasoning: System~1 heuristics are adaptive
-               in stable contexts but fail when context changes --- directly relevant to concept
-               drift scenarios where the operator's prior heuristic becomes invalid}
-}
-
-@article{sweller1988cognitive,
-  author    = {Sweller, John},
-  title     = {Cognitive Load During Problem Solving: Effects on Learning},
-  journal   = {Cognitive Science},
-  year      = {1988},
-  volume    = {12},
-  number    = {2},
-  pages     = {257--285},
-  doi       = {10.1207/s15516709cog1202_4},
-  note      = {Foundational Cognitive Load Theory: intrinsic, extraneous, germane load.
-               Design constraint for DMCA XAI: minimise extraneous load to preserve
-               germane processing for safety-critical operator judgement}
-}
-
-@article{miller2019explanation,
-  author    = {Miller, Tim},
-  title     = {Explanation in Artificial Intelligence: Insights from the Social Sciences},
-  journal   = {Artificial Intelligence},
-  year      = {2019},
-  volume    = {267},
-  pages     = {1--38},
-  doi       = {10.1016/j.artint.2018.07.007},
-  note      = {Structural mismatch: XAI systems designed for developers not end users.
-               Gap evidence for industrial XAI: explanations pragmatically inaccessible
-               to operators without statistical training}
-}
-
-@inproceedings{lundberg2017shap,
-  author    = {Lundberg, Scott M. and Lee, Su-In},
-  title     = {A Unified Approach to Interpreting Model Predictions},
-  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
-  year      = {2017},
-  pages     = {4765--4774},
-  url       = {https://proceedings.neurips.cc/paper/2017/hash/8a20a8621978632d76c43dfd28b67767-Abstract.html},
-  note      = {SHAP: feature-attribution XAI. Cited as example of analyst-oriented XAI
-               requiring data literacy --- contrast with DMCA conversational approach
-               for non-technical industrial operators}
-}
-
-@inproceedings{ribeiro2016lime,
-  author    = {Ribeiro, Marco Tulio and Singh, Sameer and Guestrin, Carlos},
-  title     = {``{Why Should I Trust You?}'': Explaining the Predictions of Any Classifier},
-  booktitle = {Proceedings of the 22nd {ACM SIGKDD} International Conference on
-               Knowledge Discovery and Data Mining},
-  year      = {2016},
-  pages     = {1135--1144},
-  doi       = {10.1145/2939672.2939778},
-  note      = {LIME: local model-agnostic explanation. Cited as post-hoc XAI requiring
-               statistical literacy --- contrast with DMCA natural language conversational
-               approach for industrial operators}
-}
 
 @inproceedings{he2023convxai,
   author    = {He, Gaole and Kulesza, Todd and Gadiraju, Ujwal},

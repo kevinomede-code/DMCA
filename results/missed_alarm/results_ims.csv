@@ -1,0 +1,10 @@
+bearing,model,sigma,coverage_theoretical,coverage_effective,sampling_step,trace_duration_s,n_acquisitions,n_processed,threshold_g,n_alarms,first_alarm_idx,first_alarm_lead_s,failure_idx,actionable
+IMS_2nd_test_files_Bearing1,PatchTST,3.0,0.8532,1.0,1,459600,766,766,0.081,233,533,139200,765,True
+IMS_2nd_test_files_Bearing1,PatchTST,4.0,0.8532,1.0,1,459600,766,766,0.0822,233,533,139200,765,True
+IMS_2nd_test_files_Bearing1,PatchTST,5.0,0.8532,1.0,1,459600,766,766,0.0833,227,534,138600,765,True
+IMS_2nd_test_files_Bearing1,Lag-Llama,3.0,0.6435,0.5,2,459600,766,383,0.081,116,534,138600,765,True
+IMS_2nd_test_files_Bearing1,Lag-Llama,4.0,0.6435,0.5,2,459600,766,383,0.0822,116,534,138600,765,True
+IMS_2nd_test_files_Bearing1,Lag-Llama,5.0,0.6435,0.5,2,459600,766,383,0.0833,111,544,132600,765,True
+IMS_2nd_test_files_Bearing1,Moirai-S,3.0,0.0931,0.0914,11,459600,766,70,0.081,20,550,129000,765,True
+IMS_2nd_test_files_Bearing1,Moirai-S,4.0,0.0931,0.0914,11,459600,766,70,0.0822,20,550,129000,765,True
+IMS_2nd_test_files_Bearing1,Moirai-S,5.0,0.0931,0.0914,11,459600,766,70,0.0833,20,550,129000,765,True

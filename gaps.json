@@ -4,14 +4,12 @@
     "subtitle": "Dynamic Model-Context Alignment in Industry 4.0 via MAS Orchestration",
     "core_contribution": "Orchestratore MAS che mantiene allineamento ottimale modello-contesto nel tempo, guidato da Digital Twin aziendale, con copilot conversazionale e XAI integrata"
   },
-
   "research_questions": {
     "RQ1": "Come mantenere l'allineamento ottimale modello-contesto nel tempo in un sistema manifatturiero che evolve, usando un Digital Twin come fonte strutturata di vincoli?",
     "RQ2": "Quali strategie di adattamento (RAG, LoRA, prompt engineering) sono efficaci per PMI con risorse limitate?",
     "RQ3": "Come progettare un copilot conversazionale che traduca output tecnici per operatori non specialisti?",
     "RQ4": "Come integrare XAI in un sistema MAS industriale per costruire fiducia calibrata nel tempo?"
   },
-
   "gaps": {
     "gap1": {
       "id": "gap1",
@@ -90,175 +88,302 @@
       ]
     }
   },
-
   "selection_matrix": {
     "description": "Matrice multi-criterio per selezione modello HF. Input estratto dal Digital Twin (AAS).",
     "dimensions": {
-      "task_type": ["time_series_forecasting", "anomaly_detection", "rul_prediction", "nlp_log_analysis", "computer_vision_qc"],
-      "hardware": ["plc_embedded", "raspberry_arm", "jetson_nano", "jetson_orin", "pc_cpu_only", "pc_gpu_entry"],
-      "latency_class": {"hard_realtime": "<10ms", "soft_realtime": "10-500ms", "batch": ">500ms"},
-      "data_available": ["zero_shot", "few_shot_10_100", "fine_tune_100_2000", "full_2000plus"],
-      "license": ["apache_2", "mit", "cc_by", "restricted", "commercial_only"],
-      "output_type": ["point_forecast", "probabilistic", "anomaly_score", "classification", "rul_hours"]
+      "task_type": [
+        "time_series_forecasting",
+        "anomaly_detection",
+        "rul_prediction",
+        "nlp_log_analysis",
+        "computer_vision_qc"
+      ],
+      "hardware": [
+        "plc_embedded",
+        "raspberry_arm",
+        "jetson_nano",
+        "jetson_orin",
+        "pc_cpu_only",
+        "pc_gpu_entry"
+      ],
+      "latency_class": {
+        "hard_realtime": "<10ms",
+        "soft_realtime": "10-500ms",
+        "batch": ">500ms"
+      },
+      "data_available": [
+        "zero_shot",
+        "few_shot_10_100",
+        "fine_tune_100_2000",
+        "full_2000plus"
+      ],
+      "license": [
+        "apache_2",
+        "mit",
+        "cc_by",
+        "restricted",
+        "commercial_only"
+      ],
+      "output_type": [
+        "point_forecast",
+        "probabilistic",
+        "anomaly_score",
+        "classification",
+        "rul_hours"
+      ]
     },
     "model_catalog": {
       "_topsis_fields_note": "topsis_* values sourced from benchmark_results_modal.csv (2026-04-07, GPU T4 canonical). topsis_mae=999.0 means probabilistic output (no point MAE). topsis_params_m from CSV, not nominal.",
       "time_series": [
         {
           "id": "Salesforce/moirai-1.1-R-small",
-          "task": "forecasting", "min_hw": "jetson_nano", "latency": "soft_realtime",
-          "zero_shot": true, "license": "apache_2", "params_M": 91,
+          "task": "forecasting",
+          "min_hw": "plc_embedded",
+          "latency": "soft_realtime",
+          "zero_shot": true,
+          "license": "apache_2",
+          "params_M": 91,
           "topsis_mae": 999.0,
           "topsis_latency_ms": 62.915,
           "topsis_params_m": 11.61,
           "topsis_license_score": 1.0,
           "onnx_status": "partial",
           "has_measured_mae": false,
-          "mae_note": "Probabilistic output (quantile samples). benchmark_results_modal.csv has empty mae. To measure: extract median quantile from model output → mae = np.mean(np.abs(np.median(samples, axis=-1) - actuals)). Re-run pipeline/modal_jobs.py adding post-processing block after inference."
+          "mae_note": "Probabilistic output (quantile samples). benchmark_results_modal.csv has empty mae. To measure: extract median quantile from model output → mae = np.mean(np.abs(np.median(samples, axis=-1) - actuals)). Re-run pipeline/modal_jobs.py adding post-processing block after inference.",
+          "topsis_latency_edge_ms": 629.15,
+          "min_hw_basis": "max(measured_ram_mb, params_M*4) vs tier memory budget"
         },
         {
           "id": "Salesforce/moirai-1.1-R-large",
-          "task": "forecasting", "min_hw": "pc_gpu_entry", "latency": "batch",
-          "zero_shot": true, "license": "apache_2", "params_M": 311,
+          "task": "forecasting",
+          "min_hw": "jetson_nano",
+          "latency": "batch",
+          "zero_shot": true,
+          "license": "apache_2",
+          "params_M": 311,
           "topsis_mae": 999.0,
           "topsis_latency_ms": 73.914,
           "topsis_params_m": 305.07,
           "topsis_license_score": 1.0,
           "onnx_status": "partial",
           "has_measured_mae": false,
-          "mae_note": "Probabilistic output (quantile samples). benchmark_results_modal.csv has empty mae. To measure: extract median quantile from model output → mae = np.mean(np.abs(np.median(samples, axis=-1) - actuals)). Re-run pipeline/modal_jobs.py adding post-processing block after inference."
+          "mae_note": "Probabilistic output (quantile samples). benchmark_results_modal.csv has empty mae. To measure: extract median quantile from model output → mae = np.mean(np.abs(np.median(samples, axis=-1) - actuals)). Re-run pipeline/modal_jobs.py adding post-processing block after inference.",
+          "topsis_latency_edge_ms": 739.14,
+          "min_hw_basis": "max(measured_ram_mb, params_M*4) vs tier memory budget"
         },
         {
           "id": "amazon/chronos-t5-tiny",
-          "task": "forecasting", "min_hw": "raspberry_arm", "latency": "soft_realtime",
-          "zero_shot": true, "license": "apache_2", "params_M": 8,
+          "task": "forecasting",
+          "min_hw": "plc_embedded",
+          "latency": "soft_realtime",
+          "zero_shot": true,
+          "license": "apache_2",
+          "params_M": 8,
           "topsis_mae": 999.0,
           "topsis_latency_ms": 203.102,
           "topsis_params_m": 8.39,
           "topsis_license_score": 1.0,
           "onnx_status": "partial",
           "has_measured_mae": false,
-          "mae_note": "Probabilistic output (quantile samples). benchmark_results_modal.csv has empty mae. To measure: from chronos_forecasting import ChronosPipeline; pipe.predict() returns (samples, quantiles); use quantiles[:,0,median_idx] as point forecast → standard MAE. Re-run pipeline/modal_jobs.py adding ChronosPipeline post-processing."
+          "mae_note": "Probabilistic output (quantile samples). benchmark_results_modal.csv has empty mae. To measure: from chronos_forecasting import ChronosPipeline; pipe.predict() returns (samples, quantiles); use quantiles[:,0,median_idx] as point forecast → standard MAE. Re-run pipeline/modal_jobs.py adding ChronosPipeline post-processing.",
+          "topsis_latency_edge_ms": 2031.02,
+          "min_hw_basis": "max(measured_ram_mb, params_M*4) vs tier memory budget"
         },
         {
           "id": "amazon/chronos-t5-large",
-          "task": "forecasting", "min_hw": "jetson_orin", "latency": "soft_realtime",
-          "zero_shot": true, "license": "apache_2", "params_M": 710,
+          "task": "forecasting",
+          "min_hw": "jetson_nano",
+          "latency": "soft_realtime",
+          "zero_shot": true,
+          "license": "apache_2",
+          "params_M": 710,
           "topsis_mae": 999.0,
           "topsis_latency_ms": 902.932,
           "topsis_params_m": 708.96,
           "topsis_license_score": 1.0,
           "onnx_status": "unsupported",
           "has_measured_mae": false,
-          "mae_note": "Probabilistic output (quantile samples). benchmark_results_modal.csv has empty mae. Same fix as chronos-t5-tiny: ChronosPipeline median quantile extraction. Re-run pipeline/modal_jobs.py."
+          "mae_note": "Probabilistic output (quantile samples). benchmark_results_modal.csv has empty mae. Same fix as chronos-t5-tiny: ChronosPipeline median quantile extraction. Re-run pipeline/modal_jobs.py.",
+          "topsis_latency_edge_ms": 9029.32,
+          "min_hw_basis": "max(measured_ram_mb, params_M*4) vs tier memory budget"
         },
         {
           "id": "google/timesfm-1.0-200m",
-          "task": "forecasting", "min_hw": "pc_gpu_entry", "latency": "soft_realtime",
-          "zero_shot": true, "license": "apache_2", "params_M": 200,
+          "task": "forecasting",
+          "min_hw": "raspberry_arm",
+          "latency": "soft_realtime",
+          "zero_shot": true,
+          "license": "apache_2",
+          "params_M": 200,
           "topsis_mae": 0.006,
           "topsis_latency_ms": 2109.519,
           "topsis_params_m": 200.0,
           "topsis_license_score": 1.0,
           "onnx_status": "unsupported",
           "has_measured_mae": true,
-          "mae_note": "Point MAE measured directly on CMAPSS FD001 (benchmark_results_modal.csv row timesfm, split=train)."
+          "mae_note": "Point MAE measured directly on CMAPSS FD001 (benchmark_results_modal.csv row timesfm, split=train).",
+          "topsis_latency_edge_ms": 21095.19,
+          "min_hw_basis": "max(measured_ram_mb, params_M*4) vs tier memory budget"
         },
         {
           "id": "ibm/patchtst-base-etth1",
-          "task": "forecasting", "min_hw": "pc_cpu_only", "latency": "hard_realtime",
-          "zero_shot": false, "license": "mit", "params_M": 5,
+          "task": "forecasting",
+          "min_hw": "plc_embedded",
+          "latency": "hard_realtime",
+          "zero_shot": false,
+          "license": "mit",
+          "params_M": 5,
           "topsis_mae": 1.303,
           "topsis_latency_ms": 6.191,
           "topsis_params_m": 0.67,
           "topsis_license_score": 0.9,
           "onnx_status": "supported",
           "has_measured_mae": true,
-          "mae_note": "Point MAE measured directly on CMAPSS FD001 (benchmark_results_modal.csv row patchtst, split=train). Note: mae==rmse (1.302898) indicates single-step forecast or constant prediction artifact — see quality_gate validity check."
+          "mae_note": "Point MAE measured directly on CMAPSS FD001 (benchmark_results_modal.csv row patchtst, split=train). Note: mae==rmse (1.302898) indicates single-step forecast or constant prediction artifact — see quality_gate validity check.",
+          "topsis_latency_edge_ms": 61.91,
+          "min_hw_basis": "max(measured_ram_mb, params_M*4) vs tier memory budget"
         },
         {
           "id": "AutonLab/MOMENT-1-large",
-          "task": "anomaly_detection", "min_hw": "pc_gpu_entry", "latency": "batch",
-          "zero_shot": true, "license": "mit", "params_M": 385,
+          "task": "forecasting",
+          "min_hw": "raspberry_arm",
+          "latency": "batch",
+          "zero_shot": true,
+          "license": "mit",
+          "params_M": 385,
           "topsis_mae": 0.114,
           "topsis_latency_ms": 33.212,
           "topsis_params_m": 341.25,
           "topsis_license_score": 0.9,
           "onnx_status": "supported",
           "has_measured_mae": true,
-          "mae_note": "Point MAE measured directly on CMAPSS FD001 (benchmark_results_modal.csv row MOMENT-1-large, split=train)."
+          "mae_note": "Point MAE measured directly on CMAPSS FD001 (benchmark_results_modal.csv row MOMENT-1-large, split=train).",
+          "topsis_latency_edge_ms": 332.12,
+          "min_hw_basis": "max(measured_ram_mb, params_M*4) vs tier memory budget",
+          "task_note": "Multi-task TS foundation model (reconstruction, forecasting, anomaly detection); benchmarked here for forecasting on CMAPSS/ETT. Previous label anomaly_detection was one use-case, not the capability."
         },
         {
           "id": "time-series-foundation-models/Lag-Llama",
-          "task": "rul_prediction", "min_hw": "jetson_orin", "latency": "soft_realtime",
-          "zero_shot": true, "license": "apache_2", "params_M": 50,
+          "task": "forecasting",
+          "min_hw": "plc_embedded",
+          "latency": "soft_realtime",
+          "zero_shot": true,
+          "license": "apache_2",
+          "params_M": 50,
           "topsis_mae": 999.0,
           "topsis_latency_ms": 8.882,
           "topsis_params_m": 2.45,
           "topsis_license_score": 1.0,
           "onnx_status": "partial",
           "has_measured_mae": false,
-          "mae_note": "Probabilistic output (NegativeBinomial / StudentT distribution). benchmark_results_modal.csv has empty mae. To measure: use model.predict() → extract distribution.mean as point forecast → standard MAE. Re-run pipeline/modal_jobs.py adding Lag-Llama distribution mean extraction."
+          "mae_note": "Probabilistic output (NegativeBinomial / StudentT distribution). benchmark_results_modal.csv has empty mae. To measure: use model.predict() → extract distribution.mean as point forecast → standard MAE. Re-run pipeline/modal_jobs.py adding Lag-Llama distribution mean extraction.",
+          "topsis_latency_edge_ms": 88.82,
+          "min_hw_basis": "max(measured_ram_mb, params_M*4) vs tier memory budget",
+          "task_note": "Probabilistic TS forecasting foundation model (Rasul et al. 2023); previous label rul_prediction was the CMAPSS use-case, not the model capability."
         }
       ],
       "llm": [
         {
           "id": "mistralai/Mistral-7B-Instruct-v0.3",
-          "task": "nlp_log_analysis", "min_hw": "jetson_orin", "latency": "soft_realtime",
-          "license": "apache_2", "params_M": 7000,
-          "topsis_mae": 999.0, "topsis_latency_ms": 999.0,
-          "topsis_params_m": 7000.0, "topsis_license_score": 1.0,
+          "task": "nlp_log_analysis",
+          "min_hw": "jetson_orin",
+          "latency": "soft_realtime",
+          "license": "apache_2",
+          "params_M": 7000,
+          "topsis_mae": 999.0,
+          "topsis_latency_ms": 999.0,
+          "topsis_params_m": 7000.0,
+          "topsis_license_score": 1.0,
           "onnx_status": "unsupported"
         },
         {
           "id": "meta-llama/Meta-Llama-3.1-8B-Instruct",
-          "task": "nlp_log_analysis", "min_hw": "pc_gpu_entry", "latency": "soft_realtime",
-          "license": "meta_restricted", "params_M": 8000,
-          "topsis_mae": 999.0, "topsis_latency_ms": 999.0,
-          "topsis_params_m": 8000.0, "topsis_license_score": 0.5,
+          "task": "nlp_log_analysis",
+          "min_hw": "pc_gpu_entry",
+          "latency": "soft_realtime",
+          "license": "meta_restricted",
+          "params_M": 8000,
+          "topsis_mae": 999.0,
+          "topsis_latency_ms": 999.0,
+          "topsis_params_m": 8000.0,
+          "topsis_license_score": 0.5,
           "onnx_status": "unsupported"
         },
         {
           "id": "microsoft/Phi-3-mini-4k-instruct",
-          "task": "reasoning", "min_hw": "pc_cpu_only", "latency": "soft_realtime",
-          "license": "mit", "params_M": 3800,
-          "topsis_mae": 999.0, "topsis_latency_ms": 999.0,
-          "topsis_params_m": 3800.0, "topsis_license_score": 0.9,
+          "task": "reasoning",
+          "min_hw": "pc_cpu_only",
+          "latency": "soft_realtime",
+          "license": "mit",
+          "params_M": 3800,
+          "topsis_mae": 999.0,
+          "topsis_latency_ms": 999.0,
+          "topsis_params_m": 3800.0,
+          "topsis_license_score": 0.9,
           "onnx_status": "partial"
         },
         {
           "id": "answerdotai/ModernBERT-base",
-          "task": "classification", "min_hw": "pc_cpu_only", "latency": "hard_realtime",
-          "license": "apache_2", "params_M": 149,
-          "topsis_mae": 999.0, "topsis_latency_ms": 999.0,
-          "topsis_params_m": 149.0, "topsis_license_score": 1.0,
+          "task": "classification",
+          "min_hw": "pc_cpu_only",
+          "latency": "hard_realtime",
+          "license": "apache_2",
+          "params_M": 149,
+          "topsis_mae": 999.0,
+          "topsis_latency_ms": 999.0,
+          "topsis_params_m": 149.0,
+          "topsis_license_score": 1.0,
           "onnx_status": "supported"
         }
       ],
       "vision": [
         {
           "id": "IDEA-Research/grounding-dino-base",
-          "task": "computer_vision_qc", "min_hw": "jetson_orin", "latency": "soft_realtime",
-          "zero_shot": true, "license": "apache_2", "params_M": 172,
-          "topsis_mae": 999.0, "topsis_latency_ms": 999.0,
-          "topsis_params_m": 172.0, "topsis_license_score": 1.0,
+          "task": "computer_vision_qc",
+          "min_hw": "jetson_orin",
+          "latency": "soft_realtime",
+          "zero_shot": true,
+          "license": "apache_2",
+          "params_M": 172,
+          "topsis_mae": 999.0,
+          "topsis_latency_ms": 999.0,
+          "topsis_params_m": 172.0,
+          "topsis_license_score": 1.0,
           "onnx_status": "partial"
         },
         {
           "id": "facebook/sam2-hiera-large",
-          "task": "computer_vision_qc", "min_hw": "pc_gpu_entry", "latency": "soft_realtime",
-          "zero_shot": true, "license": "apache_2", "params_M": 224,
-          "topsis_mae": 999.0, "topsis_latency_ms": 999.0,
-          "topsis_params_m": 224.0, "topsis_license_score": 1.0,
+          "task": "computer_vision_qc",
+          "min_hw": "pc_gpu_entry",
+          "latency": "soft_realtime",
+          "zero_shot": true,
+          "license": "apache_2",
+          "params_M": 224,
+          "topsis_mae": 999.0,
+          "topsis_latency_ms": 999.0,
+          "topsis_params_m": 224.0,
+          "topsis_license_score": 1.0,
           "onnx_status": "partial"
         }
       ]
     }
   },
-
   "datasets": {
-    "CMAPSS":    {"hf_url": "LucasThil/nasa_turbofan_degradation_FD001", "task": "rul_prediction", "local": "data/datasets/CMAPSS/"},
-    "ETT-h1":    {"hf_url": "ETDataset/ett",           "task": "forecasting",       "local": "data/datasets/ETT/", "subset": "h1"},
-    "PRONOSTIA": {"hf_url": "search: PRONOSTIA",       "task": "rul_bearings",      "local": "data/datasets/PRONOSTIA/"}
+    "CMAPSS": {
+      "hf_url": "LucasThil/nasa_turbofan_degradation_FD001",
+      "task": "rul_prediction",
+      "local": "data/datasets/CMAPSS/"
+    },
+    "ETT-h1": {
+      "hf_url": "ETDataset/ett",
+      "task": "forecasting",
+      "local": "data/datasets/ETT/",
+      "subset": "h1"
+    },
+    "PRONOSTIA": {
+      "hf_url": "search: PRONOSTIA",
+      "task": "rul_bearings",
+      "local": "data/datasets/PRONOSTIA/"
+    }
   }
 }
